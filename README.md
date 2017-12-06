@@ -61,7 +61,7 @@
 
 30 - DIR3
 
-31 - FANS RELAY
+31 
 
 32
 
@@ -69,11 +69,11 @@
 
 34
 
-35
+35 - FANS RELAY (ACTIVE LOW) 
 
 36
 
-37
+37 - MOTOR ENABLE (ACTIVE LOW) 
 
 38
 
