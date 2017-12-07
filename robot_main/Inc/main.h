@@ -39,6 +39,7 @@
 #ifndef __MAIN_H
 #define __MAIN_H
   /* Includes ------------------------------------------------------------------*/
+#include "stm32f4xx_hal.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -53,18 +54,26 @@
 #define USART_TX_GPIO_Port GPIOA
 #define USART_RX_Pin GPIO_PIN_3
 #define USART_RX_GPIO_Port GPIOA
+#define ENCODERS_SERIAL_CLOCK_Pin GPIO_PIN_5
+#define ENCODERS_SERIAL_CLOCK_GPIO_Port GPIOA
+#define ENCODERS_SERIAL_DATA_Pin GPIO_PIN_6
+#define ENCODERS_SERIAL_DATA_GPIO_Port GPIOA
 #define FANS_ENABLE_Pin GPIO_PIN_4
 #define FANS_ENABLE_GPIO_Port GPIOC
 #define LCD_BUTTON_Pin GPIO_PIN_2
 #define LCD_BUTTON_GPIO_Port GPIOB
 #define MOTOR1_STEP_Pin GPIO_PIN_10
 #define MOTOR1_STEP_GPIO_Port GPIOB
+#define ENCODER_CS0_Pin GPIO_PIN_12
+#define ENCODER_CS0_GPIO_Port GPIOB
 #define MOTOR3_DIR_Pin GPIO_PIN_13
 #define MOTOR3_DIR_GPIO_Port GPIOB
 #define MOTOR2_DIR_Pin GPIO_PIN_14
 #define MOTOR2_DIR_GPIO_Port GPIOB
 #define MOTOR1_DIR_Pin GPIO_PIN_15
 #define MOTOR1_DIR_GPIO_Port GPIOB
+#define ENCODER_CS2_Pin GPIO_PIN_7
+#define ENCODER_CS2_GPIO_Port GPIOC
 #define MOTORS_ENABLE_Pin GPIO_PIN_10
 #define MOTORS_ENABLE_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13
@@ -75,6 +84,8 @@
 #define MOTOR3_STEP_GPIO_Port GPIOB
 #define MOTOR2_STEP_Pin GPIO_PIN_4
 #define MOTOR2_STEP_GPIO_Port GPIOB
+#define ENCODER_CS1_Pin GPIO_PIN_6
+#define ENCODER_CS1_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

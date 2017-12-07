@@ -78,6 +78,12 @@ void MX_GPIO_Init(void)
                           |MOTOR3_STEP_Pin|MOTOR2_STEP_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, ENCODER_CS0_Pin|ENCODER_CS1_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(ENCODER_CS2_GPIO_Port, ENCODER_CS2_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port, MOTORS_ENABLE_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PtPin */
@@ -94,12 +100,12 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PtPin */
-  GPIO_InitStruct.Pin = FANS_ENABLE_Pin;
+  /*Configure GPIO pins : PCPin PCPin */
+  GPIO_InitStruct.Pin = FANS_ENABLE_Pin|ENCODER_CS2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(FANS_ENABLE_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = LCD_BUTTON_Pin;
@@ -108,9 +114,9 @@ void MX_GPIO_Init(void)
   HAL_GPIO_Init(LCD_BUTTON_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PBPin PBPin PBPin PBPin 
-                           PBPin PBPin */
-  GPIO_InitStruct.Pin = MOTOR1_STEP_Pin|MOTOR3_DIR_Pin|MOTOR2_DIR_Pin|MOTOR1_DIR_Pin 
-                          |MOTOR3_STEP_Pin|MOTOR2_STEP_Pin;
+                           PBPin PBPin PBPin PBPin */
+  GPIO_InitStruct.Pin = MOTOR1_STEP_Pin|ENCODER_CS0_Pin|MOTOR3_DIR_Pin|MOTOR2_DIR_Pin 
+                          |MOTOR1_DIR_Pin|MOTOR3_STEP_Pin|MOTOR2_STEP_Pin|ENCODER_CS1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
