@@ -21,23 +21,23 @@
 
 10
 
-11 - PA5 (SPI)SCK
+11 - PA5 (SPI)SCK - Encoders Serial Clock
 
 12
 
-13 - PA6 (SPI)MISO
+13 - PA6 (SPI)MISO - Encoders Serial Data
 
 14
 
 15 
 
-16
+16 - PB12 (SPI) ENCODER_CS0
 
-17 - (SPI)CS1
+17 - PB6 (SPI) ENCODER_CS1
 
 18
 
-19
+19 - PC7 (SPI) ENCODER_CS2
 
 20
 
