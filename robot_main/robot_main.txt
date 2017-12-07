@@ -1,0 +1,72 @@
+Configuration	robot_main
+STM32CubeMX 	4.22.1
+Date	12/07/2017
+MCU	STM32F411RETx
+
+
+
+PERIPHERALS	MODES	FUNCTIONS	PINS
+I2C1	I2C	I2C1_SCL	PB8
+I2C1	I2C	I2C1_SDA	PB7
+SPI1	Receive Only Master	SPI1_MISO	PA6
+SPI1	Receive Only Master	SPI1_SCK	PA5
+SYS	SysTick	SYS_VS_Systick	VP_SYS_VS_Systick
+TIM1	Encoder Mode	TIM1_CH1	PA8
+TIM1	Encoder Mode	TIM1_CH2	PA9
+
+
+
+Pin Nb	PINs	FUNCTIONs	LABELs
+2	PC13-ANTI_TAMP	GPIO_EXTI13	B1 [Blue PushButton]
+3	PC14-OSC32_IN*	RCC_OSC32_IN	
+4	PC15-OSC32_OUT*	RCC_OSC32_OUT	
+5	PH0 - OSC_IN*	RCC_OSC_IN	
+6	PH1 - OSC_OUT*	RCC_OSC_OUT	
+16	PA2*	USART2_TX	USART_TX
+17	PA3*	USART2_RX	USART_RX
+21	PA5	SPI1_SCK	
+22	PA6	SPI1_MISO	
+24	PC4	GPIO_Output	FANS_ENABLE
+28	PB2	GPIO_EXTI2	LCD_BUTTON
+29	PB10	GPIO_Output	MOTOR1_STEP
+34	PB13	GPIO_Output	MOTOR3_DIR
+35	PB14	GPIO_Output	MOTOR2_DIR
+36	PB15	GPIO_Output	MOTOR1_DIR
+41	PA8	TIM1_CH1	
+42	PA9	TIM1_CH2	
+43	PA10	GPIO_Output	MOTORS_ENABLE
+46	PA13*	SYS_JTMS-SWDIO	TMS
+49	PA14*	SYS_JTCK-SWCLK	TCK
+55	PB3	GPIO_Output	MOTOR3_STEP
+56	PB4	GPIO_Output	MOTOR1_STEP
+57	PB5	GPIO_Input	MOTOR2_STEP
+59	PB7	I2C1_SDA	
+61	PB8	I2C1_SCL	
+
+
+
+SOFTWARE PROJECT
+
+Project Settings : 
+Project Name : robot_main
+Project Folder : /home/kamil/RobotFirmware/robot_main
+Toolchain / IDE : SW4STM32
+Firmware Package Name and Version : STM32Cube FW_F4 V1.16.0
+
+
+Code Generation Settings : 
+STM32Cube Firmware Library Package : Copy only the necessary library files
+Generate peripheral initialization as a pair of '.c/.h' files per peripheral : Yes
+Backup previously generated files when re-generating : No
+Delete previously generated files when not re-generated : Yes
+Set all free pins as analog (to optimize the power consumption) : No
+
+
+Toolchains Settings : 
+Compiler Optimizations : Balanced Size/Speed
+
+
+
+
+
+
