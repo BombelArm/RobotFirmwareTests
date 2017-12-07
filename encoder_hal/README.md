@@ -2,7 +2,7 @@
 
 ## !IMPORTANT! Please pay attention to pinouts' labels.
 
-1. Pinout specification:
+### 1. Pinout specification:
 
 
 Pin  | Label          | Wire color
@@ -23,7 +23,7 @@ PC7  | ENCODER_CS2				|  <span style="color:green;">green</span>
 CS0 | CS1 | CS2   | -
 
 
-2. SPI Configuration:
+### 2. SPI Configuration:
 
 Option | Value
 --- 		| --- 
@@ -35,7 +35,7 @@ CPHA		| 2 Edge
 CRC 		|Disabled
 NSS 		|Software
 
-3. Library is located in **src/encoder** folder. Please include *"encoder.h"*  in your *main.c* file. Basicly it consists of one function:
+### 3. Library is located in **src/encoder** folder. Please include *"encoder.h"*  in your *main.c* file. Basicly it consists of one function:
 
 ```C
 HAL_StatusTypeDef encoder_read(uint16_t *data_in, SPI_HandleTypeDef *hspi1,int cs)
