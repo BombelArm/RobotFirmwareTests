@@ -57,6 +57,8 @@ void SysTick_Handler(void)
   HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
 
+  HAL_GPIO_TogglePin(MOTOR2_STEP_GPIO_Port, MOTOR2_STEP_Pin);
+
   /* USER CODE END SysTick_IRQn 1 */
 }
 

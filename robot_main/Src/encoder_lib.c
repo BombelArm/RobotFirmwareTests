@@ -5,7 +5,7 @@
  *      Author: Admin
  */
 
-#include "encoder.h"
+#include "encoder_lib.h"
 
 HAL_StatusTypeDef encoder_read(uint16_t *data_in, SPI_HandleTypeDef *hspi1,int cs)
 {

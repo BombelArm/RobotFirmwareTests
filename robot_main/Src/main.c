@@ -99,13 +99,37 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
 
+  HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(MOTOR1_STEP_GPIO_Port,MOTOR1_STEP_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(MOTOR2_STEP_GPIO_Port,MOTOR2_STEP_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(MOTOR3_STEP_GPIO_Port,MOTOR3_STEP_Pin, GPIO_PIN_RESET);
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if(!HAL_GPIO_ReadPin(B1_GPIO_Port,B1_Pin)){
+		  HAL_GPIO_TogglePin(MOTOR2_DIR_GPIO_Port, MOTOR2_DIR_Pin);
+		  HAL_GPIO_TogglePin(MOTOR1_DIR_GPIO_Port, MOTOR1_DIR_Pin);
+		  HAL_GPIO_TogglePin(MOTOR3_DIR_GPIO_Port, MOTOR3_DIR_Pin);
+		  HAL_Delay(1000);
+
+	  }
+
   /* USER CODE END WHILE */
+	  //HAL_GPIO_TogglePin(MOTOR1_STEP_GPIO_Port, MOTOR1_STEP_Pin);
+	  HAL_Delay(1);
+
+	  //HAL_GPIO_WritePin(MOTOR2_STEP_GPIO_Port, MOTOR2_STEP_Pin,GPIO_PIN_RESET);
+	  //HAL_GPIO_TogglePin(MOTOR3_STEP_GPIO_Port, MOTOR3_STEP_Pin);
+	  HAL_Delay(1);
+
+
+	  //HAL_GPIO_WritePin(MOTOR2_STEP_GPIO_Port, MOTOR2_STEP_Pin,GPIO_PIN_SET);
 
   /* USER CODE BEGIN 3 */
 
@@ -113,6 +137,8 @@ int main(void)
   /* USER CODE END 3 */
 
 }
+
+
 
 /** System Clock Configuration
 */
