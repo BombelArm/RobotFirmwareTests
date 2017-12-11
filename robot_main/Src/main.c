@@ -42,6 +42,7 @@
 #include "spi.h"
 #include "tim.h"
 #include "gpio.h"
+#include "encoder_lib.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -52,6 +53,10 @@
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 uint16_t motor1_speed; 
+
+uint16_t encoder_0;
+uint16_t encoder_1;
+uint16_t encoder_2;
 
 
 /* USER CODE END PV */
@@ -112,6 +117,12 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  encoder_read(&encoder_0,0);
+	  encoder_read(&encoder_1,1);
+	  encoder_read(&encoder_2,2);
+
+
+
 	  if(!HAL_GPIO_ReadPin(B1_GPIO_Port,B1_Pin)){
 		  HAL_GPIO_TogglePin(MOTOR2_DIR_GPIO_Port, MOTOR2_DIR_Pin);
 		  HAL_GPIO_TogglePin(MOTOR1_DIR_GPIO_Port, MOTOR1_DIR_Pin);

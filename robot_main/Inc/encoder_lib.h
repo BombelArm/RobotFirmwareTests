@@ -10,6 +10,6 @@
 
 #include "stm32f4xx_hal.h"
 
-HAL_StatusTypeDef encoder_read(uint16_t *data_in, SPI_HandleTypeDef *hspi1, int cs);
+HAL_StatusTypeDef encoder_read(uint16_t *data_in, int cs);
 
 #endif /* APPLICATION_USER_ENCODER_H_ */
