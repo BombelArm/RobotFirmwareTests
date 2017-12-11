@@ -4,21 +4,21 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c \
-D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c \
-D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c \
-D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c \
-D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c \
-D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c \
-D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c \
-D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c \
-D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c \
-D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c \
-D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c \
-D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c \
-D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c \
-D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c \
-D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c 
+/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c \
+/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c \
+/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c \
+/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c \
+/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c \
+/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c \
+/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c \
+/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c \
+/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c \
+/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c \
+/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c \
+/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c \
+/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c \
+/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c \
+/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c 
 
 OBJS += \
 ./Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o \
@@ -56,123 +56,123 @@ C_DEPS += \
 
 
 # Each subdirectory must supply rules for building sources it contributes
-Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o: D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c
+Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o: /home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"D:/mromanow/cube_workspace/encoder_hal/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o: D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c
+Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o: /home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"D:/mromanow/cube_workspace/encoder_hal/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_dma.o: D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c
+Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_dma.o: /home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"D:/mromanow/cube_workspace/encoder_hal/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_dma_ex.o: D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c
+Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_dma_ex.o: /home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"D:/mromanow/cube_workspace/encoder_hal/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_flash.o: D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c
+Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_flash.o: /home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"D:/mromanow/cube_workspace/encoder_hal/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_flash_ex.o: D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c
+Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_flash_ex.o: /home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"D:/mromanow/cube_workspace/encoder_hal/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_flash_ramfunc.o: D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c
+Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_flash_ramfunc.o: /home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"D:/mromanow/cube_workspace/encoder_hal/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.o: D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c
+Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.o: /home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"D:/mromanow/cube_workspace/encoder_hal/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pwr.o: D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c
+Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pwr.o: /home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"D:/mromanow/cube_workspace/encoder_hal/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pwr_ex.o: D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c
+Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pwr_ex.o: /home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"D:/mromanow/cube_workspace/encoder_hal/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o: D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c
+Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o: /home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"D:/mromanow/cube_workspace/encoder_hal/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc_ex.o: D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c
+Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc_ex.o: /home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"D:/mromanow/cube_workspace/encoder_hal/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_spi.o: D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c
+Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_spi.o: /home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"D:/mromanow/cube_workspace/encoder_hal/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_tim.o: D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c
+Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_tim.o: /home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"D:/mromanow/cube_workspace/encoder_hal/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_tim_ex.o: D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c
+Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_tim_ex.o: /home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"D:/mromanow/cube_workspace/encoder_hal/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Drivers/CMSIS/Include" -I"D:/mromanow/cube_workspace/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F411xE -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Drivers/CMSIS/Include" -I"/home/mromanow/Dokumenty/RobotFirmware/encoder_hal/Inc"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

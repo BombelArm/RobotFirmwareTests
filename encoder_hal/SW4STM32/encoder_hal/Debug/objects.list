@@ -1,5 +1,5 @@
 "Application/SW4STM32/startup_stm32f411xe.o"
-"Application/User/encoder/encoder.o"
+"Application/User/encoder.o"
 "Application/User/main.o"
 "Application/User/stm32f4xx_hal_msp.o"
 "Application/User/stm32f4xx_it.o"

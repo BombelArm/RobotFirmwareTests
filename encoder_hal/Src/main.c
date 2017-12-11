@@ -39,9 +39,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
+#include "encoder.h"
 
 /* USER CODE BEGIN Includes */
-#include "..\Src\encoder\encoder.h"
+//#include "encoder.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -102,7 +103,7 @@ int main(void)
   while (1)
   {
 	  //encoder_read(&wynik1);
-	  encoder_read(&wynik1,&hspi1,1);
+	  encoder_read(&wynik1,&hspi1,2);
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
