@@ -1,6 +1,6 @@
 
 # RobotFirmware
-## Project pinout Only right connector CN10)
+## Project pinout Only right connector (CN10)
 1 
 
 2 
