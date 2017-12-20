@@ -41,8 +41,8 @@
 #include "i2c.h"
 #include "spi.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
-#include "encoder_lib.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -101,46 +101,40 @@ int main(void)
   MX_I2C1_Init();
   MX_SPI1_Init();
   MX_TIM1_Init();
+  MX_USART2_UART_Init();
+  MX_TIM2_Init();
 
   /* USER CODE BEGIN 2 */
 
-  HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(MOTOR0_STEP_GPIO_Port,MOTOR0_STEP_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(MOTOR1_STEP_GPIO_Port,MOTOR1_STEP_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(MOTOR2_STEP_GPIO_Port,MOTOR2_STEP_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(MOTOR3_STEP_GPIO_Port,MOTOR3_STEP_Pin, GPIO_PIN_RESET);
+
 
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
   while (1)
   {
-	  encoder_read(&encoder_0,0);
+	  /*encoder_read(&encoder_0,0);
 	  encoder_read(&encoder_1,1);
-	  encoder_read(&encoder_2,2);
+	  encoder_read(&encoder_2,2);*/
 
 
 
-	  if(!HAL_GPIO_ReadPin(B1_GPIO_Port,B1_Pin)){
-		  HAL_GPIO_TogglePin(MOTOR2_DIR_GPIO_Port, MOTOR2_DIR_Pin);
-		  HAL_GPIO_TogglePin(MOTOR1_DIR_GPIO_Port, MOTOR1_DIR_Pin);
-		  HAL_GPIO_TogglePin(MOTOR3_DIR_GPIO_Port, MOTOR3_DIR_Pin);
-		  HAL_Delay(1000);
-
+	  if(!HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_8)){
+			  HAL_GPIO_TogglePin(MOTOR2_DIR_GPIO_Port, MOTOR2_DIR_Pin);
+			  HAL_GPIO_TogglePin(MOTOR1_DIR_GPIO_Port, MOTOR1_DIR_Pin);
+			  HAL_GPIO_TogglePin(MOTOR0_DIR_GPIO_Port, MOTOR0_DIR_Pin);
+			  HAL_Delay(1000);
 	  }
 
   /* USER CODE END WHILE */
-	  //HAL_GPIO_TogglePin(MOTOR1_STEP_GPIO_Port, MOTOR1_STEP_Pin);
-	  HAL_Delay(1);
-
-	  //HAL_GPIO_WritePin(MOTOR2_STEP_GPIO_Port, MOTOR2_STEP_Pin,GPIO_PIN_RESET);
-	  //HAL_GPIO_TogglePin(MOTOR3_STEP_GPIO_Port, MOTOR3_STEP_Pin);
-	  HAL_Delay(1);
-
-
-	  //HAL_GPIO_WritePin(MOTOR2_STEP_GPIO_Port, MOTOR2_STEP_Pin,GPIO_PIN_SET);
 
   /* USER CODE BEGIN 3 */
 
@@ -148,8 +142,6 @@ int main(void)
   /* USER CODE END 3 */
 
 }
-
-
 
 /** System Clock Configuration
 */
