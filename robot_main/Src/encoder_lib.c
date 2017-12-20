@@ -13,7 +13,7 @@ HAL_StatusTypeDef encoder_read(int16_t *data_in,int cs)
 	HAL_StatusTypeDef status;
 	GPIO_TypeDef*     port;
 	uint16_t		  pin;
-	uint16_t		  data;
+	int16_t		      data;
 
 	switch(cs){
 		case 0:
@@ -39,19 +39,16 @@ HAL_StatusTypeDef encoder_read(int16_t *data_in,int cs)
 
 	switch(cs){
 		case 0:
-			(*data_in)&=0x000FFF;
 			(*data_in)+=ENCODER0_OFFSET;
-			//(*data_in)*=ENCODER0_GAIN;
+			(*data_in)*=ENCODER0_GAIN;
 			break;
 		case 1:
-			(*data_in)&=0x000FFF;
 			(*data_in)+=ENCODER1_OFFSET;
-			//(*data_in)*=ENCODER1_GAIN;
+			(*data_in)*=ENCODER1_GAIN;
 			break;
 		case 2:
-			(*data_in)&=0x000FFF;
 			(*data_in)+=ENCODER2_OFFSET;
-			//(*data_in)*=ENCODER2_GAIN;
+			(*data_in)*=ENCODER2_GAIN;
 			break;
 		default:
 			return status=HAL_ERROR;

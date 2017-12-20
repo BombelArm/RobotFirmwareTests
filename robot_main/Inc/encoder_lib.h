@@ -10,12 +10,12 @@
 
 #include "stm32f4xx_hal.h"
 
-#define ENCODER0_OFFSET -3524
+#define ENCODER0_OFFSET -1473
 #define ENCODER1_OFFSET -1059
 #define ENCODER2_OFFSET -753
 
-#define ENCODER0_GAIN 1
-#define ENCODER1_GAIN 1
+#define ENCODER0_GAIN -1
+#define ENCODER1_GAIN -1
 #define ENCODER2_GAIN 1
 
 
