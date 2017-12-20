@@ -54,9 +54,13 @@
 /* Private variables ---------------------------------------------------------*/
 uint16_t motor1_speed; 
 
-uint16_t encoder_0;
-uint16_t encoder_1;
-uint16_t encoder_2;
+int16_t encoder_0;
+int16_t encoder_1;
+int16_t encoder_2;
+
+static uint16_t cnt1=0;
+uint8_t data1[50];
+uint16_t size1=0;
 
 
 /* USER CODE END PV */
@@ -121,11 +125,13 @@ int main(void)
 
   while (1)
   {
-	  /*encoder_read(&encoder_0,0);
+	  encoder_read(&encoder_0,0);
 	  encoder_read(&encoder_1,1);
-	  encoder_read(&encoder_2,2);*/
+	  encoder_read(&encoder_2,2);
 
-
+	  ++cnt1;
+	  size1=sprintf(data1,"E0:\t%d\t E1:\t%d\t E2:\t%d\t",encoder_0,encoder_1,encoder_2);
+	  HAL_UART_Transmit_IT(&huart2,data1,size1);
 
 	  if(!HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_8)){
 			  HAL_GPIO_TogglePin(MOTOR2_DIR_GPIO_Port, MOTOR2_DIR_Pin);

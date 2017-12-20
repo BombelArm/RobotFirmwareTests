@@ -8,12 +8,12 @@
 #include "encoder_lib.h"
 #include "spi.h"
 
-HAL_StatusTypeDef encoder_read(uint16_t *data_in,int cs)
+HAL_StatusTypeDef encoder_read(int16_t *data_in,int cs)
 {
 	HAL_StatusTypeDef status;
 	GPIO_TypeDef*     port;
 	uint16_t		  pin;
-
+	uint16_t		  data;
 
 	switch(cs){
 		case 0:
@@ -33,9 +33,29 @@ HAL_StatusTypeDef encoder_read(uint16_t *data_in,int cs)
 	}
 
 	HAL_GPIO_WritePin(port, pin, GPIO_PIN_RESET);
-	status=HAL_SPI_Receive(&hspi1, data_in, 1, 0x00ff);
-    (*data_in)=(*data_in)>>4;
+	status=HAL_SPI_Receive(&hspi1, &data, 1, 0x00ff);
+    (*data_in)=(int) data>>4;
 	HAL_GPIO_WritePin(port, pin, GPIO_PIN_SET);
+
+	switch(cs){
+		case 0:
+			(*data_in)&=0x000FFF;
+			(*data_in)+=ENCODER0_OFFSET;
+			//(*data_in)*=ENCODER0_GAIN;
+			break;
+		case 1:
+			(*data_in)&=0x000FFF;
+			(*data_in)+=ENCODER1_OFFSET;
+			//(*data_in)*=ENCODER1_GAIN;
+			break;
+		case 2:
+			(*data_in)&=0x000FFF;
+			(*data_in)+=ENCODER2_OFFSET;
+			//(*data_in)*=ENCODER2_GAIN;
+			break;
+		default:
+			return status=HAL_ERROR;
+	}
 
 	return status;
 
