@@ -12,13 +12,16 @@
 
 #define ENCODER0_OFFSET -1473
 #define ENCODER1_OFFSET -1059
-#define ENCODER2_OFFSET -753
+#define ENCODER2_OFFSET -3312
 
-#define ENCODER0_GAIN -1
-#define ENCODER1_GAIN -1
-#define ENCODER2_GAIN 1
+enum dir{
+	clockwise,
+	counter_clockwise
+};
 
+enum dir encoders_dir[3]={counter_clockwise, clockwise, counter_clockwise}; // {encoder_0, encoder_1, encoder_2}
 
-HAL_StatusTypeDef encoder_read(int16_t *data_in, int cs);
+float			  bin2rad(uint16_t data_in,int cs);
+HAL_StatusTypeDef encoder_read(float *data_in, int cs);
 
 #endif /* APPLICATION_USER_ENCODER_H_ */

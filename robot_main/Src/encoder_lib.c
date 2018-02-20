@@ -7,13 +7,31 @@
 
 #include "encoder_lib.h"
 #include "spi.h"
+#include <math.h>
 
-HAL_StatusTypeDef encoder_read(int16_t *data_in,int cs)
+
+float bin2rad(uint16_t data_in,int cs){
+	float result;
+
+	if(data_in <2048 && data_in>=0){
+		result=data_in*M_PI/2048;
+	}else{
+		result=-(fabs(data_in-4096)*M_PI/2048);
+	}
+
+	if(encoders_dir[cs] == counter_clockwise){
+		result*=-1;
+	}
+
+	return result;
+}
+
+HAL_StatusTypeDef encoder_read(float *data_in,int cs)
 {
 	HAL_StatusTypeDef status;
 	GPIO_TypeDef*     port;
 	uint16_t		  pin;
-	int16_t		      data;
+	uint16_t		  data;
 
 	switch(cs){
 		case 0:
@@ -34,25 +52,26 @@ HAL_StatusTypeDef encoder_read(int16_t *data_in,int cs)
 
 	HAL_GPIO_WritePin(port, pin, GPIO_PIN_RESET);
 	status=HAL_SPI_Receive(&hspi1, &data, 1, 0x00ff);
-    (*data_in)=(int) data>>4;
+	data=(uint16_t) data>>4;
 	HAL_GPIO_WritePin(port, pin, GPIO_PIN_SET);
 
 	switch(cs){
 		case 0:
-			(*data_in)+=ENCODER0_OFFSET;
-			(*data_in)*=ENCODER0_GAIN;
+			data+=ENCODER0_OFFSET;
 			break;
 		case 1:
-			(*data_in)+=ENCODER1_OFFSET;
-			(*data_in)*=ENCODER1_GAIN;
+			data+=ENCODER1_OFFSET;
 			break;
 		case 2:
-			(*data_in)+=ENCODER2_OFFSET;
-			(*data_in)*=ENCODER2_GAIN;
+			data+=ENCODER2_OFFSET;
 			break;
 		default:
 			return status=HAL_ERROR;
 	}
+
+	data&=0x0FFF;
+	(*data_in)=bin2rad(data,cs);
+	//(*data_in)=data;
 
 	return status;
 

@@ -4,7 +4,7 @@
   * @brief   Interrupt Service Routines.
   ******************************************************************************
   *
-  * COPYRIGHT(c) 2017 STMicroelectronics
+  * COPYRIGHT(c) 2018 STMicroelectronics
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -36,10 +36,11 @@
 #include "stm32f4xx_it.h"
 
 /* USER CODE BEGIN 0 */
-
+int motor2_counter=0;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern TIM_HandleTypeDef htim2;
 extern UART_HandleTypeDef huart2;
 
 /******************************************************************************/
@@ -58,7 +59,17 @@ void SysTick_Handler(void)
   HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
 
+/*
   HAL_GPIO_TogglePin(MOTOR0_STEP_GPIO_Port, MOTOR0_STEP_Pin);
+  HAL_GPIO_TogglePin(MOTOR1_STEP_GPIO_Port, MOTOR1_STEP_Pin);
+  if(motor2_counter%10 == 0){
+	  HAL_GPIO_TogglePin(MOTOR2_STEP_GPIO_Port, MOTOR2_STEP_Pin);
+  }
+  motor2_counter++;
+*/
+
+
+
   //HAL_GPIO_TogglePin(MOTOR1_STEP_GPIO_Port, MOTOR1_STEP_Pin);
   /* USER CODE END SysTick_IRQn 1 */
 }
@@ -69,6 +80,20 @@ void SysTick_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32f4xx.s).                    */
 /******************************************************************************/
+
+/**
+* @brief This function handles TIM2 global interrupt.
+*/
+void TIM2_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM2_IRQn 0 */
+
+  /* USER CODE END TIM2_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim2);
+  /* USER CODE BEGIN TIM2_IRQn 1 */
+
+  /* USER CODE END TIM2_IRQn 1 */
+}
 
 /**
 * @brief This function handles USART2 global interrupt.
