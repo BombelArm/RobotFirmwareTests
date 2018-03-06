@@ -38,5 +38,7 @@ NSS 		|Software
 ### 3. Library is located in **src/encoder** folder. Please include *"encoder.h"*  in your *main.c* file. Basicly it consists of one function:
 
 ```C
-HAL_StatusTypeDef encoder_read(uint16_t *data_in, SPI_HandleTypeDef *hspi1,int cs)
+//cs - chip select (0,1,2)
+//data_in - measured angle
+HAL_StatusTypeDef encoder_read(float *data_in, int cs);
 ```
