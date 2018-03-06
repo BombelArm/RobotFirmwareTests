@@ -39,7 +39,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
-#include "encoder.h"
+#include "encoder_lib.h"
 
 /* USER CODE BEGIN Includes */
 //#include "encoder.h"
