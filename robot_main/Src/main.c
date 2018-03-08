@@ -45,7 +45,7 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
-#define MOTORS_ENABLED 0
+#define MOTORS_ENABLED 1
 
 
 /* USER CODE END Includes */
@@ -60,7 +60,6 @@ float encoder_0;
 float encoder_1;
 float encoder_2;
 
-static uint16_t cnt1=0;
 uint8_t data1[50];
 uint16_t size1=0;
 
@@ -114,8 +113,9 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+  HAL_TIM_Base_Start_IT(&htim2);
 
-  HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, !MOTORS_ENABLED);
   HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(MOTOR0_STEP_GPIO_Port,MOTOR0_STEP_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(MOTOR1_STEP_GPIO_Port,MOTOR1_STEP_Pin, GPIO_PIN_RESET);
@@ -130,11 +130,10 @@ int main(void)
 
   while (1)
   {
-	  encoder_read(&encoder_0,0);
-	  encoder_read(&encoder_1,1);
-	  encoder_read(&encoder_2,2);
 
-	  //++cnt1;
+	  encoder_read(&encoder_0,0);
+
+/*	  //++cnt1;
 	  size1=sprintf(data1,"E0:\t%f \t E1:\t%f \t E2:\t%f \n",encoder_0,encoder_1,encoder_2);
 	  HAL_UART_Transmit_IT(&huart2,data1,size1);
 	  HAL_Delay(300);
@@ -144,7 +143,7 @@ int main(void)
 			  HAL_GPIO_TogglePin(MOTOR1_DIR_GPIO_Port, MOTOR1_DIR_Pin);
 			  HAL_GPIO_TogglePin(MOTOR0_DIR_GPIO_Port, MOTOR0_DIR_Pin);
 			  HAL_Delay(1000);
-	  }
+	  }*/
 
   /* USER CODE END WHILE */
 

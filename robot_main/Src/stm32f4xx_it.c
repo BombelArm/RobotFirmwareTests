@@ -36,7 +36,7 @@
 #include "stm32f4xx_it.h"
 
 /* USER CODE BEGIN 0 */
-int motor2_counter=0;
+int tim2_counter=0;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -59,18 +59,6 @@ void SysTick_Handler(void)
   HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
 
-/*
-  HAL_GPIO_TogglePin(MOTOR0_STEP_GPIO_Port, MOTOR0_STEP_Pin);
-  HAL_GPIO_TogglePin(MOTOR1_STEP_GPIO_Port, MOTOR1_STEP_Pin);
-  if(motor2_counter%10 == 0){
-	  HAL_GPIO_TogglePin(MOTOR2_STEP_GPIO_Port, MOTOR2_STEP_Pin);
-  }
-  motor2_counter++;
-*/
-
-
-
-  //HAL_GPIO_TogglePin(MOTOR1_STEP_GPIO_Port, MOTOR1_STEP_Pin);
   /* USER CODE END SysTick_IRQn 1 */
 }
 
@@ -124,5 +112,13 @@ void EXTI15_10_IRQHandler(void)
 
 /* USER CODE BEGIN 1 */
 
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+ if(htim->Instance == TIM2){ // Jeżeli przerwanie pochodzi od timera 10
+
+	 if(tim2_counter==0){ HAL_GPIO_TogglePin(MOTOR2_STEP_GPIO_Port,MOTOR2_STEP_Pin); tim2_counter=0;}
+	 else{ tim2_counter++;}
+ }
+
+}
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
