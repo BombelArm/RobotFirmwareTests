@@ -26,6 +26,7 @@ struct stepper{
 typedef struct stepper stepper;
 
 stepper motors[STEPPER_N];
+int steps=0;
 
 void motorsInit();
 
