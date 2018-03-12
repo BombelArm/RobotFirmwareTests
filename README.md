@@ -1,7 +1,7 @@
 
 # RobotFirmware
 ```diff
--# Major mistakes hasn't been resolved yet. Please pay extra attention while using this document
+-# Major mistakes haven't been resolved yet. Please pay extra attention while using this document.
 ```
 ## Project pinout only right connector (CN10)
 1 
