@@ -10,6 +10,11 @@
 
 #include "stdint.h"
 #include "main.h"
+#include "limits.h"
+//
+//	Lib params configured for TIM f=100kHz
+//
+//
 
 #define STEPPER_N	3
 
@@ -19,21 +24,40 @@ struct stepper{
 	GPIO_TypeDef 		*step_port;
 	uint16_t			dir_pin;
 	GPIO_TypeDef 		*dir_port;
+	int 		step;	// 1/2 -> 2 | 1/4 -> 4 ...
+
+	//limits
+	int			max_speed;
+	int			min_speed;
+	int			max_accel;
+	int 		max_positon;
+	int			min_position;
 
 	int			timer_period;
 	int			timer_counter;
+
+	int			enabled;
+	float		position;
+
 };
 typedef struct stepper stepper;
 
 stepper motors[STEPPER_N];
 int steps=0;
 
-void motorsInit();
+void s_motorsInit();
 
-void step(uint16_t motor);
-void stepAll();
+void s_step(uint16_t motor);
+void s_stepAll();
+void s_updatePosition(uint16_t motor);
+void s_updateAllPosition();
 
-void changeDir(uint16_t motor);
-void setSpeed(uint16_t motor,int speed);
+void s_changeDir(uint16_t motor);
+void s_setSpeed(uint16_t motor,int speed);
+
+void s_enable(uint16_t motor);
+void s_enableAll();
+void s_disable(uint16_t motor);
+void s_disableAll();
 
 #endif /* STEPPER_LIB_H_ */
