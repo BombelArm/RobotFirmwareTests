@@ -5,12 +5,15 @@
  *      Author: Admin
  */
 
+#ifndef ENCODER_LIB_C_
+#define ENCODER_LIB_C_
+
 #include "encoder_lib.h"
 #include "spi.h"
 #include <math.h>
 
 
-float bin2rad(uint16_t data_in,int cs){
+float e_bin2rad(uint16_t data_in,int cs){
 	float result;
 
 	if(data_in <2048 && data_in>=0){
@@ -26,7 +29,7 @@ float bin2rad(uint16_t data_in,int cs){
 	return result;
 }
 
-HAL_StatusTypeDef encoder_read(float *data_in,int cs)
+HAL_StatusTypeDef e_read(float *data_in,int cs)
 {
 	HAL_StatusTypeDef status;
 	GPIO_TypeDef*     port;
@@ -70,9 +73,11 @@ HAL_StatusTypeDef encoder_read(float *data_in,int cs)
 	}
 
 	data&=0x0FFF;
-	(*data_in)=bin2rad(data,cs);
+	(*data_in)=e_bin2rad(data,cs);
 	//(*data_in)=data;
 
 	return status;
 
 }
+
+#endif /* ENCODER_LIB_H_ */

@@ -16,8 +16,6 @@
 //
 //
 
-#define STEPPER_N	3
-
 
 struct stepper{
 	uint16_t			step_pin;
@@ -29,16 +27,11 @@ struct stepper{
 	//limits
 	int			max_speed;
 	int			min_speed;
-	int			max_accel;
-	int 		max_positon;
-	int			min_position;
 
 	int			timer_period;
 	int			timer_counter;
 
 	int			enabled;
-	float		position;
-
 };
 typedef struct stepper stepper;
 
@@ -49,10 +42,8 @@ void s_motorsInit();
 
 void s_step(uint16_t motor);
 void s_stepAll();
-void s_updatePosition(uint16_t motor);
-void s_updateAllPosition();
 
-void s_changeDir(uint16_t motor);
+void s_changeDir(uint16_t motor,int dir);
 void s_setSpeed(uint16_t motor,int speed);
 
 void s_enable(uint16_t motor);

@@ -36,11 +36,13 @@
 #include "stm32f4xx_it.h"
 
 /* USER CODE BEGIN 0 */
-int tim2_counter=0;
+int i=0;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
 extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
+extern TIM_HandleTypeDef htim4;
 extern UART_HandleTypeDef huart2;
 
 /******************************************************************************/
@@ -84,6 +86,34 @@ void TIM2_IRQHandler(void)
 }
 
 /**
+* @brief This function handles TIM3 global interrupt.
+*/
+void TIM3_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM3_IRQn 0 */
+
+  /* USER CODE END TIM3_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim3);
+  /* USER CODE BEGIN TIM3_IRQn 1 */
+
+  /* USER CODE END TIM3_IRQn 1 */
+}
+
+/**
+* @brief This function handles TIM4 global interrupt.
+*/
+void TIM4_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM4_IRQn 0 */
+
+  /* USER CODE END TIM4_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim4);
+  /* USER CODE BEGIN TIM4_IRQn 1 */
+
+  /* USER CODE END TIM4_IRQn 1 */
+}
+
+/**
 * @brief This function handles USART2 global interrupt.
 */
 void USART2_IRQHandler(void)
@@ -113,10 +143,12 @@ void EXTI15_10_IRQHandler(void)
 /* USER CODE BEGIN 1 */
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
- if(htim->Instance == TIM2){ // Jeżeli przerwanie pochodzi od timera 10
-
-	 if(tim2_counter==0){ HAL_GPIO_TogglePin(MOTOR2_STEP_GPIO_Port,MOTOR2_STEP_Pin); tim2_counter=0;}
-	 else{ tim2_counter++;}
+ if(htim->Instance == TIM2){
+	 s_step(2);
+ }else if(htim->Instance == TIM3){
+	 m_updatePosition(2);
+ }else if(htim->Instance == TIM4){
+	 //m_control();
  }
 
 }

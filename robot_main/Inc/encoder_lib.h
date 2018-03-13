@@ -5,8 +5,8 @@
  *      Author: Admin
  */
 
-#ifndef APPLICATION_USER_ENCODER_H_
-#define APPLICATION_USER_ENCODER_H_
+#ifndef ENCODER_LIB_H_
+#define ENCODER_LIB_H_
 
 #include "stm32f4xx_hal.h"
 
@@ -21,7 +21,7 @@ enum dir{
 
 enum dir encoders_dir[3]={counter_clockwise, clockwise, counter_clockwise}; // {encoder_0, encoder_1, encoder_2}
 
-float			  bin2rad(uint16_t data_in,int cs);
-HAL_StatusTypeDef encoder_read(float *data_in, int cs);
+float			  e_bin2rad(uint16_t data_in,int cs);
+HAL_StatusTypeDef e_read(float *data_in, int cs);
 
 #endif /* APPLICATION_USER_ENCODER_H_ */

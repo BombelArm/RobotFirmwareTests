@@ -112,8 +112,11 @@ int main(void)
   MX_TIM1_Init();
   MX_USART2_UART_Init();
   MX_TIM2_Init();
+  MX_TIM3_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
+  HAL_TIM_Base_Start_IT(&htim3);
 
   HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, !MOTORS_ENABLED);
   HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, GPIO_PIN_SET);
@@ -122,7 +125,11 @@ int main(void)
   HAL_GPIO_WritePin(MOTOR2_STEP_GPIO_Port,MOTOR2_STEP_Pin, GPIO_PIN_RESET);
 
 
+  s_motorsInit();
+  m_motionControllerInit();
 
+  s_setSpeed(2,20);
+  s_enable(2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -130,21 +137,9 @@ int main(void)
 
   while (1)
   {
-
-	  encoder_read(&encoder_0,0);
-
-/*	  //++cnt1;
-	  size1=sprintf(data1,"E0:\t%f \t E1:\t%f \t E2:\t%f \n",encoder_0,encoder_1,encoder_2);
-	  HAL_UART_Transmit_IT(&huart2,data1,size1);
-	  HAL_Delay(300);
-
-	  if(!HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_8)){
-			  HAL_GPIO_TogglePin(MOTOR2_DIR_GPIO_Port, MOTOR2_DIR_Pin);
-			  HAL_GPIO_TogglePin(MOTOR1_DIR_GPIO_Port, MOTOR1_DIR_Pin);
-			  HAL_GPIO_TogglePin(MOTOR0_DIR_GPIO_Port, MOTOR0_DIR_Pin);
-			  HAL_Delay(1000);
-	  }*/
-
+	  e_read(&encoder_0,0);
+	  e_read(&encoder_1,1);
+	  e_read(&encoder_2,2);
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
@@ -178,7 +173,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = 8;
-  RCC_OscInitStruct.PLL.PLLN = 84;
+  RCC_OscInitStruct.PLL.PLLN = 100;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
@@ -195,7 +190,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
