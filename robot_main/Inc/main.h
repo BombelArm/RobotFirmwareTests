@@ -73,8 +73,8 @@
 #define MOTOR2_DIR_GPIO_Port GPIOB
 #define MOTOR1_DIR_Pin GPIO_PIN_15
 #define MOTOR1_DIR_GPIO_Port GPIOB
-#define ENCODER_CS1_Pin GPIO_PIN_7
-#define ENCODER_CS1_GPIO_Port GPIOC
+#define ENCODER_CS2_Pin GPIO_PIN_7
+#define ENCODER_CS2_GPIO_Port GPIOC
 #define FANS_ENABLE_Pin GPIO_PIN_10
 #define FANS_ENABLE_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13
@@ -87,8 +87,8 @@
 #define MOTOR1_STEP_GPIO_Port GPIOB
 #define MOTOR2_STEP_Pin GPIO_PIN_5
 #define MOTOR2_STEP_GPIO_Port GPIOB
-#define ENCODER_CS2_Pin GPIO_PIN_6
-#define ENCODER_CS2_GPIO_Port GPIOB
+#define ENCODER_CS1_Pin GPIO_PIN_6
+#define ENCODER_CS1_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
 /**

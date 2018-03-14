@@ -77,7 +77,8 @@ HAL_StatusTypeDef e_read(float *data_in,int cs)
 	//(*data_in)=data;
 
 	return status;
-
 }
+
+
 
 #endif /* ENCODER_LIB_H_ */

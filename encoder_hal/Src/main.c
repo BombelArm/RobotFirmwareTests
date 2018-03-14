@@ -50,7 +50,9 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-float encoder;
+float encoder_0;
+float encoder_1;
+float encoder_2;
 
 
 /* USER CODE END PV */
@@ -106,7 +108,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  encoder_read(&encoder,0);
+	  encoder_read(&encoder_0,0);
+	  encoder_read(&encoder_1,1);
+	  encoder_read(&encoder_2,2);
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */

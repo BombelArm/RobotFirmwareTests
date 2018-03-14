@@ -72,14 +72,14 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port, MOTORS_ENABLE_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, ENCODER_CS0_Pin|ENCODER_CS2_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOB, ENCODER_CS0_Pin|ENCODER_CS1_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, MOTOR0_DIR_Pin|MOTOR2_DIR_Pin|MOTOR1_DIR_Pin|MOTOR0_STEP_Pin 
                           |MOTOR1_STEP_Pin|MOTOR2_STEP_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(ENCODER_CS1_GPIO_Port, ENCODER_CS1_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(ENCODER_CS2_GPIO_Port, ENCODER_CS2_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port, FANS_ENABLE_Pin, GPIO_PIN_RESET);
@@ -91,7 +91,7 @@ void MX_GPIO_Init(void)
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PCPin PCPin */
-  GPIO_InitStruct.Pin = MOTORS_ENABLE_Pin|ENCODER_CS1_Pin;
+  GPIO_InitStruct.Pin = MOTORS_ENABLE_Pin|ENCODER_CS2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -106,7 +106,7 @@ void MX_GPIO_Init(void)
   /*Configure GPIO pins : PBPin PBPin PBPin PBPin 
                            PBPin PBPin PBPin PBPin */
   GPIO_InitStruct.Pin = ENCODER_CS0_Pin|MOTOR0_DIR_Pin|MOTOR2_DIR_Pin|MOTOR1_DIR_Pin 
-                          |MOTOR0_STEP_Pin|MOTOR1_STEP_Pin|MOTOR2_STEP_Pin|ENCODER_CS2_Pin;
+                          |MOTOR0_STEP_Pin|MOTOR1_STEP_Pin|MOTOR2_STEP_Pin|ENCODER_CS1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

@@ -12,7 +12,7 @@
 #include "main.h"
 #include "limits.h"
 
-#define EPSILON	0.1
+#define EPSILON	0.2
 
 
 struct motion_node{

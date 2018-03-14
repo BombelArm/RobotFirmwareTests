@@ -40,16 +40,20 @@ void m_motionControllerInit(){
 }
 
 void m_control(){
-	motion_node mnode=motion_nodes[2];
+	motion_node mnode=motion_nodes[0];
 
-	if(mnode.position - EPSILON <= 0){
-		s_changeDir(2,1);
-		s_setSpeed(2,100);
-	}else if(mnode.position + EPSILON >=0){
-		s_changeDir(2,0);
-		s_setSpeed(2,100);
+	float position,setpoint;
+	position=mnode.position;
+	setpoint=0;
+
+	if(position <= setpoint-EPSILON){
+		s_changeDir(0,1);
+		s_setSpeed(0,100);
+	}else if(position >=setpoint+EPSILON){
+		s_changeDir(0,0);
+		s_setSpeed(0,100);
 	}else{
-		s_setSpeed(2,0);
+		s_setSpeed(0,0);
 	}
 }
 

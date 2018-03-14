@@ -117,6 +117,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
   HAL_TIM_Base_Start_IT(&htim3);
+  HAL_TIM_Base_Start_IT(&htim4);
 
   HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, !MOTORS_ENABLED);
   HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, GPIO_PIN_SET);
@@ -128,8 +129,11 @@ int main(void)
   s_motorsInit();
   m_motionControllerInit();
 
-  s_setSpeed(2,20);
+  s_setSpeed(2,10);
   s_enable(2);
+
+  s_setSpeed(0,100);
+  s_enable(0);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -137,9 +141,6 @@ int main(void)
 
   while (1)
   {
-	  e_read(&encoder_0,0);
-	  e_read(&encoder_1,1);
-	  e_read(&encoder_2,2);
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
