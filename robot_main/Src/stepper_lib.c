@@ -29,8 +29,8 @@ void s_motorsInit(){
 	};
 
 	uint8_t steps[STEPPER_N]={
-			4,
 			40,
+			60,
 			4
 	};
 
@@ -85,15 +85,13 @@ void s_setSpeed(uint8_t motor,uint32_t speed){
 	stepper stepper1=motors[motor];
 	int speed1;
 
-/*	if(speed>stepper1.max_speed){
-		speed1=100000/(4*stepper1.step*stepper1.max_speed);
+	if(speed>stepper1.max_speed){
+		speed1=100000/(2*stepper1.step*stepper1.max_speed);
 	}else if(speed<stepper1.min_speed){
-		speed1=100000/(4*stepper1.step*stepper1.min_speed);
-	}else{*/
-
-	speed1=100000/(2*stepper1.step*speed);
-
-	//}
+		speed1=100000/(2*stepper1.step*stepper1.min_speed);
+	}else{
+		speed1=100000/(2*stepper1.step*speed);
+	}
 
 	motors[motor].timer_period=speed1;
 }

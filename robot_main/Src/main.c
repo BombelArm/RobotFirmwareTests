@@ -129,11 +129,13 @@ int main(void)
   s_motorsInit();
   m_motionControllerInit();
 
-  s_enable(1);
-  m_enable(1);
+
+  /*s_enable(0);
+  m_enable(0);*/
   s_enable(2);
   m_enable(2);
-  m_setPosition(1,0);
+  /*m_setPosition(0,0);
+  m_setPosition(1,0);*/
   m_setPosition(2,0);
   /* USER CODE END 2 */
 

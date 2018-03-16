@@ -12,22 +12,24 @@
 #include "main.h"
 #include "limits.h"
 
-#define EPSILON	0.2
-
+#define EPSILON	0.05
+#define ACCEL_DISTANCE 0.5
 
 struct motion_node{
 
 	float 		  max_position;
 	float 		  min_position;
 
-	uint32_t	  max_speed;
-	uint32_t	  min_speed;
-	float max_accel;
+	uint32_t	  max_speed;	//maximum speed limit of the joint
+	uint32_t	  min_speed;	//minimum speed limit of the joint
+	float 		  max_accel;	//maximum acceleration limit of the joint
 
-	float position;
-	float goal_position;
+	float 		  actual_position;	//position of the joint
+	uint32_t	  actual_speed;		//actual speed of the joint
+	float 		  goal_position;	//goal position of the joint
+	uint32_t	  goal_speed;		//goal speed (maximum speed while moving towards goal position)
 
-	int   enabled;
+	int   		  enabled;
 
 };
 typedef struct motion_node motion_node;
@@ -38,10 +40,12 @@ void m_motionControllerInit();
 
 void m_control();
 
-void m_setPosition(uint8_t motor,float position);
+void m_setPosition(uint8_t motor,float position,uint32_t speed);
 
-void m_updatePosition(uint16_t motor);
+void m_updatePosition(uint8_t motor);
 void m_updateAllPosition();
+
+int m_calculateSpeed(uint8_t motor,uint32_t speed);
 
 void m_enable(uint8_t motor);
 void m_enableAll();
