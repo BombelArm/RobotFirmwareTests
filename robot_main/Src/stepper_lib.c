@@ -22,6 +22,18 @@ void s_motorsInit(){
 			{MOTOR2_STEP_GPIO_Port, MOTOR2_DIR_GPIO_Port}
 	};
 
+	uint8_t	directions[STEPPER_N]={
+			1,
+			1,
+			1
+	};
+
+	uint8_t steps[STEPPER_N]={
+			4,
+			40,
+			4
+	};
+
 	for(int i=0;i<STEPPER_N;i++){
 		motors[i].step_pin=pins[i][0];
 		motors[i].dir_pin=pins[i][1];
@@ -31,12 +43,13 @@ void s_motorsInit(){
 
 		motors[i].max_speed=HW_MOTOR_MAX_SPEED;
 		motors[i].min_speed=HW_MOTOR_MIN_SPEED;
+		motors[i].clockwise_direction=directions[i];
 
 		motors[i].enabled = 0;
-		motors[i].step = 2;
+		motors[i].step = steps[i];
 	}
 }
-void s_step(uint16_t motor){
+void s_step(uint8_t motor){
 
 	if(motors[motor].timer_period==0 || motors[motor].enabled != 1)return;
 	//if(steps >= 2*200)return;
@@ -68,21 +81,32 @@ void s_stepAll(){
 
 
 //speed = 100 -> 1 revolution per second
-void s_setSpeed(uint16_t motor,int speed){
+void s_setSpeed(uint8_t motor,uint32_t speed){
 	stepper stepper1=motors[motor];
 	int speed1;
 
-	if(speed>stepper1.max_speed || speed<stepper1.min_speed)return;
+/*	if(speed>stepper1.max_speed){
+		speed1=100000/(4*stepper1.step*stepper1.max_speed);
+	}else if(speed<stepper1.min_speed){
+		speed1=100000/(4*stepper1.step*stepper1.min_speed);
+	}else{*/
 
-	speed1=100000/(4*stepper1.step*speed);
+	speed1=100000/(2*stepper1.step*speed);
+
+	//}
+
 	motors[motor].timer_period=speed1;
 }
 
-void s_changeDir(uint16_t motor,int dir){
-	HAL_GPIO_WritePin(motors[motor].dir_port, motors[motor].dir_pin, dir);
+void s_changeDir(uint8_t motor,uint8_t dir){
+	if(dir==1){
+		HAL_GPIO_WritePin(motors[motor].dir_port, motors[motor].dir_pin, motors[motor].clockwise_direction);
+	}else if(dir==0){
+		HAL_GPIO_WritePin(motors[motor].dir_port, motors[motor].dir_pin, !motors[motor].clockwise_direction);
+	}
 }
 
-void s_enable(uint16_t motor){
+void s_enable(uint8_t motor){
 	motors[motor].enabled=1;
 }
 
@@ -92,7 +116,7 @@ void s_enableAll(){
 	}
 }
 
-void s_disable(uint16_t motor){
+void s_disable(uint8_t motor){
 	motors[motor].enabled=0;
 }
 

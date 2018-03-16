@@ -40,20 +40,31 @@ void m_motionControllerInit(){
 }
 
 void m_control(){
-	motion_node mnode=motion_nodes[0];
+	float position,goalPosition;
 
-	float position,setpoint;
-	position=mnode.position;
-	setpoint=0;
+	for(int i=0;i<STEPPER_N;i++){
+		if(motion_nodes[i].enabled != 1)continue;
 
-	if(position <= setpoint-EPSILON){
-		s_changeDir(0,1);
-		s_setSpeed(0,100);
-	}else if(position >=setpoint+EPSILON){
-		s_changeDir(0,0);
-		s_setSpeed(0,100);
-	}else{
-		s_setSpeed(0,0);
+		position=motion_nodes[i].position;
+		goalPosition=motion_nodes[i].goal_position;
+
+/*		if(position <= motion_nodes[i].min_position+EPSILON){
+			s_disable(i);
+		}else if(position >= motion_nodes[i].max_position-EPSILON){
+			s_disable(i);
+		}else{
+			s_enable(i);
+		}*/
+
+		if(position >= goalPosition+EPSILON){
+			s_changeDir(i,0);
+			s_setSpeed(i,40);
+		}else if(position <= goalPosition-EPSILON){
+			s_changeDir(i,1);
+			s_setSpeed(i,40);
+		}else{
+			s_setSpeed(i,0);
+		}
 	}
 }
 
@@ -63,7 +74,7 @@ void m_updatePosition(uint16_t motor){
 
 void m_updateAllPosition(){
 	for(int i=0;i<STEPPER_N;i++){
-		encoder_read(&(motion_nodes[i].position),i);
+		e_read(&(motion_nodes[i].position),i);
 
 	}
 }
@@ -72,4 +83,21 @@ void m_setPosition(uint8_t motor,float position){
 	if(position > motion_nodes[motor].max_position || position<motion_nodes[motor].min_position)return;
 
 	motion_nodes[motor].goal_position=position;
+}
+
+void m_enable(uint8_t motor){
+	motion_nodes[motor].enabled=1;
+}
+void m_enableAll(){
+	for(int i=0;i<STEPPER_N;i++){
+		motion_nodes[i].enabled=1;
+	}
+}
+void m_disable(uint8_t motor){
+	motion_nodes[motor].enabled=0;
+}
+void m_disableAll(){
+	for(int i=0;i<STEPPER_N;i++){
+			motion_nodes[i].enabled=0;
+	}
 }

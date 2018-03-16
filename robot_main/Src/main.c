@@ -129,11 +129,12 @@ int main(void)
   s_motorsInit();
   m_motionControllerInit();
 
-  s_setSpeed(2,10);
+  s_enable(1);
+  m_enable(1);
   s_enable(2);
-
-  s_setSpeed(0,100);
-  s_enable(0);
+  m_enable(2);
+  m_setPosition(1,0);
+  m_setPosition(2,0);
   /* USER CODE END 2 */
 
   /* Infinite loop */

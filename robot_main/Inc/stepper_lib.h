@@ -22,16 +22,17 @@ struct stepper{
 	GPIO_TypeDef 		*step_port;
 	uint16_t			dir_pin;
 	GPIO_TypeDef 		*dir_port;
-	int 		step;	// 1/2 -> 2 | 1/4 -> 4 ...
+	uint8_t		 		step;	// 1/2 -> 2 | 1/4 -> 4 ...
 
 	//limits
-	int			max_speed;
-	int			min_speed;
+	uint32_t			max_speed;
+	uint32_t			min_speed;
+	uint8_t				clockwise_direction; //position is going towards pi (if dir=!clockwise_direction position is going toward -pi)
 
-	int			timer_period;
-	int			timer_counter;
+	uint32_t			timer_period;
+	uint32_t			timer_counter;
 
-	int			enabled;
+	uint8_t				enabled;
 };
 typedef struct stepper stepper;
 
@@ -40,15 +41,15 @@ int steps=0;
 
 void s_motorsInit();
 
-void s_step(uint16_t motor);
+void s_step(uint8_t motor);
 void s_stepAll();
 
-void s_changeDir(uint16_t motor,int dir);
-void s_setSpeed(uint16_t motor,int speed);
+void s_changeDir(uint8_t motor,uint8_t dir); //dir==1 clockwise dir==0 counter_clockwise
+void s_setSpeed(uint8_t motor,uint32_t speed);
 
-void s_enable(uint16_t motor);
+void s_enable(uint8_t motor);
 void s_enableAll();
-void s_disable(uint16_t motor);
+void s_disable(uint8_t motor);
 void s_disableAll();
 
 #endif /* STEPPER_LIB_H_ */
