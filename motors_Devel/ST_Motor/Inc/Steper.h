@@ -23,7 +23,7 @@ float Stepper_acceleration[3];
 int Min_stepper_period[3];
 
 float Dead_zone[3];
-//						steper_0	 steper_1		steper_2
+//						stepper_0	 stepper_1		stepper_2
 float end_stop_up[3]={	1.5,		1.6,			2.5};
 
 float end_stop_down[3]={-1.4,		-1.4,			-1.5};
@@ -63,7 +63,7 @@ int Period_memory_2=1000;
 
 ///////////////////////////////////////////////////////////// Zmiana POzycji silnika//////////////////////////////////////////
 
-void ST_MOT_Init(int Stepper_ID_,float dead_zone,double Acceleration_, int Max_Angle_Speed)
+void ST_MOT_Init(int Stepper_ID_,float dead_zone,double Acceleration_, int Min_Period)
 {
 
 	Stepper_period[Stepper_ID_]=1000;			//initial period
@@ -72,17 +72,20 @@ void ST_MOT_Init(int Stepper_ID_,float dead_zone,double Acceleration_, int Max_A
 
 	Maximal_Pulse_Period[Stepper_ID_]=8000;		//Const in #define
 
-	Min_stepper_period[Stepper_ID_]=400;		// Period from anlge speed
+	Min_stepper_period[Stepper_ID_]=Min_Period;		// Period from anlge speed //400;
 
 	steps[Stepper_ID_]=0;						//internal reference of deveitation from origin point
 
-	Dead_zone[Stepper_ID_]=0;//dead_zone;			// accuracy of feedback from encoders
+	Dead_zone[Stepper_ID_]=dead_zone;			// accuracy of feedback from encoders
 
 
 
 }
 
-
+inline void pos_put(int Stepper_ID_)
+{
+	encoder_read(&position_from_encoder[Stepper_ID_],Stepper_ID_);
+}
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -202,6 +205,13 @@ void Next_Lin_Period(int Stepper_ID_)
 	}
 }
 
+
+ void Period_Control(int Stepper_ID_,int Period_, int Turn)
+{
+	Stepper_period[Stepper_ID_]=Period_;
+	rotation_Dir_[Stepper_ID_]=Turn;
+}
+
 //////////////////////////////////////////////////////////////////////////////
 
 
@@ -210,8 +220,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 	if(htim->Instance == TIM10){ //
 
-	//  encoder_read(&position_from_encoder[0],0);
-	//	encoder_read(&position_from_encoder[1],1);
+
+
 
 		Stepper_Counter_0++;	 Stepper_Counter_1++ ;	 Stepper_Counter_2++;
 
@@ -223,6 +233,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 		if(Stepper_Counter_0 > Period_memory_0)
 		{
+
+			pos_put(0);
 			Stepper_Counter_0 = 0;
 			Next_Lin_Period(0);
 			Period_memory_0 = Stepper_period[0];             //buffored value being loaded if counter reaches requested previous period.
@@ -249,8 +261,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		/////////////////////////////Stepper_1/////////////////////////////////////////////////////////////
 		//////////////////////			 DIR2_Pin-Direction STEP2_Pin-Step								///////////////
 		if(Stepper_Counter_1 > Period_memory_1)
-		{    		   // jesli licznik > od pamietanej wartosci
+		{
 
+			pos_put(0);
 			Stepper_Counter_1 = 0;      	// reset licznika
 			Next_Lin_Period(1);
 			Period_memory_1 = Stepper_period[1];
@@ -274,7 +287,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		///////////			 DIR3_Pin-Direction STEP3_Pin-Step			/////////////////////////
 		if(Stepper_Counter_2 > Period_memory_2)
 		{
-			//encoder_read(&position_from_encoder[2],2);		//insert value from encoder here
+
+			pos_put(0);
 			Stepper_Counter_2 = 0;
 			Next_Lin_Period(2);
 			Period_memory_2 = Stepper_period[2];
