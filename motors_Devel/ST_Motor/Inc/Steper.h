@@ -1,5 +1,5 @@
 #include "stm32f4xx_hal.h"
-
+#include <stdlib.h>
 
 
 int Maximal_Pulse_Period[3];
@@ -84,17 +84,16 @@ void ST_MOT_Init(int Stepper_ID_,float dead_zone,double Acceleration_, int Min_P
 
 inline void pos_put(int Stepper_ID_)
 {
-	encoder_read(&position_from_encoder[Stepper_ID_],Stepper_ID_);
+//	encoder_read(&position_from_encoder[Stepper_ID_],Stepper_ID_);
 }
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////   Przyspieszenie Linniowe  /////////////////////////////////////////////////////////
 void Movement_Prep(int Stepper_ID_, float set_position)
 {
-	//if(set_position<end_stop_up[Stepper_ID_]&&set_position>end_stop_down[Stepper_ID_])
-		if(1)
+	if(set_position<end_stop_up[Stepper_ID_]&&set_position>end_stop_down[Stepper_ID_])
+
 	{
 		Ramp_period[Stepper_ID_]=Maximal_Pulse_Period[Stepper_ID_];
 		start_position[Stepper_ID_]=position_from_encoder[Stepper_ID_];
@@ -240,7 +239,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			Period_memory_0 = Stepper_period[0];             //buffored value being loaded if counter reaches requested previous period.
 
 
-			/////////////////////////////////////////////////////////////////
 			if(rotation_Dir_[0])
 			{
 				HAL_GPIO_WritePin(DIR1_GPIO_Port, DIR1_Pin, GPIO_PIN_SET);
@@ -251,7 +249,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			}
 		}
 
-		/////////////////////////////////////////////////////////////////
+
 		if(Period_memory_0!=0)
 		{
 			if(Stepper_Counter_0==0)   {	HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, GPIO_PIN_SET);		}

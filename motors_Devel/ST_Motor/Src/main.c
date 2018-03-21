@@ -101,6 +101,7 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM10_Init();
   /* USER CODE BEGIN 2 */
+
 	HAL_TIM_Base_Start_IT(&htim10);
 	ST_MOT_Init(2,0.2,1000,100);
 
