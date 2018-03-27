@@ -32,6 +32,7 @@ struct motion_node{
 	int   		  enabled;
 
 };
+
 typedef struct motion_node motion_node;
 
 motion_node motion_nodes[STEPPER_N];

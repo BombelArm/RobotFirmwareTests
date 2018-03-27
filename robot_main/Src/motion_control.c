@@ -57,10 +57,10 @@ void m_control(){
 
 		if(position >= goalPosition+EPSILON){
 			s_changeDir(i,0);
-			s_setSpeed(i,20);
+			s_setSpeed(i,70);
 		}else if(position <= goalPosition-EPSILON){
 			s_changeDir(i,1);
-			s_setSpeed(i,20);
+			s_setSpeed(i,70);
 		}else{
 			s_setSpeed(i,0);
 		}
@@ -78,7 +78,7 @@ void m_updateAllPosition(){
 	}
 }
 
-void m_setPosition(uint8_t motor,float position){
+void m_setPosition(uint8_t motor,float position,uint32_t speed){
 	if(position > motion_nodes[motor].max_position || position<motion_nodes[motor].min_position)return;
 
 	motion_nodes[motor].goal_position=position;

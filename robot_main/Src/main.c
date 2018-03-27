@@ -119,8 +119,8 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim3);
   HAL_TIM_Base_Start_IT(&htim4);
 
-  HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, !MOTORS_ENABLED);
-  HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, MOTORS_ENABLED);
+  HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(MOTOR0_STEP_GPIO_Port,MOTOR0_STEP_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(MOTOR1_STEP_GPIO_Port,MOTOR1_STEP_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(MOTOR2_STEP_GPIO_Port,MOTOR2_STEP_Pin, GPIO_PIN_RESET);
@@ -130,13 +130,18 @@ int main(void)
   m_motionControllerInit();
 
 
-  /*s_enable(0);
-  m_enable(0);*/
-  s_enable(2);
-  m_enable(2);
-  /*m_setPosition(0,0);
-  m_setPosition(1,0);*/
+/*
+  s_enableAll();
+  m_enableAll(0);
+
+  m_setPosition(0,0);
+  m_setPosition(1,0);
   m_setPosition(2,0);
+*/
+
+  /*m_enable(2);
+  m_setPosition(2,0);*/
+
   /* USER CODE END 2 */
 
   /* Infinite loop */

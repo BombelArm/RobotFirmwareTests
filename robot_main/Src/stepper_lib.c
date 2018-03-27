@@ -29,9 +29,9 @@ void s_motorsInit(){
 	};
 
 	uint8_t steps[STEPPER_N]={
-			40,
-			60,
-			4
+			16,
+			16,
+			16
 	};
 
 	for(int i=0;i<STEPPER_N;i++){
@@ -85,7 +85,9 @@ void s_setSpeed(uint8_t motor,uint32_t speed){
 	stepper stepper1=motors[motor];
 	int speed1;
 
-	if(speed>stepper1.max_speed){
+	if(speed == 0){
+		speed1=0;
+	}else if(speed>stepper1.max_speed){
 		speed1=100000/(2*stepper1.step*stepper1.max_speed);
 	}else if(speed<stepper1.min_speed){
 		speed1=100000/(2*stepper1.step*stepper1.min_speed);

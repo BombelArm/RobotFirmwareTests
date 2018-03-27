@@ -10,7 +10,7 @@
 
 #define STEPPER_N	3
 
-#define	HW_MOTOR_MIN_SPEED	0
+#define	HW_MOTOR_MIN_SPEED	37
 #define HW_MOTOR_MAX_SPEED	200
 
 #define JOINT0_MIN_SPEED 20
