@@ -38,6 +38,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
+#include "Comms.h"
 
 /* USER CODE BEGIN Includes */
 #include <string.h>
@@ -65,21 +66,21 @@ static void MX_TIM11_Init(void);
 /* Private function prototypes -----------------------------------------------*/
 uint8_t Received[8];
 char Template[]="Light_go";
+incoming_buffer buffer;
+int size=16;
+
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 
  uint8_t Data[50]; // Tablica przechowujaca wysylana wiadomosc.
  //uint16_t size = 0; // Rozmiar wysylanej wiadomosci
+// HAL_UART_Transmit_IT(&huart1, buffer.Last_Msg, size); // Rozpoczecie nadawania danych z wykorzystaniem przerwan
+ //HAL_UART_Transmit_IT(&huart1, "\n" , size); // Rozpoczecie nadawania danych z wykorzystaniem przerwan
+HAL_UART_Transmit_IT(&huart1, buffer.Send_, size); // Rozpoczecie nadawania danych z wykorzystaniem przerwan
+// HAL_UART_Transmit_IT(&huart1, "\n" , size); // Rozpoczecie nadawania danych z wykorzystaniem przerwan
 
+ HAL_UART_Receive_IT(&huart1, &buffer.Last_Msg, size);  // Ponowne wlaczenie nasluchiwania
+ comms(&buffer);
 
-if(strcmp(Template,Received))
-{
-	HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-	Received[0] = '\0';
-}
-
-
-// HAL_UART_Transmit_IT(&huart1, Data, size); // Rozpoczecie nadawania danych z wykorzystaniem przerwan
- HAL_UART_Receive_IT(&huart1, &Received, 8); // Ponowne wlaczenie nasluchiwania
 }
 /* USER CODE END PFP */
 
@@ -95,7 +96,8 @@ if(strcmp(Template,Received))
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	buffer.status=0;
+	buffer.Send_[0]="/0";
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/

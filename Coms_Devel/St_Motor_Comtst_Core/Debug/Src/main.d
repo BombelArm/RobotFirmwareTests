@@ -27,7 +27,8 @@ Src/main.o: ../Src/main.c \
  C:/Users/huber/Documents/Stm32/Com_Test/St_Motor_Comtst_Core/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  C:/Users/huber/Documents/Stm32/Com_Test/St_Motor_Comtst_Core/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  C:/Users/huber/Documents/Stm32/Com_Test/St_Motor_Comtst_Core/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- C:/Users/huber/Documents/Stm32/Com_Test/St_Motor_Comtst_Core/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+ C:/Users/huber/Documents/Stm32/Com_Test/St_Motor_Comtst_Core/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
+ C:/Users/huber/Documents/Stm32/Com_Test/St_Motor_Comtst_Core/Inc/Comms.h
 
 C:/Users/huber/Documents/Stm32/Com_Test/St_Motor_Comtst_Core/Inc/main.h:
 
@@ -86,3 +87,5 @@ C:/Users/huber/Documents/Stm32/Com_Test/St_Motor_Comtst_Core/Drivers/STM32F4xx_H
 C:/Users/huber/Documents/Stm32/Com_Test/St_Motor_Comtst_Core/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 
 C:/Users/huber/Documents/Stm32/Com_Test/St_Motor_Comtst_Core/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+
+C:/Users/huber/Documents/Stm32/Com_Test/St_Motor_Comtst_Core/Inc/Comms.h:
