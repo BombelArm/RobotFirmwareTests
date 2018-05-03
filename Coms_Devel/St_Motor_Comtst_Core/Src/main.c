@@ -38,13 +38,14 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
-#include "Comms.h"
 
 /* USER CODE BEGIN Includes */
 #include <string.h>
+#include "Comms.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
+TIM_HandleTypeDef htim10;
 TIM_HandleTypeDef htim11;
 
 UART_HandleTypeDef huart1;
@@ -61,6 +62,7 @@ static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_TIM11_Init(void);
+static void MX_TIM10_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -71,16 +73,22 @@ int size=16;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 
- uint8_t Data[50]; // Tablica przechowujaca wysylana wiadomosc.
+ // Tablica przechowujaca wysylana wiadomosc.
  //uint16_t size = 0; // Rozmiar wysylanej wiadomosci
-// HAL_UART_Transmit_IT(&huart1, buffer.Last_Msg, size); // Rozpoczecie nadawania danych z wykorzystaniem przerwan
+//HAL_UART_Transmit_IT(&huart1, buffer.Last_Msg, size); // Rozpoczecie nadawania danych z wykorzystaniem przerwan
  //HAL_UART_Transmit_IT(&huart1, "\n" , size); // Rozpoczecie nadawania danych z wykorzystaniem przerwan
-HAL_UART_Transmit_IT(&huart1, buffer.Send_, size); // Rozpoczecie nadawania danych z wykorzystaniem przerwan
+
 // HAL_UART_Transmit_IT(&huart1, "\n" , size); // Rozpoczecie nadawania danych z wykorzystaniem przerwan
 
- HAL_UART_Receive_IT(&huart1, &buffer.Last_Msg, size);  // Ponowne wlaczenie nasluchiwania
- comms(&buffer);
 
+ 	 gather(&buffer);
+
+
+	 buffer.flag=0;
+
+
+	 HAL_UART_Receive_IT(&huart1, &buffer.Byte, 1);  // Ponowne wlaczenie nasluchiwania
+	 HAL_UART_Transmit_IT(&huart1, buffer.Last_Msg, size);
 }
 /* USER CODE END PFP */
 
@@ -97,7 +105,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 	buffer.status=0;
-	buffer.Send_[0]="/0";
+	buffer.Send_[0]='\0';
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -121,8 +129,10 @@ int main(void)
   MX_USART2_UART_Init();
   MX_USART1_UART_Init();
   MX_TIM11_Init();
+  MX_TIM10_Init();
   /* USER CODE BEGIN 2 */
-  HAL_UART_Receive_IT(&huart1, &Received, 1);
+  HAL_UART_Receive_IT(&huart1, &buffer.Byte, 1);
+  //HAL_Tim
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -197,6 +207,22 @@ void SystemClock_Config(void)
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
+/* TIM10 init function */
+static void MX_TIM10_Init(void)
+{
+
+  htim10.Instance = TIM10;
+  htim10.Init.Prescaler = 64;
+  htim10.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim10.Init.Period = 26249;
+  htim10.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  if (HAL_TIM_Base_Init(&htim10) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+}
+
 /* TIM11 init function */
 static void MX_TIM11_Init(void)
 {
@@ -218,7 +244,7 @@ static void MX_USART1_UART_Init(void)
 {
 
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 9600;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
