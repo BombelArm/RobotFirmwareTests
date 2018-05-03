@@ -33,6 +33,14 @@ char Send_[WORD_LENGTH];
 void comms(incoming_buffer* connection)
 {
 
+	int a=0;
+	for(a=0;a<WORD_LENGTH;++a)
+		{
+			connection->Send_[a]='\0' ;
+
+		}
+
+
 if(connection->status==2)
 {
 	if(strcmp(connection->Last_Msg,SYS_INFO)==0)
@@ -84,6 +92,7 @@ else if(connection->status==0)
 	{
 	strcpy(&connection->Send_,&SYN_ACK);
 	connection->status=1;
+
 	}
 	else
 	{
@@ -91,7 +100,6 @@ else if(connection->status==0)
 		strcpy(&connection->Send_,&ERR);
 	}
 }
-
 
 }
 
@@ -115,13 +123,17 @@ if(connection->Byte=='\n')
 
 	iter=0;
 }
+else if(connection->Byte=='\0')
+		{
+
+		}
 else
 {
 	connection->Last_Msg[iter]=connection->Byte;
 	iter++;
 }
 
-
+/*
 if(iter>WORD_LENGTH-1)
 {
 
@@ -133,7 +145,7 @@ iter=0;
 connection->flag=1;
 strcpy(&connection->Send_,&ERR);
 }
-
+*/
 }
 
 

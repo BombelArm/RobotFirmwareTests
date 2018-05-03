@@ -88,7 +88,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 
 
 	 HAL_UART_Receive_IT(&huart1, &buffer.Byte, 1);  // Ponowne wlaczenie nasluchiwania
-	 HAL_UART_Transmit_IT(&huart1, buffer.Last_Msg, size);
+	 HAL_UART_Transmit_IT(&huart1, buffer.Send_, size);
 }
 /* USER CODE END PFP */
 
