@@ -84,12 +84,30 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
  	 gather(&buffer);
 
 
-	 buffer.flag=0;
 
 
-	 HAL_UART_Receive_IT(&huart1, &buffer.Byte, 1);  // Ponowne wlaczenie nasluchiwania
-	 HAL_UART_Transmit_IT(&huart1, buffer.Send_, size);
+	 HAL_UART_Receive_IT(&huart1, &buffer.Byte, 1);
+
 }
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	if(htim->Instance == TIM10)
+	{
+
+			if(buffer.flag==1)
+			{
+				HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
+				HAL_UART_Transmit_IT(&huart1, buffer.Send_, size);
+
+
+				buffer.flag=0;
+			}
+	}
+
+}
+
+
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -132,7 +150,8 @@ int main(void)
   MX_TIM10_Init();
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_IT(&huart1, &buffer.Byte, 1);
-  //HAL_Tim
+
+  HAL_TIM_Base_Start_IT(&htim10);
   /* USER CODE END 2 */
 
   /* Infinite loop */
