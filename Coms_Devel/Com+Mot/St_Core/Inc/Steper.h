@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 
+
 int Maximal_Pulse_Period[3];
 
 int Current_stepper_position[3];
@@ -213,7 +214,7 @@ void Next_Lin_Period(int Stepper_ID_)
 
 //////////////////////////////////////////////////////////////////////////////
 
-
+/*
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 
@@ -306,4 +307,4 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		}
 	}
 }
-
+*/

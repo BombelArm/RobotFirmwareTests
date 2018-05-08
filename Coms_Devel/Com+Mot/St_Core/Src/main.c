@@ -40,7 +40,7 @@
 #include "stm32f4xx_hal.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "Comms.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -63,6 +63,116 @@ static void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
+uint8_t Received[8];
+char Template[]="Light_go";
+incoming_buffer buffer;
+int size=16;
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	gather(&buffer);
+	HAL_UART_Receive_IT(&huart1, &buffer.Byte, 1);
+
+}
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+
+	if(htim->Instance == TIM10){ //
+
+		if(buffer.flag==1)
+				{
+					HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
+					HAL_UART_Transmit_IT(&huart1, buffer.Send_, size);
+
+
+					buffer.flag=0;
+				}
+
+
+		Stepper_Counter_0++;	 Stepper_Counter_1++ ;	 Stepper_Counter_2++;
+
+
+
+		//////////////////////////Stepper_0///////////////////////////////
+		///////////      DIR1_Pin-Direction STEP1_Pin-Step              /////////////
+
+
+		if(Stepper_Counter_0 > Period_memory_0)
+		{
+
+			pos_put(0);
+			Stepper_Counter_0 = 0;
+			Next_Lin_Period(0);
+			Period_memory_0 = Stepper_period[0];             //buffored value being loaded if counter reaches requested previous period.
+
+
+			if(rotation_Dir_[0])
+			{
+				HAL_GPIO_WritePin(DIR1_GPIO_Port, DIR1_Pin, GPIO_PIN_SET);
+			}
+			else
+			{
+				HAL_GPIO_WritePin(DIR1_GPIO_Port, DIR1_Pin, GPIO_PIN_RESET);
+			}
+		}
+
+
+		if(Period_memory_0!=0)
+		{
+			if(Stepper_Counter_0==0)   {	HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, GPIO_PIN_SET);		}
+			if(Stepper_Counter_0==1)   {	HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, GPIO_PIN_RESET);	}
+		}
+
+		/////////////////////////////Stepper_1/////////////////////////////////////////////////////////////
+		//////////////////////			 DIR2_Pin-Direction STEP2_Pin-Step								///////////////
+		if(Stepper_Counter_1 > Period_memory_1)
+		{
+
+			pos_put(0);
+			Stepper_Counter_1 = 0;      	// reset licznika
+			Next_Lin_Period(1);
+			Period_memory_1 = Stepper_period[1];
+			if(rotation_Dir_[1])
+			{
+				HAL_GPIO_WritePin(DIR2_GPIO_Port, DIR2_Pin, GPIO_PIN_SET);   	\
+			}
+
+			else
+			{
+				HAL_GPIO_WritePin(DIR2_GPIO_Port, DIR2_Pin, GPIO_PIN_RESET);
+			}
+
+		}
+		if(Period_memory_1!=0){
+
+			if(Stepper_Counter_1==0)   {		HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, GPIO_PIN_SET);			}
+			if(Stepper_Counter_1==1)   {		HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, GPIO_PIN_RESET);		}
+		}
+		/////////////////////////////Stepper_2///////////////////////////////////////
+		///////////			 DIR3_Pin-Direction STEP3_Pin-Step			/////////////////////////
+		if(Stepper_Counter_2 > Period_memory_2)
+		{
+
+			pos_put(0);
+			Stepper_Counter_2 = 0;
+			Next_Lin_Period(2);
+			Period_memory_2 = Stepper_period[2];
+			if(rotation_Dir_[2])
+			{
+				HAL_GPIO_WritePin(DIR3_GPIO_Port, DIR3_Pin, GPIO_PIN_SET);
+			}
+			else
+			{
+				HAL_GPIO_WritePin(DIR3_GPIO_Port, DIR3_Pin, GPIO_PIN_RESET);
+			}
+		}
+		if(Period_memory_2!=0){
+
+			if(Stepper_Counter_2==0)   {	HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, GPIO_PIN_SET);		}
+			if(Stepper_Counter_2==1)   {	HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, GPIO_PIN_RESET);		}
+		}
+	}
+}
 
 /* USER CODE END PFP */
 
@@ -103,7 +213,7 @@ int main(void)
   MX_TIM10_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+HAL_TIM_Base_Start_IT(&htim10);
   /* USER CODE END 2 */
 
   /* Infinite loop */

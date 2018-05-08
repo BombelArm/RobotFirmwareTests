@@ -6,6 +6,7 @@
  */
 #include <string.h>
 #include <stdlib.h>
+#include "Steper.h"
 #ifndef COMMS_H_
 #define COMMS_H_
 #define WORD_LENGTH 17
@@ -69,7 +70,7 @@ void Mot_init_buf(incoming_buffer * connection)
 	case 1:
 		if(strcmp(connection->Last_Msg, FIN)==0)
 		{
-		ST_MOT_INIT
+		ST_MOT_Init(connection->container.Mot,connection->container.Deadzone,connection->container.Acceleration,connection->container.Min_Per);
 		send(connection,ACK);
 		connection->container.what=0;
 		}
