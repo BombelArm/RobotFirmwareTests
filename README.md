@@ -39,7 +39,7 @@
 17 - PB6 (SPI) ENCODER_CS2
 
 18
-
+git
 19 - PC7 (SPI) ENCODER_CS1
 
 20
