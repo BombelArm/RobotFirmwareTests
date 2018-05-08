@@ -79,7 +79,10 @@
 37 
 
 38
+//
+USART PINS
 
-
+PB7- USART1_RX
+PB6- USART1_TX
 
 
