@@ -217,12 +217,13 @@ int main(void)
   HAL_UART_Receive_IT(&huart1, &buffer.Byte, 1);
 
   HAL_TIM_Base_Start_IT(&htim10);
-	ST_MOT_Init(0,0.1,5000,500);
+	//ST_MOT_Init(0,0.1,5000,500);
+
 
 
 	//ST_MOT_Init(1,0.1,10000,100);
 	//ST_MOT_Init(2,0.1,10000,100); 	// initial engine values
-	Movement_Prep(0,1.2);				    // selecting stepper, and position i radians.
+	//Movement_Prep(0,1.2);				    // selecting stepper, and position i radians.
 
   /* USER CODE END 2 */
 

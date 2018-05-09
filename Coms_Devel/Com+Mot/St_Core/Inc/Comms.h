@@ -45,7 +45,7 @@ typedef struct
 } incoming_buffer;
 void send(incoming_buffer * connection,char* data)
 {
-	strcpy(connection->Send_,data);
+	sprintf(connection->Send_,"%s%c",data,'\n');
 	connection->flag=1;
 }
 
@@ -140,38 +140,33 @@ if(connection->status==2)
 	{
 		if(strcmp(connection->Last_Msg,SYS_INFO)==0)
 		{
-			strcpy(connection->Send_,SYN_ACK);
-			connection->flag=1;
+			send(connection, SYN_ACK);
 
 
 		}
 		else if(strcmp(connection->Last_Msg,MOT_INIT)==0)
 		{
 
-			strcpy(connection->Send_,OK);
-			connection->flag=1;
+			send(connection, OK);
 			connection->Incoming_packets=4;
 			connection->container.what=1;
 			//waiting for next bits
 		}
 		else if(strcmp(connection->Last_Msg,MOT_SET_POS)==0 )
 		{
-			strcpy(connection->Send_,OK);
-			connection->flag=1;
+			send(connection, OK);
 			connection->Incoming_packets=2;
 			connection->container.what=2;
 			//waiting for next bits
 		}
 		else if(strcmp(connection->Last_Msg,PING)==0)
 		{
-			strcpy(connection->Send_,PING);
-			connection->flag=1;
+			send(connection, PING);
 			//count how many bits
 		}
 		else
 		{
-			strcpy(connection->Send_,ERR);
-			connection->flag=1;
+			send(connection, ERR);
 		}
 	}
 	else if(connection->container.what==1)
@@ -189,8 +184,7 @@ else if(connection->status==1)
 {
 	if(strcmp(connection->Last_Msg,ACK)==0)
 	{
-	strcpy(connection->Send_,OK);
-	connection->flag=1;
+		send(connection, OK);
 	connection->status=2;
 	connection->container.what=0;
 	}
@@ -204,16 +198,14 @@ else if(connection->status==0)
 {
 	if(strcmp(connection->Last_Msg, SYN)==0)
 	{
-	strcpy(connection->Send_,SYN_ACK);
-	connection->status=1;
-	connection->flag=1;
+		send(connection, SYN_ACK);
+		connection->status=1;
 
 	}
 	else
 	{
 
-		strcpy(connection->Send_,ERR);
-		connection->flag=1;
+		send(connection, ERR);
 
 	}
 }
@@ -255,8 +247,7 @@ for(a=0;a<WORD_LENGTH;++a)
 	connection->Last_Msg[a]='\0' ;
 }
 iter=0;
-connection->flag=1;
-strcpy(connection->Send_,ERR);
+send(connection, ERR);
 }
 
 }
