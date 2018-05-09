@@ -63,7 +63,7 @@ static void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-uint8_t Received[8];
+//uint8_t Received[8];
 char Template[]="Light_go";
 incoming_buffer buffer;
 int size=16;
@@ -83,8 +83,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 				{
 					HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
 					HAL_UART_Transmit_IT(&huart1, buffer.Send_, size);
-
-
+					//HAL_UART_Transmit_IT(&huart1, buffer.Send_, size);
 					buffer.flag=0;
 				}
 
@@ -197,7 +196,9 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  buffer.container.what=0;
+  buffer.flag=0;
+  buffer.status=0;
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -213,7 +214,16 @@ int main(void)
   MX_TIM10_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-HAL_TIM_Base_Start_IT(&htim10);
+  HAL_UART_Receive_IT(&huart1, &buffer.Byte, 1);
+
+  HAL_TIM_Base_Start_IT(&htim10);
+	ST_MOT_Init(0,0.1,5000,500);
+
+
+	//ST_MOT_Init(1,0.1,10000,100);
+	//ST_MOT_Init(2,0.1,10000,100); 	// initial engine values
+	Movement_Prep(0,1.2);				    // selecting stepper, and position i radians.
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -309,7 +319,7 @@ static void MX_USART1_UART_Init(void)
 {
 
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 9600;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;

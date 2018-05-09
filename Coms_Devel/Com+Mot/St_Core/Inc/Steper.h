@@ -1,7 +1,11 @@
 #include "stm32f4xx_hal.h"
 #include <stdlib.h>
+#include <math.h>
 
-
+typedef struct
+{
+//przeniesc na struktury
+}motor_type;
 
 int Maximal_Pulse_Period[3];
 
@@ -48,6 +52,7 @@ long double Ramp_period[3];
 
  */
 int rotation_Dir_[3];
+const float con=0.005;
 /*
  rotation_Dir_[0]=0;
  rotation_Dir_[1]=0;
@@ -55,11 +60,11 @@ int rotation_Dir_[3];
  */
 ///////////////////////////////////
 // Timer interupt variables
-int Period_memory_0=1000;
-int Period_memory_1=1000;
-int Period_memory_2=1000;
+int Period_memory_0=5000;
+int Period_memory_1=5000;
+int Period_memory_2=5000;
 
-
+float total_distance[3];
 
 
 ///////////////////////////////////////////////////////////// Zmiana POzycji silnika//////////////////////////////////////////
@@ -67,11 +72,11 @@ int Period_memory_2=1000;
 void ST_MOT_Init(int Stepper_ID_,float dead_zone,double Acceleration_, int Min_Period)
 {
 
-	Stepper_period[Stepper_ID_]=1000;			//initial period
+	Stepper_period[Stepper_ID_]=5000;			//initial period
 
 	Stepper_acceleration[Stepper_ID_]=Acceleration_/1000000000;
 
-	Maximal_Pulse_Period[Stepper_ID_]=8000;		//Const in #define
+	Maximal_Pulse_Period[Stepper_ID_]=5000;		//Const in #define
 
 	Min_stepper_period[Stepper_ID_]=Min_Period;		// Period from anlge speed //400;
 
@@ -79,12 +84,21 @@ void ST_MOT_Init(int Stepper_ID_,float dead_zone,double Acceleration_, int Min_P
 
 	Dead_zone[Stepper_ID_]=dead_zone;			// accuracy of feedback from encoders
 
+	position_from_encoder[Stepper_ID_]=0;
+
 
 
 }
 
 inline void pos_put(int Stepper_ID_)
 {
+	/*
+	if(rotation_Dir_[Stepper_ID_]==0)
+		position_from_encoder[Stepper_ID_]=(position_from_encoder[Stepper_ID_] - con);
+	else
+		position_from_encoder[Stepper_ID_]=(position_from_encoder[Stepper_ID_] + con);
+*/
+
 //	encoder_read(&position_from_encoder[Stepper_ID_],Stepper_ID_);
 }
 
@@ -93,13 +107,14 @@ inline void pos_put(int Stepper_ID_)
 ///////////////////////////////////////////////////////   Przyspieszenie Linniowe  /////////////////////////////////////////////////////////
 void Movement_Prep(int Stepper_ID_, float set_position)
 {
-	if(set_position<end_stop_up[Stepper_ID_]&&set_position>end_stop_down[Stepper_ID_])
+	//if(set_position<end_stop_up[Stepper_ID_]&&set_position>end_stop_down[Stepper_ID_])
 
-	{
+	//{
 		Ramp_period[Stepper_ID_]=Maximal_Pulse_Period[Stepper_ID_];
 		start_position[Stepper_ID_]=position_from_encoder[Stepper_ID_];
 		end_position[Stepper_ID_]=set_position;
-	}
+
+	//}
 
 
 
@@ -124,11 +139,10 @@ return 0;
 void Linear_acceleration(int Stepper_ID_, int dir)
 {
 
-float distance=abs(position_from_encoder[Stepper_ID_]-end_position[Stepper_ID_]);
-float total_distance=abs(start_position[Stepper_ID_]-end_position[Stepper_ID_]);
+	float distance=fabsf(position_from_encoder[Stepper_ID_]-end_position[Stepper_ID_]);
+	float total_distance=fabsf(start_position[Stepper_ID_]-end_position[Stepper_ID_]);
 
-	if(distance> (total_distance)/2 )
-
+	if(distance > total_distance/2)
 	{
 		//ramp up
 		Ramp_period[Stepper_ID_]=(Ramp_period[Stepper_ID_]/(1+(Stepper_acceleration[Stepper_ID_]*Ramp_period[Stepper_ID_])));
@@ -165,6 +179,7 @@ float total_distance=abs(start_position[Stepper_ID_]-end_position[Stepper_ID_]);
 		if (Ramp_period[Stepper_ID_]>Maximal_Pulse_Period[Stepper_ID_])
 		{
 			Stepper_period[Stepper_ID_]=Maximal_Pulse_Period[Stepper_ID_];
+			Ramp_period[Stepper_ID_]=Maximal_Pulse_Period[Stepper_ID_];
 		}
 		else if(Ramp_period[Stepper_ID_] < Min_stepper_period[Stepper_ID_])
 		{
@@ -184,17 +199,17 @@ void Next_Lin_Period(int Stepper_ID_)
 {
 
 
-	if(end_position[Stepper_ID_]<position_from_encoder[Stepper_ID_]+Dead_zone[Stepper_ID_])
+	if(end_position[Stepper_ID_]<position_from_encoder[Stepper_ID_]-Dead_zone[Stepper_ID_])
 	{
 		rotation_Dir_[Stepper_ID_]=0;
-		//position_from_encoder[Stepper_ID_]=1+position_from_encoder[Stepper_ID_];	//debug
+		position_from_encoder[Stepper_ID_]=position_from_encoder[Stepper_ID_]-0.0005;	//debug
 		Linear_acceleration(Stepper_ID_,1);
-		//Stepper_period[Stepper_ID_]=200;
+		//Stepper_period[Stepper_ID_]=800;
 	}
-	else if(end_position[Stepper_ID_]>position_from_encoder[Stepper_ID_]-Dead_zone[Stepper_ID_])
+	else if(end_position[Stepper_ID_]>position_from_encoder[Stepper_ID_]+Dead_zone[Stepper_ID_])
 	{
 		rotation_Dir_[Stepper_ID_]=1;
-		//position_from_encoder[Stepper_ID_]=position_from_encoder[Stepper_ID_]-1;//debug
+		position_from_encoder[Stepper_ID_]=position_from_encoder[Stepper_ID_]+0.0005;//debug
 		Linear_acceleration(Stepper_ID_,0);
 		//Stepper_period[Stepper_ID_]=200;
 

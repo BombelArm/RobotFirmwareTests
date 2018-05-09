@@ -48,26 +48,28 @@ void send(incoming_buffer * connection,char* data)
 	strcpy(connection->Send_,data);
 	connection->flag=1;
 }
+
 void Mot_init_buf(incoming_buffer * connection)
 {
+
 	switch (connection->Incoming_packets) {
-	case 5:
+	case 4:
 		connection->container.Mot=atoi(connection->Last_Msg);
 		send(connection,ACK);
 		break;
-	case 4:
+	case 3:
 		connection->container.Deadzone=atof(connection->Last_Msg);
 		send(connection,ACK);
 		break;
-	case 3:
+	case 2:
 		connection->container.Acceleration=atof(connection->Last_Msg);
 		send(connection,ACK);
 		break;
-	case 2:
+	case 1:
 		connection->container.Min_Per=atoi(connection->Last_Msg);
 		send(connection,ACK);
 		break;
-	case 1:
+	case 0:
 		if(strcmp(connection->Last_Msg, FIN)==0)
 		{
 		ST_MOT_Init(connection->container.Mot,connection->container.Deadzone,connection->container.Acceleration,connection->container.Min_Per);
@@ -83,12 +85,42 @@ void Mot_init_buf(incoming_buffer * connection)
 		break;
 
 	}
-
+	connection->Incoming_packets--;
 }
 
 void Mot_setpoint_buf(incoming_buffer * connection)
 {
+	switch (connection->Incoming_packets)
+	{
+		case 2:
+			connection->container.Mot=atoi(connection->Last_Msg);
+			send(connection,ACK);
+			break;
+		case 1:
+			connection->container.Position=atof(connection->Last_Msg);
+			send(connection,ACK);
+			break;
+		case 0:
+			if(strcmp(connection->Last_Msg, FIN)==0)
+			{
+			Movement_Prep(connection->container.Mot,connection->container.Position);
+			send(connection,ACK);
+			connection->container.what=0;
+			}
+			else
+			{
+			send(connection,ERR);
+			connection->container.what=0;
+			}
 
+			break;
+
+
+
+
+
+	}
+	connection->Incoming_packets--;
 }
 
 void comms(incoming_buffer* connection)
@@ -118,16 +150,15 @@ if(connection->status==2)
 
 			strcpy(connection->Send_,OK);
 			connection->flag=1;
-			connection->Incoming_packets=5;
+			connection->Incoming_packets=4;
 			connection->container.what=1;
-
 			//waiting for next bits
 		}
 		else if(strcmp(connection->Last_Msg,MOT_SET_POS)==0 )
 		{
 			strcpy(connection->Send_,OK);
 			connection->flag=1;
-			connection->Incoming_packets=3;
+			connection->Incoming_packets=2;
 			connection->container.what=2;
 			//waiting for next bits
 		}
@@ -151,10 +182,7 @@ if(connection->status==2)
 	{
 		Mot_setpoint_buf(connection);
 	}
-	else
-	{
-		connection->container.what=0;
-	}
+
 }
 
 else if(connection->status==1)
@@ -172,7 +200,7 @@ else if(connection->status==1)
 	}
 }
 
-if(connection->status==0)
+else if(connection->status==0)
 {
 	if(strcmp(connection->Last_Msg, SYN)==0)
 	{
@@ -188,8 +216,8 @@ if(connection->status==0)
 		connection->flag=1;
 
 	}
-
 }
+
 }
 
 
@@ -202,19 +230,15 @@ if(connection->Byte=='\n')
 	connection->Last_Msg[iter]='\0';
 	comms(connection);
 
-
-
 	for(a=0;a<WORD_LENGTH;)
 	{
 		connection->Last_Msg[a]='\0' ;
 		a++;
 	}
-
 	iter=0;
 }
 else if(connection->Byte=='\0')
 		{
-
 		}
 else
 {
