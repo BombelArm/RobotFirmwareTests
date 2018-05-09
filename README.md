@@ -39,7 +39,7 @@
 17 - PB6 (SPI) ENCODER_CS2
 
 18
-
+git
 19 - PC7 (SPI) ENCODER_CS1
 
 20
@@ -79,7 +79,10 @@
 37 
 
 38
+//
+USART PINS
 
-
+PB7- USART1_RX
+PB6- USART1_TX
 
 
