@@ -45,7 +45,7 @@ struct motion_node{
 
 typedef struct motion_node motion_node;
 
-motion_node motion_nodes[STEPPER_N]; /**< array of motion node that are related to stepper motors used by the microcontroller */
+motion_node motion_nodes[JOINTS_N]; /**< array of motion node that are related to stepper motors used by the microcontroller */
 
 /**
  * Initialization function.

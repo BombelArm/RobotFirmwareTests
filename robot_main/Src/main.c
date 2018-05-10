@@ -45,8 +45,8 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
-#define MOTORS_ENABLED 1
-
+#define MOTORS_ENABLED  1
+#define FANS_ENABLED	1
 
 /* USER CODE END Includes */
 
@@ -59,7 +59,7 @@ uint16_t motor1_speed;
 float encoder_0;
 float encoder_1;
 float encoder_2;
-
+uint8_t received1;
 uint8_t data1[50];
 uint16_t size1=0;
 
@@ -68,14 +68,13 @@ uint16_t size1=0;
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-
+uint8_t data=1;
 /* USER CODE END 0 */
 
 /**
@@ -115,42 +114,44 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
+
   HAL_TIM_Base_Start_IT(&htim2);
   HAL_TIM_Base_Start_IT(&htim3);
   HAL_TIM_Base_Start_IT(&htim4);
 
+
   HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, MOTORS_ENABLED);
-  HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, FANS_ENABLED);
   HAL_GPIO_WritePin(MOTOR0_STEP_GPIO_Port,MOTOR0_STEP_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(MOTOR1_STEP_GPIO_Port,MOTOR1_STEP_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(MOTOR2_STEP_GPIO_Port,MOTOR2_STEP_Pin, GPIO_PIN_RESET);
 
 
+
+  c_communicationInit();
+/*
   s_motorsInit();
   m_motionControllerInit();
 
-
-/*
   s_enableAll();
-  m_enableAll(0);
+  m_enableAll();
 
   m_setPosition(0,0);
   m_setPosition(1,0);
   m_setPosition(2,0);
 */
 
+
   /*m_enable(2);
   m_setPosition(2,0);*/
 
   /* USER CODE END 2 */
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
   while (1)
   {
   /* USER CODE END WHILE */
-
   /* USER CODE BEGIN 3 */
 
   }

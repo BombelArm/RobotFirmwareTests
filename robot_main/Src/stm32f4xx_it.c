@@ -34,6 +34,7 @@
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx.h"
 #include "stm32f4xx_it.h"
+#include "communication.h"
 
 /* USER CODE BEGIN 0 */
 int i=0;
@@ -44,7 +45,8 @@ extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
 extern UART_HandleTypeDef huart2;
-
+extern uint8_t received1;
+extern uint8_t received;
 /******************************************************************************/
 /*            Cortex-M4 Processor Interruption and Exception Handlers         */ 
 /******************************************************************************/
@@ -150,7 +152,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
  }else if(htim->Instance == TIM4){
 	 m_control();
  }
-
 }
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+ 	 c_msgReceivedCallback();
+ }
+
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

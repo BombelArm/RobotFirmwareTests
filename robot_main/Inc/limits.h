@@ -8,9 +8,9 @@
 #ifndef LIMITS_H_
 #define LIMITS_H_
 
-#define STEPPER_N	3
+#define JOINTS_N		3	/**<Degree of freedom */
 
-#define	HW_MOTOR_MIN_SPEED	37
+#define	HW_MOTOR_MIN_SPEED	37	
 #define HW_MOTOR_MAX_SPEED	200
 
 #define JOINT0_MIN_SPEED 20

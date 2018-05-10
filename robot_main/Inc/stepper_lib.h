@@ -12,9 +12,6 @@
 #include "main.h"
 #include "limits.h"
 
-
-#define STEPPER_N	3 /**< defines the number of stepper motors that are used*/
-
 /** @file stepper_lib.h
  *  @brief Function prototypes and public variables for stepper motor control
  *
@@ -44,7 +41,7 @@ struct stepper{
 };
 typedef struct stepper stepper;
 
-stepper motors[STEPPER_N]; /**< array of stepper motors that are used by the microcontroller */
+stepper motors[JOINTS_N]; /**< array of stepper motors that are used by the microcontroller */
 int steps=0;
 
 

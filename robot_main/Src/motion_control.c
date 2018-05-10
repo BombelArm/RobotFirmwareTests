@@ -10,25 +10,25 @@
 
 
 void m_motionControllerInit(){
-	float p_limits[STEPPER_N][2]={
+	float p_limits[JOINTS_N][2]={
 			{JOINT0_MAX_POSITION, JOINT0_MIN_POSITION},
 			{JOINT1_MAX_POSITION, JOINT1_MIN_POSITION},
 			{JOINT2_MAX_POSITION, JOINT2_MIN_POSITION}
 	};
 
-	float a_limits[STEPPER_N]={
+	float a_limits[JOINTS_N]={
 			JOINT0_MAX_ACCEL,
 			JOINT1_MAX_ACCEL,
 			JOINT2_MAX_ACCEL
 	};
 
-	int		s_limits[STEPPER_N][2]={
+	int		s_limits[JOINTS_N][2]={
 			{JOINT0_MAX_SPEED, JOINT0_MIN_SPEED},
 			{JOINT1_MAX_SPEED, JOINT1_MIN_SPEED},
 			{JOINT2_MAX_SPEED, JOINT2_MIN_SPEED}
 	};
 
-	for(int i=0;i<STEPPER_N;i++){
+	for(int i=0;i<JOINTS_N;i++){
 		motion_nodes[i].max_position=p_limits[i][0];
 		motion_nodes[i].min_position=p_limits[i][1];
 
@@ -41,7 +41,7 @@ void m_motionControllerInit(){
 void m_control(){
 	float position,goalPosition;
 
-	for(int i=0;i<STEPPER_N;i++){
+	for(int i=0;i<JOINTS_N;i++){
 		if(motion_nodes[i].enabled != 1)continue;
 
 		position=motion_nodes[i].actual_position;
@@ -72,13 +72,13 @@ void m_updatePosition(uint8_t motor){
 }
 
 void m_updateAllPosition(){
-	for(int i=0;i<STEPPER_N;i++){
+	for(int i=0;i<JOINTS_N;i++){
 		e_read(&(motion_nodes[i].actual_position),i);
 
 	}
 }
 
-void m_setPosition(uint8_t motor,float position,uint32_t speed){
+void m_setPosition(uint8_t motor,float position,uint32_t time){
 	if(position > motion_nodes[motor].max_position || position<motion_nodes[motor].min_position)return;
 
 	motion_nodes[motor].goal_position=position;
@@ -107,7 +107,7 @@ void m_enable(uint8_t motor){
 	motion_nodes[motor].enabled=1;
 }
 void m_enableAll(){
-	for(int i=0;i<STEPPER_N;i++){
+	for(int i=0;i<JOINTS_N;i++){
 		motion_nodes[i].enabled=1;
 	}
 }
@@ -115,7 +115,7 @@ void m_disable(uint8_t motor){
 	motion_nodes[motor].enabled=0;
 }
 void m_disableAll(){
-	for(int i=0;i<STEPPER_N;i++){
+	for(int i=0;i<JOINTS_N;i++){
 			motion_nodes[i].enabled=0;
 	}
 }

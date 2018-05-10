@@ -11,7 +11,7 @@
 #define TASK_BUFFER_SIZE 2
 
 struct task{
-	int   task_type;
+	uint8_t   task_type;
 	float time;
 
 	float joint0;
