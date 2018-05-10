@@ -52,6 +52,9 @@ int pb_set=0;
 int pb_reset=0;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+uint8_t received;
+
+
 int push_btn=0;
 int led_on=1;
 /* USER CODE END PV */
@@ -62,6 +65,31 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 void debounce_PB();
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+
+	uint8_t Data[50]; // Tablica przechowujaca wysylana wiadomosc.
+	uint16_t size = 0; // Rozmiar wysylanej wiadomosci
+	// Odebrany znak zostaje przekonwertowany na liczbe calkowita i sprawdzony
+	// instrukcja warunkowa
+	switch (atoi(&received)) {
+	case 0: // Jezeli odebrany zostanie znak 0
+		size = sprintf(Data, "STOP\n\r");
+		HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+		break;
+
+	case 1: // Jezeli odebrany zostanie znak 1
+		size = sprintf(Data, "START\n\r");
+		HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+		break;
+
+	default: // Jezeli odebrano nieobslugiwany znak
+		size = sprintf(Data, "Odebrano nieznany znak: %c\n\r", received);
+		break;
+	}
+	//size=sprintf(Data,"%d",atoi(&received));
+	HAL_UART_Transmit_IT(&huart2, Data, size); // Rozpoczecie nadawania danych z wykorzystaniem przerwan
+	HAL_UART_Receive_IT(&huart2, &received, 1); // Ponowne włšczenie nasłuchiwania
+}
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -102,15 +130,16 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   HAL_TIM_Base_Start_IT(&htim2);
-
   HAL_TIM_Base_Stop_IT(&htim2);
+  HAL_UART_Receive_IT(&huart2,&received,1);
+  LED_OFF;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(HAL_GPIO_ReadPin(B1_GPIO_Port,B1_Pin) == GPIO_PIN_SET){
+	  /*if(HAL_GPIO_ReadPin(B1_GPIO_Port,B1_Pin) == GPIO_PIN_SET){
 		  HAL_TIM_Base_Start_IT(&htim2);
 	  }
 
@@ -118,7 +147,7 @@ int main(void)
 		  LED_OFF;
 	  }else else if(push_btn == 0){
 		  led_on=0;
-	  }
+	  }*/
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
