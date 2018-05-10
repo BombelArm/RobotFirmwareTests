@@ -10,6 +10,11 @@
 
 #define TASK_BUFFER_SIZE 2
 
+enum task_type{
+	configuration,
+	joint_space
+};
+
 struct task{
 	uint8_t   task_type;
 	float time;
@@ -18,11 +23,9 @@ struct task{
 	float joint1;
 	float joint2;
 };
-
 typedef struct task task;
 
 task buffer[TASK_BUFFER_SIZE];
-task *actual_task;
 
 
 

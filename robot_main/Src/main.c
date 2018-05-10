@@ -59,7 +59,6 @@ uint16_t motor1_speed;
 float encoder_0;
 float encoder_1;
 float encoder_2;
-uint8_t received1;
 uint8_t data1[50];
 uint16_t size1=0;
 

@@ -24,7 +24,7 @@ void c_msgReceivedCallback(){
 	float f2=10.12343;
 	// Odebrany znak zostaje przekonwertowany na liczbe calkowita i sprawdzony
 	// instrukcja warunkowa
-	switch (atoi(&received)) {
+/*	switch (atoi(&received)) {
 	case 0: // Jezeli odebrany zostanie znak 0
 		size = sprintf(Data, "STOP\n\r");
 		LED_OFF;
@@ -38,11 +38,11 @@ void c_msgReceivedCallback(){
 	default: // Jezeli odebrano nieobslugiwany znak
 		size = sprintf(Data, "Odebrano nieznany znak: %c\n\r", received);
 		break;
-	}
+	}*/
 	// 	size=sprintf(Data,"%d",atoi(&received));
 
-	// 	size=sprintf(Data,"%f",1);
-
+	size=sprintf(Data,"%1.3f",f1);
+//	size=sprintf(Data,"%d",size);
 	HAL_UART_Transmit_IT(&huart2, Data, size); // Rozpoczecie nadawania danych z wykorzystaniem przerwan
 	HAL_UART_Receive_IT(&huart2, &received, 1); // Ponowne włšczenie nasłuchiwania
 }
