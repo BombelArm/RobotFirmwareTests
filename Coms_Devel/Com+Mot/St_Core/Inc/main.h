@@ -55,16 +55,22 @@
 #define USART_TX_GPIO_Port GPIOA
 #define USART_RX_Pin GPIO_PIN_3
 #define USART_RX_GPIO_Port GPIOA
-#define LD2_Pin GPIO_PIN_5
-#define LD2_GPIO_Port GPIOA
+#define ENCODERS_SERIAL_CLOCK_Pin GPIO_PIN_5
+#define ENCODERS_SERIAL_CLOCK_GPIO_Port GPIOA
+#define ENCODERS_SERIAL_DATA_Pin GPIO_PIN_6
+#define ENCODERS_SERIAL_DATA_GPIO_Port GPIOA
 #define MOT_EABLE_Pin GPIO_PIN_4
 #define MOT_EABLE_GPIO_Port GPIOC
-#define DIR1_Pin GPIO_PIN_13
-#define DIR1_GPIO_Port GPIOB
-#define DIR3_Pin GPIO_PIN_14
+#define ENCODER_CS0_Pin GPIO_PIN_12
+#define ENCODER_CS0_GPIO_Port GPIOB
+#define DIR3_Pin GPIO_PIN_13
 #define DIR3_GPIO_Port GPIOB
-#define DIR2_Pin GPIO_PIN_15
+#define DIR2_Pin GPIO_PIN_14
 #define DIR2_GPIO_Port GPIOB
+#define DIR1_Pin GPIO_PIN_15
+#define DIR1_GPIO_Port GPIOB
+#define ENCODER_CS2_Pin GPIO_PIN_7
+#define ENCODER_CS2_GPIO_Port GPIOC
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
@@ -75,6 +81,8 @@
 #define STEP2_GPIO_Port GPIOB
 #define STEP3_Pin GPIO_PIN_5
 #define STEP3_GPIO_Port GPIOB
+#define ENCODER_CS1_Pin GPIO_PIN_6
+#define ENCODER_CS1_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
 /**

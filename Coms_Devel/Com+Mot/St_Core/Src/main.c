@@ -38,16 +38,19 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
+#include "spi.h"
+#include "tim.h"
+#include "usart.h"
+#include "gpio.h"
 
 /* USER CODE BEGIN Includes */
 #include "Comms.h"
+//#include "encoder_lib.h"
+//#include "Steper.h"
+
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
-TIM_HandleTypeDef htim10;
-
-UART_HandleTypeDef huart1;
-UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
@@ -56,22 +59,18 @@ UART_HandleTypeDef huart2;
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
-static void MX_USART2_UART_Init(void);
-static void MX_TIM10_Init(void);
-static void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 //uint8_t Received[8];
-char Template[]="Light_go";
+int encoder_update;
 incoming_buffer buffer;
 int size=16;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	gather(&buffer);
-	HAL_UART_Receive_IT(&huart1, &buffer.Byte, 1);
+	HAL_UART_Receive_IT(&huart2, &buffer.Byte, 1);
 
 }
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
@@ -81,15 +80,22 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 		if(buffer.flag==1)
 				{
-					HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
-					HAL_UART_Transmit_IT(&huart1, buffer.Send_, size);
+					//HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
+					HAL_UART_Transmit_IT(&huart2, buffer.Send_, size);
 					//HAL_UART_Transmit_IT(&huart1, buffer.Send_, size);
 					buffer.flag=0;
 				}
 
 
 		Stepper_Counter_0++;	 Stepper_Counter_1++ ;	 Stepper_Counter_2++;
-
+		encoder_update++;
+		if(encoder_update>1000)
+		{
+			e_read(&position_from_encoder[0],0);
+			e_read(&position_from_encoder[1],1);
+			e_read(&position_from_encoder[2],2);
+			encoder_update=0;
+		}
 
 
 		//////////////////////////Stepper_0///////////////////////////////
@@ -99,7 +105,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		if(Stepper_Counter_0 > Period_memory_0)
 		{
 
-			pos_put(0);
+			//e_read(&position_from_encoder[0],0);
 			Stepper_Counter_0 = 0;
 			Next_Lin_Period(0);
 			Period_memory_0 = Stepper_period[0];             //buffored value being loaded if counter reaches requested previous period.
@@ -127,7 +133,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		if(Stepper_Counter_1 > Period_memory_1)
 		{
 
-			pos_put(0);
+			//e_read(&position_from_encoder[1],1);
 			Stepper_Counter_1 = 0;      	// reset licznika
 			Next_Lin_Period(1);
 			Period_memory_1 = Stepper_period[1];
@@ -152,7 +158,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		if(Stepper_Counter_2 > Period_memory_2)
 		{
 
-			pos_put(0);
+			//e_read(&position_from_encoder[2],2);
+
 			Stepper_Counter_2 = 0;
 			Next_Lin_Period(2);
 			Period_memory_2 = Stepper_period[2];
@@ -212,18 +219,17 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_TIM10_Init();
-  MX_USART1_UART_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  HAL_UART_Receive_IT(&huart1, &buffer.Byte, 1);
-
+  HAL_UART_Receive_IT(&huart2, &buffer.Byte, 1);
   HAL_TIM_Base_Start_IT(&htim10);
-	//ST_MOT_Init(0,0.1,5000,500);
+ // ST_MOT_Init(2,0.1,5000,200);
 
 
 
 	//ST_MOT_Init(1,0.1,10000,100);
 	//ST_MOT_Init(2,0.1,10000,100); 	// initial engine values
-	//Movement_Prep(0,1.2);				    // selecting stepper, and position i radians.
+	//Movement_Prep(2,0);				    // selecting stepper, and position iN radians.
 
   /* USER CODE END 2 */
 
@@ -297,119 +303,6 @@ void SystemClock_Config(void)
 
   /* SysTick_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
-}
-
-/* TIM10 init function */
-static void MX_TIM10_Init(void)
-{
-
-  htim10.Instance = TIM10;
-  htim10.Init.Prescaler = 14;
-  htim10.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim10.Init.Period = 20;
-  htim10.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  if (HAL_TIM_Base_Init(&htim10) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-}
-
-/* USART1 init function */
-static void MX_USART1_UART_Init(void)
-{
-
-  huart1.Instance = USART1;
-  huart1.Init.BaudRate = 9600;
-  huart1.Init.WordLength = UART_WORDLENGTH_8B;
-  huart1.Init.StopBits = UART_STOPBITS_1;
-  huart1.Init.Parity = UART_PARITY_NONE;
-  huart1.Init.Mode = UART_MODE_TX_RX;
-  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart1) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-}
-
-/* USART2 init function */
-static void MX_USART2_UART_Init(void)
-{
-
-  huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
-  huart2.Init.WordLength = UART_WORDLENGTH_8B;
-  huart2.Init.StopBits = UART_STOPBITS_1;
-  huart2.Init.Parity = UART_PARITY_NONE;
-  huart2.Init.Mode = UART_MODE_TX_RX;
-  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart2) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-}
-
-/** Configure pins as 
-        * Analog 
-        * Input 
-        * Output
-        * EVENT_OUT
-        * EXTI
-*/
-static void MX_GPIO_Init(void)
-{
-
-  GPIO_InitTypeDef GPIO_InitStruct;
-
-  /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-  __HAL_RCC_GPIOH_CLK_ENABLE();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(MOT_EABLE_GPIO_Port, MOT_EABLE_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, DIR1_Pin|DIR3_Pin|DIR2_Pin|STEP1_Pin 
-                          |STEP2_Pin|STEP3_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin : B1_Pin */
-  GPIO_InitStruct.Pin = B1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : LD2_Pin */
-  GPIO_InitStruct.Pin = LD2_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : MOT_EABLE_Pin */
-  GPIO_InitStruct.Pin = MOT_EABLE_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(MOT_EABLE_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : DIR1_Pin DIR3_Pin DIR2_Pin STEP1_Pin 
-                           STEP2_Pin STEP3_Pin */
-  GPIO_InitStruct.Pin = DIR1_Pin|DIR3_Pin|DIR2_Pin|STEP1_Pin 
-                          |STEP2_Pin|STEP3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
 }
 
 /* USER CODE BEGIN 4 */
