@@ -1,11 +1,10 @@
-#include "stm32f4xx_hal.h"
+//#include "stm32f4xx_hal.h"
+#ifndef STEPPER
+#define STEPPER
 #include <stdlib.h>
 #include <math.h>
+#include "encoder_lib.h"
 
-typedef struct
-{
-//przeniesc na struktury
-}motor_type;
 
 int Maximal_Pulse_Period[3];
 
@@ -16,8 +15,6 @@ int steps[3];
 float start_position[3];
 
 float end_position[3];
-
-float encoder=1;
 
 float requested_position[3];
 
@@ -67,16 +64,14 @@ int Period_memory_2=5000;
 float total_distance[3];
 
 
-///////////////////////////////////////////////////////////// Zmiana POzycji silnika//////////////////////////////////////////
-
 void ST_MOT_Init(int Stepper_ID_,float dead_zone,double Acceleration_, int Min_Period)
 {
 
-	Stepper_period[Stepper_ID_]=5000;			//initial period
+	Stepper_period[Stepper_ID_]=4000;			//initial period
 
 	Stepper_acceleration[Stepper_ID_]=Acceleration_/1000000000;
 
-	Maximal_Pulse_Period[Stepper_ID_]=5000;		//Const in #define
+	Maximal_Pulse_Period[Stepper_ID_]=4000;		//Const in #define
 
 	Min_stepper_period[Stepper_ID_]=Min_Period;		// Period from anlge speed //400;
 
@@ -86,21 +81,12 @@ void ST_MOT_Init(int Stepper_ID_,float dead_zone,double Acceleration_, int Min_P
 
 	position_from_encoder[Stepper_ID_]=0;
 
+	HAL_GPIO_WritePin(MOT_EABLE_GPIO_Port,MOT_EABLE_Pin,GPIO_PIN_SET);
 
 
 }
 
-inline void pos_put(int Stepper_ID_)
-{
-	/*
-	if(rotation_Dir_[Stepper_ID_]==0)
-		position_from_encoder[Stepper_ID_]=(position_from_encoder[Stepper_ID_] - con);
-	else
-		position_from_encoder[Stepper_ID_]=(position_from_encoder[Stepper_ID_] + con);
-*/
 
-//	encoder_read(&position_from_encoder[Stepper_ID_],Stepper_ID_);
-}
 
 
 
@@ -201,15 +187,17 @@ void Next_Lin_Period(int Stepper_ID_)
 
 	if(end_position[Stepper_ID_]<position_from_encoder[Stepper_ID_]-Dead_zone[Stepper_ID_])
 	{
+		//HAL_GPIO_WritePin(MOT_EABLE_GPIO_Port,MOT_EABLE_Pin,GPIO_PIN_SET);
 		rotation_Dir_[Stepper_ID_]=0;
-		position_from_encoder[Stepper_ID_]=position_from_encoder[Stepper_ID_]-0.0005;	//debug
+		//position_from_encoder[Stepper_ID_]=position_from_encoder[Stepper_ID_]-0.0005;	//debug
 		Linear_acceleration(Stepper_ID_,1);
 		//Stepper_period[Stepper_ID_]=800;
 	}
 	else if(end_position[Stepper_ID_]>position_from_encoder[Stepper_ID_]+Dead_zone[Stepper_ID_])
 	{
+		//HAL_GPIO_WritePin(MOT_EABLE_GPIO_Port,MOT_EABLE_Pin,GPIO_PIN_SET);
 		rotation_Dir_[Stepper_ID_]=1;
-		position_from_encoder[Stepper_ID_]=position_from_encoder[Stepper_ID_]+0.0005;//debug
+		//position_from_encoder[Stepper_ID_]=position_from_encoder[Stepper_ID_]+0.0005;//debug
 		Linear_acceleration(Stepper_ID_,0);
 		//Stepper_period[Stepper_ID_]=200;
 
@@ -217,6 +205,7 @@ void Next_Lin_Period(int Stepper_ID_)
 	else
 	{
 		Stepper_period[Stepper_ID_]=0;
+		//HAL_GPIO_WritePin(MOT_EABLE_GPIO_Port,MOT_EABLE_Pin,GPIO_PIN_RESET);
 	}
 }
 
@@ -323,3 +312,5 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	}
 }
 */
+
+#endif
