@@ -126,7 +126,7 @@ int main(void)
   HAL_GPIO_WritePin(MOTOR2_STEP_GPIO_Port,MOTOR2_STEP_Pin, GPIO_PIN_RESET);
 
 
-
+  HAL_GPIO_WritePin(ENCODERS_SERIAL_CLOCK_GPIO_Port,ENCODERS_SERIAL_CLOCK_Pin,GPIO_PIN_RESET);
   c_communicationInit();
 /*
   s_motorsInit();
