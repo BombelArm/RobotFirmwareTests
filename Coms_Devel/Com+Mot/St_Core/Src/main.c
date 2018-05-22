@@ -65,7 +65,9 @@ void SystemClock_Config(void);
 //uint8_t Received[8];
 int encoder_update;
 incoming_buffer buffer;
-int size=16;
+int size=32;
+float e1,e2,e3;
+
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
@@ -75,6 +77,15 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 }
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
+
+	if(htim->Instance == TIM11)
+	{
+				e_read(&position_from_encoder[0],0);
+				e_read(&position_from_encoder[1],1);
+				e_read(&position_from_encoder[2],2);
+
+	}
+
 
 	if(htim->Instance == TIM10){ //
 
@@ -87,15 +98,17 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 				}
 
 
-		Stepper_Counter_0++;	 Stepper_Counter_1++ ;	 Stepper_Counter_2++;
-		encoder_update++;
+		Stepper_Counter_0++;	 Stepper_Counter_1++ ;	 Stepper_Counter_2++;	encoder_update++;
 		if(encoder_update>1000)
 		{
+
 			e_read(&position_from_encoder[0],0);
 			e_read(&position_from_encoder[1],1);
 			e_read(&position_from_encoder[2],2);
 			encoder_update=0;
+
 		}
+
 
 
 		//////////////////////////Stepper_0///////////////////////////////
@@ -219,11 +232,12 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_TIM10_Init();
-  MX_SPI1_Init();
   MX_TIM11_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_IT(&huart2, &buffer.Byte, 1);
   HAL_TIM_Base_Start_IT(&htim10);
+  HAL_TIM_Base_Start_IT(&htim11);
  // ST_MOT_Init(2,0.1,5000,200);
 
 
@@ -242,6 +256,7 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+
 
   }
   /* USER CODE END 3 */

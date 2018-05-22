@@ -9,20 +9,18 @@
 #define APPLICATION_USER_ENCODER_H_
 
 #include "stm32f4xx_hal.h"
+#include "spi.h"
+#include <math.h>
 
 #define ENCODER0_OFFSET -1473
 #define ENCODER1_OFFSET -1059
 #define ENCODER2_OFFSET -3312
 
-enum direc{
-	clockwise,
-	counter_clockwise
-};
 
-enum direc encoders_direc[3]={counter_clockwise, clockwise, counter_clockwise}; // {encoder_0, encoder_1, encoder_2}
 
-float			  e_bin2rad(uint16_t data_in,int cs)
-{
+ int encoders_direc[3]={1, 0, 1}; // {encoder_0, encoder_1, encoder_2}
+
+float bin2rad(uint16_t data_in,int cs){
 	float result;
 
 	if(data_in <2048 && data_in>=0){
@@ -31,12 +29,13 @@ float			  e_bin2rad(uint16_t data_in,int cs)
 		result=-(fabs(data_in-4096)*M_PI/2048);
 	}
 
-	if(encoders_direc[cs] == counter_clockwise){
+	if(encoders_direc[cs] == 1){
 		result*=-1;
 	}
 
 	return result;
 }
+
 HAL_StatusTypeDef e_read(float *data_in, int cs){
 
 	HAL_StatusTypeDef status;
@@ -81,10 +80,11 @@ HAL_StatusTypeDef e_read(float *data_in, int cs){
 	}
 
 	data&=0x0FFF;
-	(*data_in)=e_bin2rad(data,cs);
+	(*data_in)=bin2rad(data,cs);
 	//(*data_in)=data;
 
 	return status;
+
 }
 
 #endif /* APPLICATION_USER_ENCODER_H_ */

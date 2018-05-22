@@ -9,7 +9,7 @@
 #include "Steper.h"
 #ifndef COMMS_H_
 #define COMMS_H_
-#define WORD_LENGTH 17
+#define WORD_LENGTH 32
 
 char SYN[]= "SYN";
 char SYN_ACK[]= "SYN-ACK";
@@ -21,6 +21,7 @@ char MOT_SET_POS[]= "MSP";		//	 Data send prep
 char PING[]= "PING";
 char ERR[]= "ERROR";
 char FIN[]="FIN";
+char FIN_ACK[]="FIN-ACK";
 
 typedef struct
 {
@@ -43,8 +44,15 @@ typedef struct
 	char Send_[WORD_LENGTH];
 	type_container container;
 } incoming_buffer;
+
 void send(incoming_buffer * connection,char* data)
 {
+	int a;
+	for(a=0;a<WORD_LENGTH;++a)
+	{
+		connection->Send_[a]='\0' ;
+	}
+
 	sprintf(connection->Send_,"%s%c",data,'\n');
 	connection->flag=1;
 }
@@ -73,7 +81,7 @@ void Mot_init_buf(incoming_buffer * connection)
 		if(strcmp(connection->Last_Msg, FIN)==0)
 		{
 		ST_MOT_Init(connection->container.Mot,connection->container.Deadzone,connection->container.Acceleration,connection->container.Min_Per);
-		send(connection,ACK);
+		send(connection,FIN_ACK);
 		connection->container.what=0;
 		}
 		else
@@ -104,7 +112,7 @@ void Mot_setpoint_buf(incoming_buffer * connection)
 			if(strcmp(connection->Last_Msg, FIN)==0)
 			{
 			Movement_Prep(connection->container.Mot,connection->container.Position);
-			send(connection,ACK);
+			send(connection,FIN_ACK);
 			connection->container.what=0;
 			}
 			else
@@ -140,7 +148,14 @@ if(connection->status==2)
 	{
 		if(strcmp(connection->Last_Msg,SYS_INFO)==0)
 		{
-			send(connection, SYN_ACK);
+			/*
+					e_read(&position_from_encoder[0],0);
+					e_read(&position_from_encoder[1],1);
+					e_read(&position_from_encoder[2],2);
+*/
+					char string[16];
+					sprintf(string, "M1: %4.3f\nM2: %4.3f\nM3: %4.3f\n"  ,position_from_encoder[0],position_from_encoder[1],position_from_encoder[2]);
+					send(connection, string);
 
 
 		}
@@ -163,6 +178,9 @@ if(connection->status==2)
 		{
 			send(connection, PING);
 			//count how many bits
+
+
+
 		}
 		else
 		{

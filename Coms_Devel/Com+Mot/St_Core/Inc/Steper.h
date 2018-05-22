@@ -35,10 +35,7 @@ int Stepper_Counter_0=0;
 int Stepper_Counter_1=0;
 int Stepper_Counter_2=0;
 
-
-
-
-////////////////////////////////////
+//////////////////////////////////
 
 long int Stepper_period[3];
 long double Ramp_period[3];
@@ -82,6 +79,7 @@ void ST_MOT_Init(int Stepper_ID_,float dead_zone,double Acceleration_, int Min_P
 	position_from_encoder[Stepper_ID_]=0;
 
 	HAL_GPIO_WritePin(MOT_EABLE_GPIO_Port,MOT_EABLE_Pin,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin,GPIO_PIN_SET);
 
 
 }
@@ -93,14 +91,14 @@ void ST_MOT_Init(int Stepper_ID_,float dead_zone,double Acceleration_, int Min_P
 ///////////////////////////////////////////////////////   Przyspieszenie Linniowe  /////////////////////////////////////////////////////////
 void Movement_Prep(int Stepper_ID_, float set_position)
 {
-	//if(set_position<end_stop_up[Stepper_ID_]&&set_position>end_stop_down[Stepper_ID_])
+	if(set_position<end_stop_up[Stepper_ID_]&&set_position>end_stop_down[Stepper_ID_])
 
-	//{
+	{
 		Ramp_period[Stepper_ID_]=Maximal_Pulse_Period[Stepper_ID_];
 		start_position[Stepper_ID_]=position_from_encoder[Stepper_ID_];
 		end_position[Stepper_ID_]=set_position;
 
-	//}
+	}
 
 
 
@@ -110,9 +108,6 @@ void Movement_Prep(int Stepper_ID_, float set_position)
 	 * bufor. jesli Next_Lin_Period sie wykonal bezzwlocznie dac nowe dane
 	 * detekcja uskoku, nowa rampa na podstawie nowego polozenia, kilka prob, przed poddaniem sie.
 	 *  funkcja z vectorem, przechowujaca nastepne polozenia, mmozliwosc ustawienia kolejki,
-	 *  mozliwosc synchronizacji miedzy poszczegolnymi Next_Lin_Periodami
-	 *  praca niezalezna silnikow.
-	 *  dlaczego abs(); daje warning?
 	 *
 	 */
 }
