@@ -15,6 +15,7 @@
 uint8_t received[ORDER_LENGTH];
 
 int order_num;
+int a;
 
 void c_communicationInit();
 

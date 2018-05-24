@@ -101,6 +101,7 @@ int m_calculateSpeed(uint8_t motor,uint32_t speed){
 	}else if(distanceLeft>ACCEL_DISTANCE){
 
 	}
+	return 0;
 }
 
 void m_enable(uint8_t motor){

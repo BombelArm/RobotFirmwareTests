@@ -13,11 +13,12 @@
 #include "msg_defs.h"
 
 
-#define LD2_GPIO_Port ENCODERS_SERIAL_CLOCK_GPIO_Port
-#define LD2_Pin ENCODERS_SERIAL_CLOCK_Pin
 
-#define LED_ON HAL_GPIO_WritePin(LD2_GPIO_Port,LD2_Pin,GPIO_PIN_SET)
-#define LED_OFF HAL_GPIO_WritePin(LD2_GPIO_Port,LD2_Pin,GPIO_PIN_RESET)
+#define first_int(x)	x/10
+#define second_int(x)	x%10
+
+#define MOTORS_ENABLED  1
+#define FANS_ENABLED	1
 
 #define TASK_BUFFER_SIZE 1
 
@@ -27,14 +28,16 @@ struct task{
 
 	float time;
 
+	float f0;
 	float f1;
 	float f2;
-	float f3;
 };
 typedef struct task task;
 
 int buffer_act_size=0;
 task buffer[TASK_BUFFER_SIZE];
+
+void t_taskManagerInit();
 
 void t_append_task(uint8_t msg[ORDER_LENGTH]);
 void t_exec();

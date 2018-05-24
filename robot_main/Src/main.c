@@ -45,8 +45,6 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
-#define MOTORS_ENABLED  1
-#define FANS_ENABLED	1
 
 /* USER CODE END Includes */
 
@@ -117,17 +115,16 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim2);
   HAL_TIM_Base_Start_IT(&htim3);
   HAL_TIM_Base_Start_IT(&htim4);
-
-
-  HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, MOTORS_ENABLED);
-  HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, FANS_ENABLED);
+  HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(MOTOR0_STEP_GPIO_Port,MOTOR0_STEP_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(MOTOR1_STEP_GPIO_Port,MOTOR1_STEP_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(MOTOR2_STEP_GPIO_Port,MOTOR2_STEP_Pin, GPIO_PIN_RESET);
 
 
   HAL_GPIO_WritePin(ENCODERS_SERIAL_CLOCK_GPIO_Port,ENCODERS_SERIAL_CLOCK_Pin,GPIO_PIN_RESET);
+  t_taskManagerInit();
   c_communicationInit();
+
 /*
   s_motorsInit();
   m_motionControllerInit();
@@ -141,8 +138,6 @@ int main(void)
 */
 
 
-  /*m_enable(2);
-  m_setPosition(2,0);*/
 
   /* USER CODE END 2 */
   /* Infinite loop */

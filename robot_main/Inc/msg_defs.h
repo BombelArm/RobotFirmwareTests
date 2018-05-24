@@ -9,7 +9,7 @@
 #define MSG_DEFS_H_
 
 
-#define ORDER_LENGTH	11
+#define ORDER_LENGTH	5
 
 /*
  * 	===============================
