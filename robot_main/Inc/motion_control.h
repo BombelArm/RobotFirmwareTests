@@ -39,6 +39,7 @@ struct motion_node{
 	float 		  goal_position;	/**< goal position of the joint */
 	uint32_t	  goal_speed;		/**< goal speed (maximum speed while moving towards goal position)*/
 
+	uint8_t		  position_reached; /**< if new position is set the flag "position_reached" is reset to 0, when motion_controller reaches the position it is set to 1*/
 	uint8_t 	  enabled;			/**< determines wheter the motion control node is disabled(0) or enabled(1) */
 
 };
@@ -67,7 +68,7 @@ void m_control();
  * @see \struct motion_node
  * @return Void
  */
-void m_setPosition(uint8_t motor,float position,uint32_t time);
+void m_setPosition(uint8_t motor,float position);
 /**
  * This function updates the actual_position of the joint
  * @param motor determines the stepper motor (actually the motion node that are related to the motor)

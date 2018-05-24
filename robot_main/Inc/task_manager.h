@@ -11,6 +11,7 @@
 #include "stdint.h"
 #include "gpio.h"
 #include "msg_defs.h"
+#include "motion_control.h"
 
 
 

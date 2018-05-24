@@ -125,17 +125,16 @@ int main(void)
   t_taskManagerInit();
   c_communicationInit();
 
-/*
   s_motorsInit();
   m_motionControllerInit();
-
   s_enableAll();
+  m_updateAllPosition();
   m_enableAll();
-
+/*
   m_setPosition(0,0);
   m_setPosition(1,0);
-  m_setPosition(2,0);
-*/
+  m_setPosition(2,0);*/
+
 
 
 

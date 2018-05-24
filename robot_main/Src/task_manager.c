@@ -9,7 +9,7 @@
 
 void t_taskManagerInit(){
 
-	HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, !MOTORS_ENABLED);
+	HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, MOTORS_ENABLED);
 	  HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, !FANS_ENABLED);
 }
 
@@ -71,15 +71,19 @@ void t_append_task(uint8_t msg[ORDER_LENGTH]){
 				newtask.f1=f1;
 				newtask.f2=f2;
 				break;
-
 	}
 
 	buffer[buffer_act_size++]=newtask;
 	t_exec();
 }
 
+
 void t_exec(){
-	task task1=buffer[buffer_act_size-1];
+	if(buffer_act_size == 0) return;
+
+	task task1=buffer[0];
+
+
 
 	switch(task1.order_type){
 			case HW_CONFIG:
@@ -97,13 +101,18 @@ void t_exec(){
 						  HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, !FANS_ENABLED);
 						break;
 				}
+				buffer_act_size--; // removing task that is done
 				break;
 			case JOINT_SPACE:
+				m_setPosition(0,task1.f0);
+				m_setPosition(1,task1.f1);
+				m_setPosition(2,task1.f2);
+				buffer_act_size--;
+
 				break;
 			case OPERATION_SPACE:
 				break;
 	}
-	buffer_act_size--;
 }
 
 void t_shift_buffer(){
