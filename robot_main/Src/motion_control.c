@@ -28,6 +28,8 @@ void m_motionControllerInit(){
 			{JOINT2_MAX_SPEED, JOINT2_MIN_SPEED}
 	};
 
+	m_updateAllPosition();
+
 	for(int i=0;i<JOINTS_N;i++){
 		motion_nodes[i].max_position=p_limits[i][0];
 		motion_nodes[i].min_position=p_limits[i][1];
@@ -37,6 +39,7 @@ void m_motionControllerInit(){
 		motion_nodes[i].min_speed=s_limits[i][1];
 
 		motion_nodes[i].position_reached=1;
+		motion_nodes[i].goal_position=motion_nodes[i].actual_position;
 	}
 }
 
@@ -51,19 +54,16 @@ void m_control(){
 
 		if(position >= goalPosition+EPSILON){
 			s_changeDir(i,0);
-			s_setSpeed(i,70);
+			s_setSpeed(i,120);
 		}else if(position <= goalPosition-EPSILON){
 			s_changeDir(i,1);
-			s_setSpeed(i,70);
+			s_setSpeed(i,120);
 		}else{
 			s_setSpeed(i,0);
 			motion_nodes[i].position_reached = 1;
 		}
 	}
-
-	if (motion_nodes[0].position_reached && motion_nodes[1].position_reached && motion_nodes[2].position_reached){
-		t_exec();
-	}
+	t_exec();
 }
 
 void m_updatePosition(uint8_t motor){
@@ -116,9 +116,7 @@ void m_enableAll(){
 		motion_nodes[i].enabled=1;
 	}
 
-	m_setPosition(0,motion_nodes[0].actual_position);
-	m_setPosition(1,motion_nodes[1].actual_position);
-	m_setPosition(2,motion_nodes[2].actual_position);
+
 }
 void m_disable(uint8_t motor){
 	motion_nodes[motor].enabled=0;

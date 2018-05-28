@@ -21,7 +21,7 @@
 #define MOTORS_ENABLED  1
 #define FANS_ENABLED	1
 
-#define TASK_BUFFER_SIZE 1
+#define TASK_BUFFER_SIZE 3
 
 struct task{
 	int order_type;
