@@ -1,7 +1,7 @@
 /*! \file
  * \brief Main program body. Module initialization.
  * \details Main program body is used to setup interrupts and initialize all modules. Example is shown below. 
- * \snippet doxygen_files/examples/init.c INIT
+ * \snippet dox_files/dox_examples/init.c INIT
  */
 
 

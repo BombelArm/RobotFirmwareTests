@@ -115,7 +115,7 @@ void EXTI15_10_IRQHandler(void)
 /*!
  * \details Inside this function the three callbacks are handled. TIM1-Stepper module TIM2-Encoder Reading TIM3-Motion Controler module. 
   * All three timers could be running with different frequencies.
- * \snippet doxygen_files/examples/interrupt.c ISR
+ * \snippet dox_files/dox_examples/interrupt.c ISR
  */
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
