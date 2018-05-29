@@ -1,43 +1,24 @@
-/*
- * msg_defs.h
- *
- *  Created on: 15.05.2018
- *      Author: mromanow
+/*! \file
+ * \brief Message definitions 
  */
 
 #ifndef MSG_DEFS_H_
 #define MSG_DEFS_H_
 
 
-#define ORDER_LENGTH	5
+#define ORDER_LENGTH	5 /**< Length of the order sent from PC to micro-controller */
 
-/*
- * 	===============================
- *  ===== ORDER TYPES =============
- *  ===============================
- */
 
-#define HW_CONFIG 		1
-#define JOINT_SPACE 	2
-#define OPERATION_SPACE 3
+#define HW_CONFIG 		1 /**<Hardware configuration order type*/
+#define JOINT_SPACE 	2 /**<Joint space order type*/
+#define OPERATION_SPACE 3 /**<Operation space order type*/
 
-/*
- * 	===============================
- *  ===== HW_CONFIG =============
- *  ===============================
- */
+#define MOTORS_ON		1 /**<HW config - turns motors on*/
+#define MOTORS_OFF		2 /**<HW config - turns motors off*/
+#define FANS_ON			3 /**<HW config - turns fans on*/
+#define FANS_OFF		4 /**<HW config - turns fans off*/
 
-#define MOTORS_ON		1
-#define MOTORS_OFF		2
-#define FANS_ON			3
-#define FANS_OFF		4
 
-/*
- * 	===============================
- *  ===== CALLBACK TYPES ==========
- *  ===============================
- */
-
-#define ORDER_OK			00
-#define ORDER_ERROR			1
+#define ORDER_OK			00 /**< Return msg - ok */
+#define ORDER_ERROR			1 /**< Return msg - error */
 #endif /* MSG_DEFS_H_ */

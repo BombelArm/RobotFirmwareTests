@@ -1,0 +1,16 @@
+/*! \mainpage Mainpage
+ *
+ * \section intro_sec Introduction
+ *
+ * This project implements position and speed control for stepper motors on example of robotic arm called "Bombel". The robot consists of three joints (every joint has its own stepper motor and absolute encoder  to determine the positon). Micro-controller unit (in that case STM32F4) controlls the stepper motor driver which directly controlls stepper motors. 
+ *
+ * \section soft_sec Firmware
+ * Code is divided into couple of modules. To begin with, to controll the speed of stepper motors the Stepper module is used. Moving on, we have Motion Controller that controlls the joints' positions and their limitations. Moreover, we have Task Manager, which buffers and executes tasks. And last but not least we have Communication module that is resposible for communication with PC.
+ * \image html core_agent_firmware_schematics.png
+ * Firmware schematics.
+ * \section hw_sec Hardware
+ * 
+ * \subsection step1 Step 1: Opening the box
+ *
+ * etc...
+ */
