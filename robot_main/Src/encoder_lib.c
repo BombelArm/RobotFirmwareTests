@@ -1,9 +1,7 @@
-/*
- * encoder.c
- *
- *  Created on: 06.12.2017
- *      Author: Admin
+/*! \file
+ * \brief Encoders source code.
  */
+
 
 #ifndef ENCODER_LIB_C_
 #define ENCODER_LIB_C_

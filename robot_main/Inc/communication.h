@@ -1,4 +1,8 @@
-/*! \file
+/*! 
+ * \brief Communication with PC via UART
+ * \addtogroup Communication
+ *  @{
+ * \file
  * \brief Communication with PC via UART
  */
 
@@ -33,3 +37,4 @@ void c_sendCallback(int msg);
 void c_msgReceivedCallback();
 
 #endif /* COMMUNICATION_H_ */
+/** @}*/

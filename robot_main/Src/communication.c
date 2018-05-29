@@ -1,8 +1,5 @@
-/*
- * communication.c
- *
- *  Created on: 29.03.2018
- *      Author: mromanow
+/*! \file
+ * \brief Communication source code.
  */
 
 #include "communication.h"

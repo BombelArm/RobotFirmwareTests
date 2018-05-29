@@ -1,9 +1,7 @@
-/*
- * stepper_lib.c
- *
- *  Created on: 09.03.2018
- *      Author: mromanow
+/*! \file
+ * \brief Stepper source code.
  */
+
 
 #ifndef STEPPER_LIB_C_
 #define STEPPER_LIB_C_

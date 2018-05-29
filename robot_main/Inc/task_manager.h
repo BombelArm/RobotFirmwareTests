@@ -1,4 +1,8 @@
-/*! \file
+/*! 
+ * \brief Task queue management.
+ * \addtogroup TaskManager
+ *  @{
+ *\file
  * \brief Manages buffered orders from PC.
  */
 
@@ -60,3 +64,4 @@ void t_exec();
 void t_shift_buffer();
 
 #endif /* TASK_MANAGER_H_ */
+/** @}*/

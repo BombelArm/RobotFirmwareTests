@@ -1,9 +1,7 @@
-/*
- * motion_control.c
- *
- *  Created on: 13.03.2018
- *      Author: mromanow
+/*! \file
+ * \brief Motion controler source code.
  */
+
 
 #include "motion_control.h"
 

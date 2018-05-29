@@ -1,4 +1,8 @@
-/*! \file
+/*! 
+ * \brief Steper motor control.
+ * \addtogroup Stepper
+ *  @{
+ *\file
  * \brief Function prototypes and public variables for stepper motor control
  * \details This contains all functions and variables necessary for proper stpper motor control including velocity limits and motor specification (physical
  *  connections from MICRO-CONTROLLER to MOTOR, micro-step info etc.) The s_step() or s_stepAll() functions are executed periodically by TIM2 PeriodElapsedCallback event.
@@ -93,3 +97,4 @@ void s_disableAll();
 
 
 #endif /* STEPPER_LIB_H_ */
+/** @}*/

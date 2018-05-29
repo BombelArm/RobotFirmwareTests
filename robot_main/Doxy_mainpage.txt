@@ -1,16 +1,24 @@
 /*! \mainpage Mainpage
+ * \author Michal Romanowski
  *
  * \section intro_sec Introduction
- *
- * This project implements position and speed control for stepper motors on example of robotic arm called "Bombel". The robot consists of three joints (every joint has its own stepper motor and absolute encoder  to determine the positon). Micro-controller unit (in that case STM32F4) controlls the stepper motor driver which directly controlls stepper motors. 
+ * This project implements position and speed control for stepper motors on example of robotic arm called "Bombel". The robot consists of three joints (every joint has its own stepper motor and absolute encoder  to determine the positon). Micro-controller unit (in that case STM32F4) controls the stepper motor driver which directly controls stepper motors. 
  *
  * \section soft_sec Firmware
- * Code is divided into couple of modules. To begin with, to controll the speed of stepper motors the Stepper module is used. Moving on, we have Motion Controller that controlls the joints' positions and their limitations. Moreover, we have Task Manager, which buffers and executes tasks. And last but not least we have Communication module that is resposible for communication with PC.
+ * Code is divided into couple of modules. To begin with, to control the speed of stepper motors the Stepper module is used. Moving on, we have Motion Controler that controlls the joints' positions and their limitations. Moreover, we have Task Manager, which buffers and executes tasks. And last but not least we have Communication module that is resposible for communication with PC. Firmware schematics is shown below.
  * \image html core_agent_firmware_schematics.png
- * Firmware schematics.
- * \section hw_sec Hardware
  * 
- * \subsection step1 Step 1: Opening the box
+ * \section hw_sec Hardware
+ * Construction of the robotic arm was 3D printed and put together with metal screws. Electronics is based on micro-controller and stepper motor driver. Motion of the robot is applied by three stepper motors and controled by three absolute magnetic encoders.
+ * \image html hardware.png
+  *
+ * \subsection hw_schematics Hardware schematics
+ * \image html core_agent_hardware_schematics.png
  *
- * etc...
+ * \section task_manager Task manager
+ * Tasks manager keeps the whole system from executing every task at once. The mechanism is based on shift-buffer to which new tasks are appended and outdated tasks are removed from. When task has ended it calls the task manager to execute the new one.
+ *
+ * \section communication Communication with PC
+ * Communication between micro-controller and PC is applied via UART protocol. Micro-controller uses HAL interrupt methods to send/receive message. On the other hand, the PC can implement communication via serial port on many ways. Although, it is important to keep the proper message format which is shown below.
+ * \image html message_format.png
  */
