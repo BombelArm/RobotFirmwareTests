@@ -1,8 +1,9 @@
-/*
- * encoder.h
- *
- *  Created on: 06.12.2017
- *      Author: Admin
+/*! 
+ * \brief Encoders implementation
+ * \addtogroup Encoders
+ *  @{
+ * \file
+ * \brief Encoders implementation
  */
 
 #ifndef ENCODER_LIB_H_
@@ -43,3 +44,4 @@ float			  e_bin2rad(uint16_t data_in,int cs);
 HAL_StatusTypeDef e_read(float *data_in, int cs);
 
 #endif /* APPLICATION_USER_ENCODER_H_ */
+/** @}*/

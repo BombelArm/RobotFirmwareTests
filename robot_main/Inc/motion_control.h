@@ -1,4 +1,8 @@
-/*! \file
+/*! 
+ * \brief Motion control of the robot's joints.
+ * \addtogroup Motion Control
+ *  @{
+ *\file
  * \brief Function prototypes and public variables for motion controll of the stepper motors.
  * \details This contains all functions and variables necessary for proper motion control including velocity,acceleration and position limits (of the joints).
  *  The m_control() and m_updatePositionAll() functions are executed periodically by TIM3 PeriodElapsedCallback event.
@@ -104,3 +108,4 @@ void m_disable(uint8_t motor);
 void m_disableAll();
 
 #endif /* MOTION_CONTROL_H_ */
+/** @}*/
