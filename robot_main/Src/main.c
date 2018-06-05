@@ -123,18 +123,19 @@ int main(void)
 
   HAL_GPIO_WritePin(ENCODERS_SERIAL_CLOCK_GPIO_Port,ENCODERS_SERIAL_CLOCK_Pin,GPIO_PIN_RESET);
 //  t_taskManagerInit();
-//  c_communicationInit();
+
 
   s_motorsInit();
   m_motionControllerInit();
   t_taskManagerInit();
+  c_communicationInit();
   s_enableAll();
   m_enableAll();
 
-  m_setPosition(0,0);
-  m_setPosition(1,0);
-  m_setPosition(2,0);
-
+//  m_setPosition(0,0);
+//  m_setPosition(1,0);
+//  m_setPosition(2,0);
+//
 
 
 

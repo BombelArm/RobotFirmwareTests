@@ -1,0 +1,7 @@
+<map id="Inc/communication.h" name="Inc/communication.h">
+<area shape="rect" id="node3" href="$usart_8h_source.html" title="usart.h" alt="" coords="37,80,100,107"/>
+<area shape="rect" id="node6" href="$msg__defs_8h.html" title="Message definitions. " alt="" coords="318,80,409,107"/>
+<area shape="rect" id="node7" href="$motion__control_8h.html" title="Function prototypes and public variables for motion controll of the stepper motors. " alt="" coords="124,80,243,107"/>
+<area shape="rect" id="node5" href="$main_8h.html" title=": Header for main.c file. This file contains the common defines of the application. " alt="" coords="69,155,130,181"/>
+<area shape="rect" id="node8" href="$limits_8h.html" title="Limitation of the stepper motor and joints. " alt="" coords="154,155,218,181"/>
+</map>

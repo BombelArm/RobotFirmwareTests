@@ -1,0 +1,6 @@
+<map id="Inc/limits.h" name="Inc/limits.h">
+<area shape="rect" id="node2" href="$motion__control_8h.html" title="Function prototypes and public variables for motion controll of the stepper motors. " alt="" coords="88,80,228,107"/>
+<area shape="rect" id="node5" href="$stepper__lib_8h.html" title="Function prototypes and public variables for stepper motor control. " alt="" coords="252,80,371,107"/>
+<area shape="rect" id="node3" href="$communication_8h.html" title="Communication with PC via UART. " alt="" coords="5,155,148,181"/>
+<area shape="rect" id="node4" href="$task__manager_8h.html" title="Manages buffered orders from PC. " alt="" coords="172,155,309,181"/>
+</map>

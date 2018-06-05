@@ -6,7 +6,7 @@
 #define MSG_DEFS_H_
 
 
-#define ORDER_LENGTH	5 /**< Length of the order sent from PC to micro-controller */
+#define ORDER_LENGTH	6 /**< Length of the order sent from PC to micro-controller */
 
 
 #define HW_CONFIG 		1 /**<Hardware configuration order type*/

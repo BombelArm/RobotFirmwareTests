@@ -52,13 +52,11 @@ void s_motorsInit(){
 void s_step(uint8_t motor){
 
 	if(motors[motor].timer_period==0 || motors[motor].enabled != 1)return;
-	//if(steps >= 2*200)return;
 
 	motors[motor].timer_counter+=1;
 
 	if(motors[motor].timer_counter == motors[motor].timer_period){
 		HAL_GPIO_TogglePin((GPIO_TypeDef *) motors[motor].step_port, motors[motor].step_pin);
-		steps++;
 		motors[motor].timer_counter=0;
 	}
 

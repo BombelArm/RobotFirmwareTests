@@ -13,34 +13,35 @@ void t_taskManagerInit(){
 	HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, MOTORS_ENABLED);
 	HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, !FANS_ENABLED);
 
-	buffer_act_size=3;
-	newtask.order_type=JOINT_SPACE;
-	newtask.f0=0;
-	newtask.f1=0;
-	newtask.f2=0;
+//	buffer_act_size=3;
+//	newtask.order_type=JOINT_SPACE;
+//	newtask.f0=0;
+//	newtask.f1=0;
+//	newtask.f2=0;
+//
+//	buffer[0]=newtask;
+//
+//	newtask.order_type=JOINT_SPACE;
+//	newtask.f0=-0.5;
+//	newtask.f1=0.5;
+//	newtask.f2=0.5;
+//
+//	buffer[1]=newtask;
+//
+//	newtask.order_type=JOINT_SPACE;
+//	newtask.f0=0.5;
+//	newtask.f1=-0.5;
+//	newtask.f2=-0.5;
+//
+//	buffer[2]=newtask;
 
-	buffer[0]=newtask;
-
-	newtask.order_type=JOINT_SPACE;
-	newtask.f0=-0.5;
-	newtask.f1=0.5;
-	newtask.f2=0.5;
-
-	buffer[1]=newtask;
-
-	newtask.order_type=JOINT_SPACE;
-	newtask.f0=0.5;
-	newtask.f1=-0.5;
-	newtask.f2=-0.5;
-
-	buffer[2]=newtask;
-
-	t_exec();
+//	t_exec();
 }
 
 void t_append_task(uint8_t msg[ORDER_LENGTH]){
 	int hw_task_type,order_type;
 	int i1,i2,i3;
+	uint8_t dir_flag;
 	float f0,f1,f2;
 	task newtask;
 
@@ -72,9 +73,22 @@ void t_append_task(uint8_t msg[ORDER_LENGTH]){
 				i3=(int) second_int(msg[4]);
 				f2=i1+0.1*i2+0.01*i3;
 
+				dir_flag=msg[5];
+
+				if(dir_flag & 1){
+					f0=-f0;
+				}
+				if(dir_flag>>1 & 1){
+					f1=-f1;
+				}
+				if(dir_flag>>2 & 1){
+					f2=-f2;
+				}
+
 				newtask.f0=f0;
 				newtask.f1=f1;
 				newtask.f2=f2;
+
 				break;
 			case OPERATION_SPACE:
 				i1=(int) second_int(msg[0]);
