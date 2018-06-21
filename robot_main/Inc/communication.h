@@ -17,7 +17,7 @@
 
 uint8_t received[ORDER_LENGTH]; /**< \brief Income message  array*/
 
-//int order_num;
+int sendFlag;
 
 /*!
  * \details Initialization function. Sets all required variables that are related to the communication module.
@@ -30,6 +30,9 @@ void c_communicationInit();
  * \return Void
  */
 void c_sendCallback(int msg);
+
+
+void c_sendRobotState();
 /*!
  * \details Executed when message from PC is received
  * \return Void

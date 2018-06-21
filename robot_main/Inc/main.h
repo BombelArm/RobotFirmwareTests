@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file           : main.h
-  * @brief          Header for main.c file.
+  * @brief          : Header for main.c file.
   *                   This file contains the common defines of the application.
   ******************************************************************************
   ** This notice applies to any and all portions of this file
