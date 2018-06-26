@@ -17,9 +17,7 @@ void c_sendCallback(int msg){
 
 void c_sendRobotState(){
 	uint8_t Data[50];
-	int sign_flag=2;
 	uint16_t size = 0;
-
 	int16_t f0,f1,f2;
 
 
@@ -28,8 +26,7 @@ void c_sendRobotState(){
 	f2=motion_nodes[2].actual_position;
 
 
-//	HAL_UART_Transmit_IT(&huart2, &f0, 2);
-	size=sprintf(Data,"%d %d %d \n",f0,f1,f2);
+	size=sprintf(Data,"%d %d %d %d \n",RESP_ROBOT_STATE,f0,f1,f2);
 	HAL_UART_Transmit_IT(&huart2, Data, size);
 
 }

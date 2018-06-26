@@ -52,12 +52,12 @@ void t_append_task(uint8_t msg[ORDER_LENGTH]){
 
 
 	switch(order_type){
-			case HW_CONFIG:
+			case MSG_HW_CONFIG:
 				hw_task_type=(int)msg[1];
 				newtask.hw_task_type=hw_task_type;
 
 				break;
-			case JOINT_SPACE:
+			case MSG_JOINT_SPACE:
 
 				dir_flag=msg[0]>>3;
 				f0=(msg[1]<<4)+(msg[2]>>4);
@@ -79,7 +79,7 @@ void t_append_task(uint8_t msg[ORDER_LENGTH]){
 				newtask.f2=f2;
 
 				break;
-			case OPERATION_SPACE:
+			case MSG_OPERATION_SPACE:
 
 				newtask.f0=f0;
 				newtask.f1=f1;
@@ -100,25 +100,25 @@ void t_exec(){
 
 
 	switch(task1.order_type){
-			case HW_CONFIG:
+			case MSG_HW_CONFIG:
 				switch(task1.hw_task_type){
-					case MOTORS_ON:
+					case HW_MOTORS_ON:
 						HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, MOTORS_ENABLED);
 						break;
-					case MOTORS_OFF:
+					case HW_MOTORS_OFF:
 						HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, !MOTORS_ENABLED);
 						break;
-					case FANS_ON:
+					case HW_FANS_ON:
 						  HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, FANS_ENABLED);
 						break;
-					case FANS_OFF:
+					case HW_FANS_OFF:
 						  HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, !FANS_ENABLED);
 						break;
 				}
 				t_shift_buffer(); // removing task that is done
 				break;
 
-			case JOINT_SPACE:
+			case MSG_JOINT_SPACE:
 
 				if (motion_nodes[0].position_reached!=1 || motion_nodes[1].position_reached!=1 || motion_nodes[2].position_reached!=1){
 					return;
@@ -129,7 +129,7 @@ void t_exec(){
 				t_shift_buffer();
 
 				break;
-			case OPERATION_SPACE:
+			case MSG_OPERATION_SPACE:
 				break;
 	}
 }
