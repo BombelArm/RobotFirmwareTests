@@ -37,41 +37,32 @@ void t_taskManagerInit(){
 }
 
 void t_append_task(uint8_t msg[ORDER_LENGTH]){
+
 	int hw_task_type,order_type;
-	int i1,i2,i3;
 	uint8_t dir_flag;
-	float f0,f1,f2;
+	int16_t f0,f1,f2;
 	task newtask;
 
 	if(buffer_act_size == TASK_BUFFER_SIZE){
 		return;
 	}
 
-	order_type=(int)first_int(msg[0]);
+	order_type=(int)(msg[0] & 0x7 );
 	newtask.order_type=order_type;
 
 
 	switch(order_type){
 			case HW_CONFIG:
-				hw_task_type=(int) 10*second_int(msg[0])+first_int(msg[1]);
+				hw_task_type=(int)msg[1];
 				newtask.hw_task_type=hw_task_type;
 
 				break;
 			case JOINT_SPACE:
-				i1=(int) second_int(msg[0]);
-				i2=(int) first_int(msg[1]);
-				i3=(int) second_int(msg[1]);
-				f0=i1+0.1*i2+0.01*i3;
-				i1=(int) first_int(msg[2]);
-				i2=(int) second_int(msg[2]);
-				i3=(int) first_int(msg[3]);
-				f1=i1+0.1*i2+0.01*i3;
-				i1=(int) second_int(msg[3]);
-				i2=(int) first_int(msg[4]);
-				i3=(int) second_int(msg[4]);
-				f2=i1+0.1*i2+0.01*i3;
 
-				dir_flag=msg[5];
+				dir_flag=msg[0]>>3;
+				f0=(msg[1]<<4)+(msg[2]>>4);
+				f1=((msg[2] & 0x00F)<<8) + (msg[3]);
+				f2=(msg[4]<<4) + msg[5];
 
 				if(dir_flag & 1){
 					f0=-f0;
@@ -89,18 +80,6 @@ void t_append_task(uint8_t msg[ORDER_LENGTH]){
 
 				break;
 			case OPERATION_SPACE:
-				i1=(int) second_int(msg[0]);
-				i2=(int) first_int(msg[1]);
-				i3=(int) second_int(msg[1]);
-				f0=i1+0.1*i2+0.01*i3;
-				i1=(int) first_int(msg[2]);
-				i2=(int) second_int(msg[2]);
-				i3=(int) first_int(msg[3]);
-				f1=i1+0.1*i2+0.01*i3;
-				i1=(int) second_int(msg[3]);
-				i2=(int) first_int(msg[4]);
-				i3=(int) second_int(msg[4]);
-				f2=i1+0.1*i2+0.01*i3;
 
 				newtask.f0=f0;
 				newtask.f1=f1;

@@ -75,7 +75,7 @@ void m_updateAllPosition(){
 	}
 }
 
-void m_setPosition(uint8_t motor,float position){
+void m_setPosition(uint8_t motor,int16_t position){
 	if(position > motion_nodes[motor].max_position || position<motion_nodes[motor].min_position)return;
 
 	if(motion_nodes[motor].goal_position != position){

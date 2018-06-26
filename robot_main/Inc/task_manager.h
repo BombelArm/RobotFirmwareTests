@@ -14,9 +14,6 @@
 #include "msg_defs.h"
 #include "motion_control.h"
 
-#define first_int(x)	x/10 /**< \brief Extracts first digit from two-digit int variable.*/
-#define second_int(x)	x%10 /**< \brief Extracts second digit from two-digit int variable.*/
-
 #define MOTORS_ENABLED  1 /**< \brief Logical state for motors enabled.*/
 #define FANS_ENABLED	1 /**< \brief Logical state for fans enabled.*/
 
@@ -31,9 +28,9 @@ struct task{
 
 	float time; /**< \brief Time of the execution. */
 
-	float f0; /**< \brief If order_type=OPERATION_SPACE it is X coordinate. Otherwise it is position of Joint0 */
-	float f1; /**< \brief If order_type=OPERATION_SPACE it is Y coordinate. Otherwise it is position of Joint1 */
-	float f2; /**< \brief If order_type=OPERATION_SPACE it is Z coordinate. Otherwise it is position of Joint2 */
+	int16_t f0; /**< \brief If order_type=OPERATION_SPACE it is X coordinate. Otherwise it is position of Joint0 */
+	int16_t f1; /**< \brief If order_type=OPERATION_SPACE it is Y coordinate. Otherwise it is position of Joint1 */
+	int16_t f2; /**< \brief If order_type=OPERATION_SPACE it is Z coordinate. Otherwise it is position of Joint2 */
 };
 typedef struct task task;
 

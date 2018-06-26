@@ -25,14 +25,14 @@
 #define JOINT2_MAX_SPEED 100 /**< \brief Joint 0 maximum speed*/
 #define JOINT2_MAX_ACCEL 10 /**< \brief Joint 0 maximum acceleration*/
 
-#define JOINT0_MIN_POSITION -1.57 /**< \brief Joint 0 minimum position*/
-#define JOINT0_MAX_POSITION	1.57 /**< \brief Joint 0 maximum position*/
+#define JOINT0_MIN_POSITION -1300 /**< \brief Joint 0 minimum position*/
+#define JOINT0_MAX_POSITION	1300 /**< \brief Joint 0 maximum position*/
 
-#define JOINT1_MIN_POSITION -1.57 /**< \brief Joint 1 minimum position*/
-#define JOINT1_MAX_POSITION	1.57 /**< \brief Joint 1 maximum position*/
+#define JOINT1_MIN_POSITION -900 /**< \brief Joint 1 minimum position*/
+#define JOINT1_MAX_POSITION	900 /**< \brief Joint 1 maximum position*/
 
-#define JOINT2_MIN_POSITION -1.57 /**< \brief Joint 2 minimum position*/
-#define JOINT2_MAX_POSITION	1.57 /**< \brief Joint 2 maximum position*/
+#define JOINT2_MIN_POSITION -800 /**< \brief Joint 2 minimum position*/
+#define JOINT2_MAX_POSITION	1300 /**< \brief Joint 2 maximum position*/
 
 
 #endif /* LIMITS_H_ */

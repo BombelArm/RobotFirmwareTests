@@ -15,7 +15,7 @@
 #include "main.h"
 #include "limits.h"
 
-#define EPSILON	0.05			/**< defines the accuracy of reached position*/
+#define EPSILON	35			/**< defines the accuracy of reached position*/
 #define ACCEL_DISTANCE 0.5
 
 /** @file motion_control.h
@@ -37,9 +37,9 @@ struct motion_node{
 	uint32_t	  min_speed;		/**<  \brief minimum speed limit of the joint */
 	float 		  max_accel;		/**<  \brief maximum acceleration limit of the joint */
 
-	float 		  actual_position;	/**<  \brief actual position of the joint */
+	int16_t 		  actual_position;	/**<  \brief actual position of the joint */
 	uint32_t	  actual_speed;		/**<  \brief actual speed of the joint */
-	float 		  goal_position;	/**<  \brief goal position of the joint */
+	int16_t 		  goal_position;	/**<  \brief goal position of the joint */
 	uint32_t	  goal_speed;		/**<  \brief goal speed (maximum speed while moving towards goal position)*/
 
 	uint8_t		  position_reached; /**<  \brief if new position is set the flag "position_reached" is reset to 0, when motion_controller reaches the position it is set to 1*/
@@ -69,7 +69,7 @@ void m_control();
  * \param time	determines the time of the travel
  * \return Void
  */
-void m_setPosition(uint8_t motor,float position);
+void m_setPosition(uint8_t motor,int16_t position);
 /*!
  * \details This function updates the actual_position of the joint
  * \param motor determines the stepper motor (actually the motion node that are related to the motor)

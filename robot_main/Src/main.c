@@ -103,12 +103,10 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_TIM4_Init();
+  MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
 
-  HAL_TIM_Base_Start_IT(&htim2);
-  HAL_TIM_Base_Start_IT(&htim3);
-  HAL_TIM_Base_Start_IT(&htim4);
-  HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(MOTOR0_STEP_GPIO_Port,MOTOR0_STEP_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(MOTOR1_STEP_GPIO_Port,MOTOR1_STEP_Pin, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(MOTOR2_STEP_GPIO_Port,MOTOR2_STEP_Pin, GPIO_PIN_RESET);
@@ -124,7 +122,12 @@ int main(void)
   s_enableAll();
   m_enableAll();
 
+  HAL_TIM_Base_Start_IT(&htim2);
+  HAL_TIM_Base_Start_IT(&htim3);
+  HAL_TIM_Base_Start_IT(&htim4);
+  HAL_TIM_Base_Start_IT(&htim5);
 
+//  m_setPosition(2,100);
 
 
 

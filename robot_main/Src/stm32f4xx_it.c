@@ -43,6 +43,7 @@ extern uint8_t sendFlag;
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
+extern TIM_HandleTypeDef htim5;
 extern UART_HandleTypeDef huart2;
 
 /******************************************************************************/
@@ -140,6 +141,20 @@ void EXTI15_10_IRQHandler(void)
   /* USER CODE END EXTI15_10_IRQn 1 */
 }
 
+/**
+* @brief This function handles TIM5 global interrupt.
+*/
+void TIM5_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM5_IRQn 0 */
+
+  /* USER CODE END TIM5_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim5);
+  /* USER CODE BEGIN TIM5_IRQn 1 */
+
+  /* USER CODE END TIM5_IRQn 1 */
+}
+
 /* USER CODE BEGIN 1 */
 /*!
  * \details Inside this function the three callbacks are handled. TIM1-Stepper module TIM2-Encoder Reading TIM3-Motion Controler module. 
@@ -149,12 +164,13 @@ void EXTI15_10_IRQHandler(void)
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
  if(htim->Instance == TIM2){
-//	 s_stepAll();
+	 s_stepAll();
  }else if(htim->Instance == TIM3){
-	 c_sendRobotState();
 	 m_updateAllPosition();
  }else if(htim->Instance == TIM4){
-//	 m_control();
+	 m_control();
+ }else if(htim->Instance == TIM5){
+	 c_sendRobotState();
  }
 }
 
