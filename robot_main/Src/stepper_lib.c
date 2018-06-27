@@ -9,6 +9,8 @@
 #include "stepper_lib.h"
 
 void s_motorsInit(){
+	stepper *s_node;
+
 	uint16_t pins[JOINTS_N][2]={
 			{MOTOR0_STEP_Pin, MOTOR0_DIR_Pin},
 			{MOTOR1_STEP_Pin, MOTOR1_DIR_Pin},
@@ -33,43 +35,50 @@ void s_motorsInit(){
 	};
 
 	for(int i=0;i<JOINTS_N;i++){
-		motors[i].step_pin=pins[i][0];
-		motors[i].dir_pin=pins[i][1];
+		s_node=&(motors[i]);
 
-		motors[i].step_port=(GPIO_TypeDef *)ports[i][0];
-		motors[i].dir_port=(GPIO_TypeDef *)ports[i][1];
+		(*s_node).step_pin=pins[i][0];
+		(*s_node).dir_pin=pins[i][1];
 
-		motors[i].max_speed=HW_MOTOR_MAX_SPEED;
-		motors[i].min_speed=HW_MOTOR_MIN_SPEED;
-		motors[i].direction=directions[i];
+		(*s_node).step_port=(GPIO_TypeDef *)ports[i][0];
+		(*s_node).dir_port=(GPIO_TypeDef *)ports[i][1];
 
-		motors[i].enabled = 0;
-		motors[i].step = steps[i];
+		(*s_node).max_speed=HW_MOTOR_MAX_SPEED;
+		(*s_node).min_speed=HW_MOTOR_MIN_SPEED;
+		(*s_node).direction=directions[i];
+
+		(*s_node).enabled = 0;
+		(*s_node).step = steps[i];
 	}
 }
 void s_step(uint8_t motor){
+	stepper *s_node=&(motors[motor]);
 
-	if(motors[motor].timer_period==0 || motors[motor].enabled != 1)return;
+	if(motor> JOINTS_N)return;
 
-	motors[motor].timer_counter+=1;
+	if((*s_node).timer_period==0 || (*s_node).enabled != 1)return;
 
-	if(motors[motor].timer_counter == motors[motor].timer_period){
-		HAL_GPIO_TogglePin((GPIO_TypeDef *) motors[motor].step_port, motors[motor].step_pin);
-		motors[motor].timer_counter=0;
+	(*s_node).timer_counter+=1;
+
+	if((*s_node).timer_counter == (*s_node).timer_period){
+		HAL_GPIO_TogglePin((GPIO_TypeDef *) (*s_node).step_port, (*s_node).step_pin);
+		(*s_node).timer_counter=0;
 	}
 
 }
 
 void s_stepAll(){
+	stepper *s_node;
 
 	for(int i=0;i<JOINTS_N;i++){
+		s_node=&(motors[i]);
 
-		if(motors[i].timer_period==0 || motors[i].enabled != 1)continue;
-		motors[i].timer_counter+=1;
+		if((*s_node).timer_period==0 || (*s_node).enabled != 1)continue;
+		(*s_node).timer_counter+=1;
 
-		if(motors[i].timer_counter == motors[i].timer_period){
-			HAL_GPIO_TogglePin((GPIO_TypeDef *) motors[i].step_port, motors[i].step_pin);
-			motors[i].timer_counter=0;
+		if((*s_node).timer_counter == (*s_node).timer_period){
+			HAL_GPIO_TogglePin((GPIO_TypeDef *) (*s_node).step_port, (*s_node).step_pin);
+			(*s_node).timer_counter=0;
 		}
 	}
 
@@ -80,6 +89,8 @@ void s_stepAll(){
 void s_setSpeed(uint8_t motor,uint32_t speed){
 	stepper stepper1=motors[motor];
 	int speed1;
+
+	if(motor> JOINTS_N)return;
 
 	if(speed == 0){
 		speed1=0;
@@ -103,6 +114,7 @@ void s_changeDir(uint8_t motor,uint8_t dir){
 }
 
 void s_enable(uint8_t motor){
+	if(motor> JOINTS_N)return;
 	motors[motor].enabled=1;
 }
 
@@ -113,6 +125,7 @@ void s_enableAll(){
 }
 
 void s_disable(uint8_t motor){
+	if(motor> JOINTS_N)return;
 	motors[motor].enabled=0;
 }
 

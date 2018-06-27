@@ -8,19 +8,21 @@
 
 
 void m_motionControllerInit(){
-	float p_limits[JOINTS_N][2]={
+	motion_node *m_node;
+
+	int16_t p_limits[JOINTS_N][2]={
 			{JOINT0_MAX_POSITION, JOINT0_MIN_POSITION},
 			{JOINT1_MAX_POSITION, JOINT1_MIN_POSITION},
 			{JOINT2_MAX_POSITION, JOINT2_MIN_POSITION}
 	};
 
-	float a_limits[JOINTS_N]={
+	uint8_t a_limits[JOINTS_N]={
 			JOINT0_MAX_ACCEL,
 			JOINT1_MAX_ACCEL,
 			JOINT2_MAX_ACCEL
 	};
 
-	int		s_limits[JOINTS_N][2]={
+	uint8_t	s_limits[JOINTS_N][2]={
 			{JOINT0_MAX_SPEED, JOINT0_MIN_SPEED},
 			{JOINT1_MAX_SPEED, JOINT1_MIN_SPEED},
 			{JOINT2_MAX_SPEED, JOINT2_MIN_SPEED}
@@ -29,43 +31,64 @@ void m_motionControllerInit(){
 	m_updateAllPosition();
 
 	for(int i=0;i<JOINTS_N;i++){
-		motion_nodes[i].max_position=p_limits[i][0];
-		motion_nodes[i].min_position=p_limits[i][1];
+		m_node=&(motion_nodes[i]);
 
-		motion_nodes[i].max_accel=a_limits[i];
-		motion_nodes[i].max_speed=s_limits[i][0];
-		motion_nodes[i].min_speed=s_limits[i][1];
+		(*m_node).max_position=p_limits[i][0];
+		(*m_node).min_position=p_limits[i][1];
 
-		motion_nodes[i].position_reached=1;
-		motion_nodes[i].goal_position=motion_nodes[i].actual_position;
+		(*m_node).max_accel=a_limits[i];
+		(*m_node).max_speed=s_limits[i][0];
+		(*m_node).min_speed=s_limits[i][1];
+
+		(*m_node).position_reached=1;
+		(*m_node).goal_position=motion_nodes[i].actual_position;
 	}
 }
 
 void m_control(){
-	float position,goalPosition;
+	int16_t position,goal_position,delta;
+	uint8_t goal_speed;
+	motion_node *m_node;
 
 	for(int i=0;i<JOINTS_N;i++){
-		if(motion_nodes[i].enabled != 1)continue;
+		m_node=&(motion_nodes[i]);
 
-		position=motion_nodes[i].actual_position;
-		goalPosition=motion_nodes[i].goal_position;
+		if((*m_node).enabled != 1)continue;
 
-		if(position >= goalPosition+EPSILON){
+		position=(*m_node).actual_position;
+		goal_position=(*m_node).goal_position;
+		goal_speed=(*m_node).goal_speed;
+		delta=position-goal_position;
+
+		if(delta >= EPSILON){
 			s_changeDir(i,0);
-			s_setSpeed(i,120);
-		}else if(position <= goalPosition-EPSILON){
+			s_setSpeed(i,goal_speed);
+		}else if(delta <= -EPSILON){
 			s_changeDir(i,1);
-			s_setSpeed(i,120);
+			s_setSpeed(i,goal_speed);
 		}else{
+			(*m_node).position_reached = 1;
 			s_setSpeed(i,0);
-			motion_nodes[i].position_reached = 1;
 		}
 	}
 	t_exec();
 }
 
-void m_updatePosition(uint8_t motor){
-	e_read(&(motion_nodes[motor].actual_position),motor);
+uint8_t m_validatePosition(uint8_t joint, uint8_t speed, int16_t position){
+	motion_node *m_node=(&motion_nodes[joint]);
+
+	if(joint > JOINTS_N)return 1;
+
+	if(position > (*m_node).max_position || position<(*m_node).min_position || speed>(*m_node).max_speed || speed < (*m_node).min_speed ){
+		return 1;
+	}else{
+		return 0;
+	}
+}
+
+void m_updatePosition(uint8_t joint){
+	if(joint > JOINTS_N)return;
+	e_read(&(motion_nodes[joint].actual_position),joint);
 }
 
 void m_updateAllPosition(){
@@ -75,27 +98,32 @@ void m_updateAllPosition(){
 	}
 }
 
-void m_setPosition(uint8_t motor,int16_t position){
-	if(position > motion_nodes[motor].max_position || position<motion_nodes[motor].min_position)return;
+void m_setPosition(uint8_t joint,int16_t position, uint8_t goal_speed){
+	motion_node *m_node=(&motion_nodes[joint]);
 
-	if(motion_nodes[motor].goal_position != position){
-		motion_nodes[motor].goal_position=position;
-		motion_nodes[motor].position_reached = 0;
+	if(joint > JOINTS_N)return;
+	if(m_validatePosition(joint,goal_speed,position) != 0) return;
+
+	if((*m_node).goal_position != position){
+		(*m_node).goal_position=position;
+		(*m_node).goal_speed=goal_speed;
+		(*m_node).position_reached = 0;
 	}
 
 
 }
 
-int m_calculateSpeed(uint8_t motor,uint32_t speed){
+int m_calculateSpeed(uint8_t joint,uint32_t speed){
 	float 		distanceLeft;
 	uint32_t	speed1;
-	motion_node m_node=motion_nodes[motor];
+	motion_node m_node=motion_nodes[joint];
 
 	/*if(speed>m_node.max_speed){
 		speed1=m_node.max_speed;
 	}else if(speed<m_node.min_speed){
 		speed1=m_node.min_speed;
 	}*/
+
 	distanceLeft=abs(m_node.actual_position-m_node.goal_position);
 
 	if(distanceLeft<ACCEL_DISTANCE){
@@ -103,11 +131,13 @@ int m_calculateSpeed(uint8_t motor,uint32_t speed){
 	}else if(distanceLeft>ACCEL_DISTANCE){
 
 	}
+
 	return 0;
 }
 
-void m_enable(uint8_t motor){
-	motion_nodes[motor].enabled=1;
+void m_enable(uint8_t joint){
+	if(joint > JOINTS_N)return;
+	motion_nodes[joint].enabled=1;
 }
 void m_enableAll(){
 	for(int i=0;i<JOINTS_N;i++){
@@ -116,8 +146,9 @@ void m_enableAll(){
 
 
 }
-void m_disable(uint8_t motor){
-	motion_nodes[motor].enabled=0;
+void m_disable(uint8_t joint){
+	if(joint > JOINTS_N)return;
+	motion_nodes[joint].enabled=0;
 }
 void m_disableAll(){
 	for(int i=0;i<JOINTS_N;i++){

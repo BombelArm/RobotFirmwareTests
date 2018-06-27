@@ -27,8 +27,8 @@ struct stepper{
 	uint8_t		 		step;	  		/**<  \brief micro-step of the stepper motor (eg. step=2 means that the stepper motor runs with 1/2 micro-step) */
 
 	//limits
-	uint32_t			max_speed;		/**<  \brief maximum speed of the stepper motor (related to the physical limitations of the stepper motor) */
-	uint32_t			min_speed;		/**<  \brief minimum speed of the stepper motor (related to the physical limitations of the stepper motor) */
+	uint8_t				max_speed;		/**<  \brief maximum speed of the stepper motor (related to the physical limitations of the stepper motor) */
+	uint8_t				min_speed;		/**<  \brief minimum speed of the stepper motor (related to the physical limitations of the stepper motor) */
 	uint8_t				direction; 		/**<  \brief determines direction of the rotation (if direction=!1 position is going toward -pi) */
 
 	uint32_t			timer_period;   /**<  \brief maximum value to which timer_counter is counting up  */

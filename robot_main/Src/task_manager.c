@@ -11,39 +11,17 @@ void t_taskManagerInit(){
 	HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, !MOTORS_ENABLED);
 	HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, !FANS_ENABLED);
 
-//	buffer_act_size=3;
-//	newtask.order_type=JOINT_SPACE;
-//	newtask.f0=0;
-//	newtask.f1=0;
-//	newtask.f2=0;
-//
-//	buffer[0]=newtask;
-//
-//	newtask.order_type=JOINT_SPACE;
-//	newtask.f0=-0.5;
-//	newtask.f1=0.5;
-//	newtask.f2=0.5;
-//
-//	buffer[1]=newtask;
-//
-//	newtask.order_type=JOINT_SPACE;
-//	newtask.f0=0.5;
-//	newtask.f1=-0.5;
-//	newtask.f2=-0.5;
-//
-//	buffer[2]=newtask;
-
-//	t_exec();
 }
 
 void t_append_task(uint8_t msg[ORDER_LENGTH]){
 
-	int hw_task_type,order_type;
+	uint8_t hw_task_type,order_type;
 	uint8_t dir_flag;
 	int16_t f0,f1,f2;
 	task newtask;
 
 	if(buffer_act_size == TASK_BUFFER_SIZE){
+		c_sendCallback(RESP_ORDER_BUFFER_OVERFLOW);
 		return;
 	}
 
@@ -53,9 +31,7 @@ void t_append_task(uint8_t msg[ORDER_LENGTH]){
 
 	switch(order_type){
 			case MSG_HW_CONFIG:
-				hw_task_type=(int)msg[1];
-				newtask.hw_task_type=hw_task_type;
-
+				newtask.hw_task_type=msg[1];
 				break;
 			case MSG_JOINT_SPACE:
 
@@ -74,16 +50,27 @@ void t_append_task(uint8_t msg[ORDER_LENGTH]){
 					f2=-f2;
 				}
 
+				if(m_validatePosition(0,msg[6],f0) != 0){
+					c_sendCallback(RESP_ORDER_ERROR);
+					return;
+				}else if(m_validatePosition(1,msg[7],f2) != 0){
+					c_sendCallback(RESP_ORDER_ERROR);
+					return;
+				}else if(m_validatePosition(2,msg[8],f2) != 0){
+					c_sendCallback(RESP_ORDER_ERROR);
+					return;
+				}
+
 				newtask.f0=f0;
 				newtask.f1=f1;
 				newtask.f2=f2;
+
+				newtask.speed0=msg[6];
+				newtask.speed1=msg[7];
+				newtask.speed2=msg[8];
 
 				break;
 			case MSG_OPERATION_SPACE:
-
-				newtask.f0=f0;
-				newtask.f1=f1;
-				newtask.f2=f2;
 				break;
 	}
 
@@ -97,8 +84,6 @@ void t_exec(){
 
 	task task1=buffer[0];
 
-
-
 	switch(task1.order_type){
 			case MSG_HW_CONFIG:
 				switch(task1.hw_task_type){
@@ -109,10 +94,10 @@ void t_exec(){
 						HAL_GPIO_WritePin(MOTORS_ENABLE_GPIO_Port,MOTORS_ENABLE_Pin, !MOTORS_ENABLED);
 						break;
 					case HW_FANS_ON:
-						  HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, FANS_ENABLED);
+						HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, FANS_ENABLED);
 						break;
 					case HW_FANS_OFF:
-						  HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, !FANS_ENABLED);
+						HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin, !FANS_ENABLED);
 						break;
 				}
 				t_shift_buffer(); // removing task that is done
@@ -123,9 +108,10 @@ void t_exec(){
 				if (motion_nodes[0].position_reached!=1 || motion_nodes[1].position_reached!=1 || motion_nodes[2].position_reached!=1){
 					return;
 				}
-				m_setPosition(0,task1.f0);
-				m_setPosition(1,task1.f1);
-				m_setPosition(2,task1.f2);
+
+				m_setPosition(0,task1.f0,task1.speed0);
+				m_setPosition(1,task1.f1,task1.speed1);
+				m_setPosition(2,task1.f2,task1.speed2);
 				t_shift_buffer();
 
 				break;

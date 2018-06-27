@@ -30,17 +30,17 @@
  */
 struct motion_node{
 
-	float 		  max_position;		/**<  \brief maximum position that can reached */
-	float 		  min_position;		/**<  \brief minimum position that can reached */
+	int16_t		  max_position;		/**<  \brief maximum position that can reached */
+	int16_t		  min_position;		/**<  \brief minimum position that can reached */
 
-	uint32_t	  max_speed;		/**<  \brief maximum speed limit of the joint */
-	uint32_t	  min_speed;		/**<  \brief minimum speed limit of the joint */
-	float 		  max_accel;		/**<  \brief maximum acceleration limit of the joint */
+	uint8_t	 	  max_speed;		/**<  \brief maximum speed limit of the joint */
+	uint8_t	 	  min_speed;		/**<  \brief minimum speed limit of the joint */
+	uint8_t	  	  max_accel;		/**<  \brief maximum acceleration limit of the joint */
 
-	int16_t 		  actual_position;	/**<  \brief actual position of the joint */
-	uint32_t	  actual_speed;		/**<  \brief actual speed of the joint */
-	int16_t 		  goal_position;	/**<  \brief goal position of the joint */
-	uint32_t	  goal_speed;		/**<  \brief goal speed (maximum speed while moving towards goal position)*/
+	int16_t       actual_position;	/**<  \brief actual position of the joint */
+	uint16_t	  actual_speed;		/**<  \brief actual speed of the joint */
+	int16_t 	  goal_position;	/**<  \brief goal position of the joint */
+	uint8_t	  	  goal_speed;		/**<  \brief goal speed (maximum speed while moving towards goal position)*/
 
 	uint8_t		  position_reached; /**<  \brief if new position is set the flag "position_reached" is reset to 0, when motion_controller reaches the position it is set to 1*/
 	uint8_t 	  enabled;			/**<  \brief determines wheter the motion control node is disabled(0) or enabled(1) */
@@ -64,32 +64,37 @@ void m_motionControllerInit();
 void m_control();
 /*!
  * \details This function sets the goal_position to which the joint is going to.
- * \param motor determines the stepper motor (actually the motion node that are related to the motor)
+ * \param joint determines the stepper motor (actually the motion node that are related to the motor)
  * \param position determines the position to which the joint is going to
  * \param time	determines the time of the travel
  * \return Void
  */
-void m_setPosition(uint8_t motor,int16_t position);
+void m_setPosition(uint8_t joint,int16_t position, uint8_t goal_speed);
+
+uint8_t m_validatePosition(uint8_t joint, uint8_t speed, int16_t position);
+
 /*!
  * \details This function updates the actual_position of the joint
  * \param motor determines the stepper motor (actually the motion node that are related to the motor)
  * \return Void
  */
+
 void m_updatePosition(uint8_t motor);
+
 /*!
  * \details This function updates the actual_position of all joints
  * \return Void
  */
 void m_updateAllPosition();
 
-int m_calculateSpeed(uint8_t motor,uint32_t speed);
+int m_calculateSpeed(uint8_t joint,uint32_t speed);
 
 /*!
  * \details This function enables the motion control node.
  * \param motor determines the stepper motor (actually the motion node that are related to the motor)
  * \return Void
  */
-void m_enable(uint8_t motor);
+void m_enable(uint8_t joint);
 /*!
  * \details This function enables all motion control node.
  * \return Void
@@ -100,7 +105,7 @@ void m_enableAll();
  * \param motor determines the stepper motor (actually the motion node that are related to the motor)
  * \return Void
  */
-void m_disable(uint8_t motor);
+void m_disable(uint8_t joint);
 /*!
  * \details This function disables all motion control node.
  * \return Void

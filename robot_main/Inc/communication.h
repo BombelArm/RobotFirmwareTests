@@ -29,7 +29,7 @@ void c_communicationInit();
  * \param msg Message
  * \return Void
  */
-void c_sendCallback(int msg);
+void c_sendCallback(uint8_t msg);
 
 
 void c_sendRobotState();

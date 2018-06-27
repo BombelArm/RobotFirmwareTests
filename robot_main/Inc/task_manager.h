@@ -17,16 +17,20 @@
 #define MOTORS_ENABLED  1 /**< \brief Logical state for motors enabled.*/
 #define FANS_ENABLED	1 /**< \brief Logical state for fans enabled.*/
 
-#define TASK_BUFFER_SIZE 3 /**< \brief Size of the buffer where orders are kept.*/
+#define TASK_BUFFER_SIZE 11 /**< \brief Size of the buffer where orders are kept.*/
 
 /**
  * \brief A structure to represent individual task
  */
 struct task{
-	int order_type; /**< \brief Order type. See msg_defs.h*/
-	int hw_task_type; /**< \brief If order_type=HW_TASK this variable contains hardware task type. */
+	uint8_t id;
 
-	float time; /**< \brief Time of the execution. */
+	uint8_t order_type; /**< \brief Order type. See msg_defs.h*/
+	uint8_t hw_task_type; /**< \brief If order_type=HW_TASK this variable contains hardware task type. */
+
+	uint8_t speed0;
+	uint8_t speed1;
+	uint8_t speed2;
 
 	int16_t f0; /**< \brief If order_type=OPERATION_SPACE it is X coordinate. Otherwise it is position of Joint0 */
 	int16_t f1; /**< \brief If order_type=OPERATION_SPACE it is Y coordinate. Otherwise it is position of Joint1 */
