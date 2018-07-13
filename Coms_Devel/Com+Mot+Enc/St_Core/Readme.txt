@@ -30,6 +30,20 @@ MSP
 0.5
 FIN
 
-Ping- Zwraca Ping (keepalive)
+PING - Zwraca Ping (keepalive)
+
+REST - Wylacza silniki, wentylatory pozostaja wlaczone/zostaja wlaczone.
+
+HOME - Ustawia ramie do pozycji spoczynkowej.
+
+// Uruchamianie przybijania pieczatek //
+wpisac kolejno
+SYN
+ACK
+INIT_ALL (poczekac az ramie sie wypionuje)
+TEST (rozpoczecie trajektorii, uwaga aby zlecic wykonanie innego ruchu nalezy najpierw wylaczyc trajektorie, inaczej po wykonaniu zleconego ruchu, ramie zacznie wykonywac kolejny ruch z trajektorii)
+TEST_STOP (zakonczenie trajektorii)
+
+
 
 
