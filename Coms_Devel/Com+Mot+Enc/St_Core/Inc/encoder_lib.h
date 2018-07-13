@@ -12,7 +12,7 @@
 #include "spi.h"
 #include <math.h>
 
-#define ENCODER0_OFFSET -1473
+#define ENCODER0_OFFSET -3312//-1473
 #define ENCODER1_OFFSET -1059
 #define ENCODER2_OFFSET -3312
 

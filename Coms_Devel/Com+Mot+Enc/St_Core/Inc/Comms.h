@@ -148,11 +148,7 @@ if(connection->status==2)
 	{
 		if(strcmp(connection->Last_Msg,SYS_INFO)==0)
 		{
-			/*
-					e_read(&position_from_encoder[0],0);
-					e_read(&position_from_encoder[1],1);
-					e_read(&position_from_encoder[2],2);
-*/
+
 					char string[16];
 					sprintf(string, "M1: %4.3f\nM2: %4.3f\nM3: %4.3f\n"  ,position_from_encoder[0],position_from_encoder[1],position_from_encoder[2]);
 					send(connection, string);
@@ -179,9 +175,62 @@ if(connection->status==2)
 			send(connection, PING);
 			//count how many bits
 
-
-
 		}
+		else if(strcmp(connection->Last_Msg,"TEST")==0)
+			{
+				send(connection, "COMMENCING");
+				run_seq(1);
+				//count how many bits
+
+			}
+		else if(strcmp(connection->Last_Msg,"TEST_STOP")==0)
+				{
+					send(connection, "STOPING");
+					run_seq(0);
+					//count how many bits
+
+				}
+		else if(strcmp(connection->Last_Msg,"HOME")==0)
+					{
+						send(connection, "HOMING");
+						Movement_Prep(0,0);
+						Movement_Prep(1,-1);
+						Movement_Prep(2,2.55);
+						//count how many bits
+
+					}
+		else if(strcmp(connection->Last_Msg,"INIT_ALL")==0)
+						{
+							send(connection, "INITING WITH DEF VAL");
+							ST_MOT_Init(0,0.025,5000,50);
+							ST_MOT_Init(1,0.002,8000,20);
+							ST_MOT_Init(2,0.01,5000,100);
+							Movement_Prep(0,0);
+																				Movement_Prep(1,0);
+																				Movement_Prep(2,0);
+
+							//count how many bits
+
+						}
+		else if(strcmp(connection->Last_Msg,"POS1")==0)
+						{
+							send(connection, "INITING POS1");
+									Movement_Prep(0,0);
+														Movement_Prep(1,0);
+														Movement_Prep(2,0);
+
+							//count how many bits
+
+						}
+		else if(strcmp(connection->Last_Msg,"REST")==0)
+						{
+							send(connection, "MOT=OFF, FAN=ON ");
+							HAL_GPIO_WritePin(MOT_EABLE_GPIO_Port,MOT_EABLE_Pin,GPIO_PIN_RESET);
+							HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin,GPIO_PIN_SET);
+
+							//count how many bits
+
+						}
 		else
 		{
 			send(connection, ERR);

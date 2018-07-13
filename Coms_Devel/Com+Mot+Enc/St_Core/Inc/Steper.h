@@ -5,6 +5,15 @@
 #include <math.h>
 #include "encoder_lib.h"
 
+int sequence;//PRZYBICIE//NAD//W LOCIE///NAD//     TUSZ
+float map2[]={1.5,       1.5,     1.9,    1.5,   1.541,   1.545   ,  1.543   , 1.5 };
+float map1[]={1.148,       0.6,     0.2,    0.6,   1.124,  1.12 ,     0.6  , 0.6 };
+float map0[]={-0.16,   		-0.123,   -0.4,      -0.625,  -0.625  , -0.6, 	-0.6  , -0.16	};
+
+
+
+int a,b,c;
+int flag_a,flag_b,flag_c;
 
 int Maximal_Pulse_Period[3];
 
@@ -26,14 +35,14 @@ int Min_stepper_period[3];
 
 float Dead_zone[3];
 //						stepper_0	 stepper_1		stepper_2
-float end_stop_up[3]={	1.5,		1.6,			2.5};
+float end_stop_up[3]={	2.6,		1.6,			2.56};
 
-float end_stop_down[3]={-1.4,		-1.4,			-1.5};
+float end_stop_down[3]={-0.9,		-1.6,			-1.6};
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-int Stepper_Counter_0=0;
-int Stepper_Counter_1=0;
-int Stepper_Counter_2=0;
+int Stepper_Counter_0=3;
+int Stepper_Counter_1=13;
+int Stepper_Counter_2=17;
 
 //////////////////////////////////
 
@@ -60,6 +69,16 @@ int Period_memory_2=5000;
 
 float total_distance[3];
 
+void run_seq(int a)
+{
+	sequence=a;
+	flag_a=0;
+	flag_b=0;
+	flag_c=0;
+	a=2;
+	b=2;
+	c=2;
+}
 
 void ST_MOT_Init(int Stepper_ID_,float dead_zone,double Acceleration_, int Min_Period)
 {
@@ -68,7 +87,7 @@ void ST_MOT_Init(int Stepper_ID_,float dead_zone,double Acceleration_, int Min_P
 
 	Stepper_acceleration[Stepper_ID_]=Acceleration_/1000000000;
 
-	Maximal_Pulse_Period[Stepper_ID_]=4000;		//Const in #define
+	Maximal_Pulse_Period[Stepper_ID_]=1000;		//Const in #define
 
 	Min_stepper_period[Stepper_ID_]=Min_Period;		// Period from anlge speed //400;
 
@@ -76,7 +95,7 @@ void ST_MOT_Init(int Stepper_ID_,float dead_zone,double Acceleration_, int Min_P
 
 	Dead_zone[Stepper_ID_]=dead_zone;			// accuracy of feedback from encoders
 
-	position_from_encoder[Stepper_ID_]=0;
+	e_read(&position_from_encoder[Stepper_ID_],Stepper_ID_);
 
 	HAL_GPIO_WritePin(MOT_EABLE_GPIO_Port,MOT_EABLE_Pin,GPIO_PIN_SET);
 	HAL_GPIO_WritePin(FANS_ENABLE_GPIO_Port,FANS_ENABLE_Pin,GPIO_PIN_SET);
@@ -111,6 +130,45 @@ void Movement_Prep(int Stepper_ID_, float set_position)
 	 *
 	 */
 }
+
+void map(int Stepper_ID_)
+{
+
+	if(Stepper_ID_==0)
+	{
+		flag_a=1;
+
+	}
+	else if (Stepper_ID_==1)
+	{
+		flag_b=1;
+
+	}
+	else if(Stepper_ID_==2)
+	{
+		flag_c=1;
+	}
+	if(flag_a==1 && flag_b==1 && flag_c==1)
+	{
+		Movement_Prep(0,map0[a]);
+
+
+		Movement_Prep(1,map1[a]);
+		b++;
+
+
+		Movement_Prep(2,map2[a]);
+
+		a++;
+		if(a>7)
+			a=0;
+		flag_a=0;
+		flag_b=0;
+		flag_c=0;
+
+	}
+}
+
 double sta(int steps,double angle_of_step)			//steps to angle function
 {
 	// to do
@@ -200,6 +258,10 @@ void Next_Lin_Period(int Stepper_ID_)
 	else
 	{
 		Stepper_period[Stepper_ID_]=0;
+		if(sequence==1)
+		{
+			map(Stepper_ID_);
+		}
 		//HAL_GPIO_WritePin(MOT_EABLE_GPIO_Port,MOT_EABLE_Pin,GPIO_PIN_RESET);
 	}
 }
