@@ -2,6 +2,7 @@ Prototyp Rdzenia robota.
 Posiada podstawowa komunikacje, oraz sterowanie silnikami krokowymi na podstawie zadanego polozenia
 Komunikacja przez UART (usb)
 Po kazdej linijce, nalezy wyslac znak '\n' (NL)
+Szybkosc komunikacji: 115200
 Lista Komend:
 SYN - nawiazanie komunikacji. Oczekiwac SYN-ACK.
 ACK - Potwierdzenie Potwierdzenia. Po zakonczeniu handshake'u. Dostepne sa dodatkowe komendy.
