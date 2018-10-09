@@ -67,16 +67,16 @@
   */
 
 #define NUCLEO_USE_SPI_1                //!< Uncomment to set SPI1 to iterface with the X-NUCLEO-IHM02A1.
-//#define NUCLEO_USE_SPI_2                //!< Uncomment to set SPI2 to iterface with the X-NUCLEO-IHM02A1.
-#if ((defined (NUCLEO_USE_SPI_1)) && (defined (NUCLEO_USE_SPI_2)))
-  #error "Please select an option only!"
-#elif ((!defined (NUCLEO_USE_SPI_1)) && (!defined (NUCLEO_USE_SPI_2)))
-  #error "Please select an option!"
-#endif
+////#define NUCLEO_USE_SPI_2                //!< Uncomment to set SPI2 to iterface with the X-NUCLEO-IHM02A1.
+//#if ((defined (NUCLEO_USE_SPI_1)) && (defined (NUCLEO_USE_SPI_2)))
+//  #error "Please select an option only!"
+//#elif ((!defined (NUCLEO_USE_SPI_1)) && (!defined (NUCLEO_USE_SPI_2)))
+//  #error "Please select an option!"
+//#endif
 
-#define NUCLEO_USE_USER_LED     //!< Uncomment to enable the NUCLEO User LED feature.
-#define NUCLEO_USE_USER_BUTTON  //!< Uncomment to enable the NUCLEO User Button feature.
-#define NUCLEO_USE_USART        //!< Uncomment to enable the NUCLEO USART feature.
+//#define NUCLEO_USE_USER_LED     //!< Uncomment to enable the NUCLEO User LED feature.
+//#define NUCLEO_USE_USER_BUTTON  //!< Uncomment to enable the NUCLEO User Button feature.
+//#define NUCLEO_USE_USART        //!< Uncomment to enable the NUCLEO USART feature.
 
 //#define USE_ST1S14_PGOOD        //!< Uncomment to use ADC for reading PGOOD of ST1S14
 
@@ -91,8 +91,8 @@
   */
 
 #ifdef NUCLEO_USE_SPI_1                 //!< in this case two options about the SPI_SCK are possible
-#define USE_PB3_AS_SCK                  //!< Uncomment to set PB3 as SPI SCK (SB34)
-//#define USE_PA5_AS_SCK                  //!< Uncomment to set PA5 as SPI SCK (SB12)
+//#define USE_PB3_AS_SCK                  //!< Uncomment to set PB3 as SPI SCK (SB34)
+#define USE_PA5_AS_SCK                  //!< Uncomment to set PA5 as SPI SCK (SB12)
 #if ((defined (USE_PB3_AS_SCK)) && (defined (USE_PA5_AS_SCK)))
   #error "Please select an option only!"
 #endif
@@ -180,7 +180,7 @@ typedef struct {
 
 extern ADC_HandleTypeDef hadc1;
 extern SPI_HandleTypeDef hspi1;
-extern SPI_HandleTypeDef hspi2;
+//extern SPI_HandleTypeDef hspi2;
 extern UART_HandleTypeDef huart2;
 extern sL6470_GPIO L6470_nSTBY_nRST_GPIO;
 extern sL6470_GPIO L6470_nBUSY_SYNC_GPIO;

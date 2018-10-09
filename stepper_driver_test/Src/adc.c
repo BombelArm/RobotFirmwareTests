@@ -52,6 +52,7 @@ ADC_HandleTypeDef hadc1;
 void MX_ADC1_Init(void)
 {
   ADC_ChannelConfTypeDef sConfig;
+  ADC_InjectionConfTypeDef sConfigInjected;
 
     /**Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion) 
     */
@@ -78,6 +79,22 @@ void MX_ADC1_Init(void)
   sConfig.Rank = 1;
   sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+    /**Configures for the selected ADC injected channel its corresponding rank in the sequencer and its sample time 
+    */
+  sConfigInjected.InjectedChannel = ADC_CHANNEL_0;
+  sConfigInjected.InjectedRank = 1;
+  sConfigInjected.InjectedNbrOfConversion = 1;
+  sConfigInjected.InjectedSamplingTime = ADC_SAMPLETIME_3CYCLES;
+  sConfigInjected.ExternalTrigInjecConvEdge = ADC_EXTERNALTRIGINJECCONVEDGE_NONE;
+  sConfigInjected.ExternalTrigInjecConv = ADC_INJECTED_SOFTWARE_START;
+  sConfigInjected.AutoInjectedConv = DISABLE;
+  sConfigInjected.InjectedDiscontinuousConvMode = DISABLE;
+  sConfigInjected.InjectedOffset = 0;
+  if (HAL_ADCEx_InjectedConfigChannel(&hadc1, &sConfigInjected) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }

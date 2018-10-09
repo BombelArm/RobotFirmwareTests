@@ -52,6 +52,10 @@
   * @{
   */
 
+#ifndef NULL
+#define NULL   ((void *) 0)
+#endif
+
 StepperMotorBoardCommand_t XNUCLEOIHM02A1Command =
 {
   BSP_L6470_SetParam,

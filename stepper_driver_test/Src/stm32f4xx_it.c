@@ -68,6 +68,29 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /* USER CODE BEGIN 1 */
+void EXTI1_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
+}
 
+/**
+* @brief This function handles EXTI Line0 interrupt.
+*/
+void EXTI0_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
+}
+
+/**
+* @brief This function handles USART2 global interrupt.
+*/
+
+/**
+* @brief This function handles EXTI Line[15:10] interrupts.
+*/
+void EXTI15_10_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
+}
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

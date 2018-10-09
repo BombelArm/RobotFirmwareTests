@@ -45,6 +45,13 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
+#include "xnucleoihm02a1.h"
+
+#define MPR_1     4			  //!< Motor Movements Per Revolution 1st option
+#define MPR_2     8			  //!< Motor Movements Per Revolution 2nd option
+#define DELAY_1   1000		//!< Delay time 1st option
+#define DELAY_2   2500		//!< Delay time 2nd option
+#define DELAY_3   10000   //!< Delay time 3rd option
 
 /* USER CODE END Includes */
 
@@ -52,41 +59,50 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+const MotorParameterData_t MotorParameterInitData[EXPBRD_MOUNTED_NR_MAX][L6470DAISYCHAINSIZE] = {
+  {
+    {9.0, 400, 1.7, 3.06, 300.0, 500.0, 500.0, 400.0, 0.0, 602.7, 3.06, 3.06,\
+      3.06, 3.06, 61.52, 392.1569e-6, 643.1372e-6, 643.1372e-6, 0,\
+        3.06*1000*1.10, 3.06*1000*1.00, MICROSTEP_1_128, 0xFF, 0x2E88},
+    {9.0, 400, 1.7, 3.06, 300.0, 500.0, 500.0, 400.0, 0.0, 602.7, 3.06, 3.06,\
+      3.06, 3.06, 61.52, 392.1569e-6, 643.1372e-6, 643.1372e-6, 0,\
+        3.06*1000*1.10, 3.06*1000*1.00, MICROSTEP_1_128, 0xFF, 0x2E88},
+  },
+  {
+    {9.0, 400, 1.7, 3.06, 300.0, 500.0, 500.0, 400.0, 0.0, 602.7, 3.06, 3.06,\
+      3.06, 3.06, 61.52, 392.1569e-6, 643.1372e-6, 643.1372e-6, 0,\
+        3.06*1000*1.10, 3.06*1000*1.00, MICROSTEP_1_128, 0xFF, 0x2E88},
+    {9.0, 400, 1.7, 3.06, 300.0, 500.0, 500.0, 400.0, 0.0, 602.7, 3.06, 3.06,\
+      3.06, 3.06, 61.52, 392.1569e-6, 643.1372e-6, 643.1372e-6, 0,\
+        3.06*1000*1.10, 3.06*1000*1.00, MICROSTEP_1_128, 0xFF, 0x2E88},
+  },
+  {
+    {9.0, 400, 1.7, 3.06, 300.0, 500.0, 500.0, 400.0, 0.0, 602.7, 3.06, 3.06,\
+      3.06, 3.06, 61.52, 392.1569e-6, 643.1372e-6, 643.1372e-6, 0,\
+        3.06*1000*1.10, 3.06*1000*1.00, MICROSTEP_1_128, 0xFF, 0x2E88},
+    {9.0, 400, 1.7, 3.06, 300.0, 500.0, 500.0, 400.0, 0.0, 602.7, 3.06, 3.06,\
+      3.06, 3.06, 61.52, 392.1569e-6, 643.1372e-6, 643.1372e-6, 0,\
+        3.06*1000*1.10, 3.06*1000*1.00, MICROSTEP_1_128, 0xFF, 0x2E88},
+  },
+  {
+    {9.0, 400, 1.7, 3.06, 300.0, 500.0, 500.0, 400.0, 0.0, 602.7, 3.06, 3.06,\
+      3.06, 3.06, 61.52, 392.1569e-6, 643.1372e-6, 643.1372e-6, 0,\
+        3.06*1000*1.10, 3.06*1000*1.00, MICROSTEP_1_128, 0xFF, 0x2E88},
+    {9.0, 400, 1.7, 3.06, 300.0, 500.0, 500.0, 400.0, 0.0, 602.7, 3.06, 3.06,\
+      3.06, 3.06, 61.52, 392.1569e-6, 643.1372e-6, 643.1372e-6, 0,\
+        3.06*1000*1.10, 3.06*1000*1.00, MICROSTEP_1_128, 0xFF, 0x2E88},
+  },
+};
 
-//const MotorParameterData_t MotorParameterInitData[EXPBRD_MOUNTED_NR_MAX][L6470DAISYCHAINSIZE] = {
-//  {
-//    {9.0, 400, 1.7, 3.06, 300.0, 500.0, 500.0, 400.0, 0.0, 602.7, 3.06, 3.06,\
-//      3.06, 3.06, 61.52, 392.1569e-6, 643.1372e-6, 643.1372e-6, 0,\
-//        3.06*1000*1.10, 3.06*1000*1.00, MICROSTEP_1_128, 0xFF, 0x2E88},
-//    {9.0, 400, 1.7, 3.06, 300.0, 500.0, 500.0, 400.0, 0.0, 602.7, 3.06, 3.06,\
-//      3.06, 3.06, 61.52, 392.1569e-6, 643.1372e-6, 643.1372e-6, 0,\
-//        3.06*1000*1.10, 3.06*1000*1.00, MICROSTEP_1_128, 0xFF, 0x2E88},
-//  },
-//  {
-//    {9.0, 400, 1.7, 3.06, 300.0, 500.0, 500.0, 400.0, 0.0, 602.7, 3.06, 3.06,\
-//      3.06, 3.06, 61.52, 392.1569e-6, 643.1372e-6, 643.1372e-6, 0,\
-//        3.06*1000*1.10, 3.06*1000*1.00, MICROSTEP_1_128, 0xFF, 0x2E88},
-//    {9.0, 400, 1.7, 3.06, 300.0, 500.0, 500.0, 400.0, 0.0, 602.7, 3.06, 3.06,\
-//      3.06, 3.06, 61.52, 392.1569e-6, 643.1372e-6, 643.1372e-6, 0,\
-//        3.06*1000*1.10, 3.06*1000*1.00, MICROSTEP_1_128, 0xFF, 0x2E88},
-//  },
-//  {
-//    {9.0, 400, 1.7, 3.06, 300.0, 500.0, 500.0, 400.0, 0.0, 602.7, 3.06, 3.06,\
-//      3.06, 3.06, 61.52, 392.1569e-6, 643.1372e-6, 643.1372e-6, 0,\
-//        3.06*1000*1.10, 3.06*1000*1.00, MICROSTEP_1_128, 0xFF, 0x2E88},
-//    {9.0, 400, 1.7, 3.06, 300.0, 500.0, 500.0, 400.0, 0.0, 602.7, 3.06, 3.06,\
-//      3.06, 3.06, 61.52, 392.1569e-6, 643.1372e-6, 643.1372e-6, 0,\
-//        3.06*1000*1.10, 3.06*1000*1.00, MICROSTEP_1_128, 0xFF, 0x2E88},
-//  },
-//  {
-//    {9.0, 400, 1.7, 3.06, 300.0, 500.0, 500.0, 400.0, 0.0, 602.7, 3.06, 3.06,\
-//      3.06, 3.06, 61.52, 392.1569e-6, 643.1372e-6, 643.1372e-6, 0,\
-//        3.06*1000*1.10, 3.06*1000*1.00, MICROSTEP_1_128, 0xFF, 0x2E88},
-//    {9.0, 400, 1.7, 3.06, 300.0, 500.0, 500.0, 400.0, 0.0, 602.7, 3.06, 3.06,\
-//      3.06, 3.06, 61.52, 392.1569e-6, 643.1372e-6, 643.1372e-6, 0,\
-//        3.06*1000*1.10, 3.06*1000*1.00, MICROSTEP_1_128, 0xFF, 0x2E88},
-//  },
-//};
+StepperMotorBoardHandle_t *StepperMotorBoardHandle;
+MotorParameterData_t *MotorParameterDataGlobal, *MotorParameterDataSingle;
+uint8_t board, device;
+uint32_t Step;
+uint32_t Speed;
+uint8_t MovementPerRevolution;
+uint8_t i;
+
+uint8_t id;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -97,7 +113,7 @@ void SystemClock_Config(void);
 
 /* USER CODE END PFP */
 
-/* USER CODE BEGIN 0 */
+/* UER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
 
@@ -130,12 +146,76 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USART2_UART_Init();
+//  MX_USART2_UART_Init();
+//  MX_ADC1_Init();
   MX_SPI1_Init();
-  MX_SPI2_Init();
-  MX_ADC1_Init();
-  /* USER CODE BEGIN 2 */
+  BSP_Init();
 
+//  HAL_GPIO_WritePin(IHM02A1_CS0_GPIO_Port, IHM02A1_CS0_Pin, 0 );
+
+  /* USER CODE BEGIN 2 */
+  MotorParameterDataGlobal = (MotorParameterData_t*)(MotorParameterInitData);
+
+    for (id = 0; id < EXPBRD_MOUNTED_NR; id++)
+    {
+      StepperMotorBoardHandle = BSP_GetExpansionBoardHandle(EXPBRD_ID(id));
+      MotorParameterDataSingle = MotorParameterDataGlobal+(id*L6470DAISYCHAINSIZE);
+      StepperMotorBoardHandle->Config(MotorParameterDataSingle);
+    }
+
+    MovementPerRevolution = MPR_1;
+      for (board = EXPBRD_ID(0); board <= EXPBRD_ID(EXPBRD_MOUNTED_NR-1); board++)
+      {
+        StepperMotorBoardHandle = BSP_GetExpansionBoardHandle(board);
+
+        for (device = L6470_ID(0); device <= L6470_ID(L6470DAISYCHAINSIZE-1); device++)
+        {
+          /* Get the parameters for the motor connected with the actual stepper motor driver of the actual stepper motor expansion board */
+          MotorParameterDataSingle = MotorParameterDataGlobal+((board*L6470DAISYCHAINSIZE)+device);
+          Step = ((uint32_t)MotorParameterDataSingle->fullstepsperrevolution * pow(2, MotorParameterDataSingle->step_sel)) / MovementPerRevolution;
+
+          for (i=0; i<MovementPerRevolution; i++)
+          {
+            StepperMotorBoardHandle->Command->Move(board, device, L6470_DIR_FWD_ID, Step);
+            while(StepperMotorBoardHandle->Command->CheckStatusRegisterFlag(board, device, BUSY_ID) == 0);
+            HAL_Delay(DELAY_1);
+          }
+        }
+      }
+
+      HAL_Delay(DELAY_2);
+
+      for (board = EXPBRD_ID(0); board <= EXPBRD_ID(EXPBRD_MOUNTED_NR-1); board++)
+      {
+
+        for (device = L6470_ID(0); device <= L6470_ID(L6470DAISYCHAINSIZE-1); device++)
+        {
+          /* Get the parameters for the motor connected with the actual stepper motor driver of the actual stepper motor expansion board */
+          MotorParameterDataSingle = MotorParameterDataGlobal+((board*L6470DAISYCHAINSIZE)+device);
+
+          /* Set Speed */
+          Speed = Step_s_2_Speed(MotorParameterDataSingle->speed);
+
+          /* Prepare the stepper driver to be ready to perform a command */
+          StepperMotorBoardHandle->StepperMotorDriverHandle[device]->Command->PrepareRun(device, L6470_DIR_FWD_ID, Speed);
+        }
+
+        StepperMotorBoardHandle->Command->PerformPreparedApplicationCommand();
+      }
+
+      HAL_Delay(DELAY_3);
+
+      for (board = EXPBRD_ID(0); board <= EXPBRD_ID(EXPBRD_MOUNTED_NR-1); board++)
+      {
+
+        for (device = L6470_ID(0); device <= L6470_ID(L6470DAISYCHAINSIZE-1); device++)
+        {
+          /* Prepare the stepper driver to be ready to perform a command */
+          StepperMotorBoardHandle->StepperMotorDriverHandle[device]->Command->PrepareHardStop(device);
+        }
+
+        StepperMotorBoardHandle->Command->PerformPreparedApplicationCommand();
+      }
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -178,7 +258,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLM = 16;
   RCC_OscInitStruct.PLL.PLLN = 336;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
+  RCC_OscInitStruct.PLL.PLLQ = 7;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);

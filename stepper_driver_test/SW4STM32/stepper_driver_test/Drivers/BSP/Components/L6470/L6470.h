@@ -43,6 +43,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "microstepping_motor.h"
+#include "spi.h"
 
 /**
   * @addtogroup BSP
@@ -205,7 +206,7 @@ extern const sL6470_ACT_t L6470_ACT[];
 extern StepperMotorCommand_t L6470Command;
 extern uint8_t L6470_DaisyChainSpiTxStruct[L6470MAXSPICMDBYTESIZE][L6470DAISYCHAINSIZE];
 extern uint8_t L6470_DaisyChainSpiRxStruct[L6470MAXSPICMDBYTESIZE][L6470DAISYCHAINSIZE];
-
+extern SPI_HandleTypeDef hspi1;
 /**
   * @}
   */ /* End of L6470_Exported_Variables */
