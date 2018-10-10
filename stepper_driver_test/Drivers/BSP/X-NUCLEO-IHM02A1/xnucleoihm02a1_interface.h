@@ -44,7 +44,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx.h"
 #include "stm32f4xx_hal.h"
-#include "stm32f4xx_nucleo.h"
 
 /**
   * @addtogroup BSP
@@ -74,9 +73,9 @@
   #error "Please select an option!"
 #endif
 
-#define NUCLEO_USE_USER_LED     //!< Uncomment to enable the NUCLEO User LED feature.
-#define NUCLEO_USE_USER_BUTTON  //!< Uncomment to enable the NUCLEO User Button feature.
-#define NUCLEO_USE_USART        //!< Uncomment to enable the NUCLEO USART feature.
+//#define NUCLEO_USE_USER_LED     //!< Uncomment to enable the NUCLEO User LED feature.
+//#define NUCLEO_USE_USER_BUTTON  //!< Uncomment to enable the NUCLEO User Button feature.
+//#define NUCLEO_USE_USART        //!< Uncomment to enable the NUCLEO USART feature.
 
 //#define USE_ST1S14_PGOOD        //!< Uncomment to use ADC for reading PGOOD of ST1S14
 
@@ -91,8 +90,8 @@
   */
 
 #ifdef NUCLEO_USE_SPI_1                 //!< in this case two options about the SPI_SCK are possible
-#define USE_PB3_AS_SCK                  //!< Uncomment to set PB3 as SPI SCK (SB34)
-//#define USE_PA5_AS_SCK                  //!< Uncomment to set PA5 as SPI SCK (SB12)
+//#define USE_PB3_AS_SCK                  //!< Uncomment to set PB3 as SPI SCK (SB34)
+#define USE_PA5_AS_SCK                  //!< Uncomment to set PA5 as SPI SCK (SB12)
 #if ((defined (USE_PB3_AS_SCK)) && (defined (USE_PA5_AS_SCK)))
   #error "Please select an option only!"
 #endif
