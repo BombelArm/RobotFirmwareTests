@@ -766,7 +766,7 @@ void BSP_Init(void)
   BSP_Select(EXPBRD_ID(0));
   
   /* Initialize the NUCLEO GPIO used by the X-NUCLEO-IHM02A1 */
-  BSP_NUCLEO_GPIO_Init();
+//  BSP_NUCLEO_GPIO_Init();
   
   /* Initialize the L6470 devices mounted on the X-NUCLEO-IHM02A1 */
   BSP_L6470_Init();

@@ -113,7 +113,7 @@ void SystemClock_Config(void);
 
 /* USER CODE END PFP */
 
-/* UER CODE BEGIN 0 */
+/* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
 
@@ -146,14 +146,11 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-//  MX_USART2_UART_Init();
-//  MX_ADC1_Init();
+  MX_USART2_UART_Init();
+  MX_ADC1_Init();
   MX_SPI1_Init();
-  BSP_Init();
-
-//  HAL_GPIO_WritePin(IHM02A1_CS0_GPIO_Port, IHM02A1_CS0_Pin, 0 );
-
   /* USER CODE BEGIN 2 */
+  BSP_Init();
   MotorParameterDataGlobal = (MotorParameterData_t*)(MotorParameterInitData);
 
     for (id = 0; id < EXPBRD_MOUNTED_NR; id++)
@@ -258,7 +255,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLM = 16;
   RCC_OscInitStruct.PLL.PLLN = 336;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
-  RCC_OscInitStruct.PLL.PLLQ = 7;
+  RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);

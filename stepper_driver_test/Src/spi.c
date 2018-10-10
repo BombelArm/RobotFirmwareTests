@@ -51,10 +51,6 @@ SPI_HandleTypeDef hspi1;
 /* SPI1 init function */
 void MX_SPI1_Init(void)
 {
-	#define MAX_BAUDRATE  5000000
-	uint32_t freq;
-	uint16_t freq_div;
-	uint32_t spi_baudrateprescaler;
 
   hspi1.Instance = SPI1;
   hspi1.Init.Mode = SPI_MODE_MASTER;
@@ -63,75 +59,11 @@ void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
   hspi1.Init.CLKPhase = SPI_PHASE_2EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-//  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
   hspi1.Init.CRCPolynomial = 10;
-
-  freq = HAL_RCC_GetPCLK2Freq();
-  freq_div = (freq / MAX_BAUDRATE);
-
-  if (freq_div < 2)
-  {
-    spi_baudrateprescaler = SPI_BAUDRATEPRESCALER_2;
-  }
-  else
-  {
-    if (freq_div < 4)
-    {
-      spi_baudrateprescaler = SPI_BAUDRATEPRESCALER_4;
-    }
-    else
-    {
-      if (freq_div < 8)
-      {
-        spi_baudrateprescaler = SPI_BAUDRATEPRESCALER_8;
-      }
-      else
-      {
-        if (freq_div < 16)
-        {
-          spi_baudrateprescaler = SPI_BAUDRATEPRESCALER_16;
-        }
-        else
-        {
-          if (freq_div < 32)
-          {
-            spi_baudrateprescaler = SPI_BAUDRATEPRESCALER_32;
-          }
-          else
-          {
-            if (freq_div < 64)
-            {
-              spi_baudrateprescaler = SPI_BAUDRATEPRESCALER_64;
-            }
-            else
-            {
-              if (freq_div < 128)
-              {
-                spi_baudrateprescaler = SPI_BAUDRATEPRESCALER_128;
-              }
-              else
-              {
-                if (freq_div < 256)
-                {
-                  spi_baudrateprescaler = SPI_BAUDRATEPRESCALER_256;
-                }
-                else
-                {
-                  /* the condition is not possible, you should reduce the CPU frequency */
-                  while(1);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  hspi1.Init.BaudRatePrescaler = spi_baudrateprescaler;  // the baudrate will be lower than MAX_BAUDRATE (5 MBits/s)
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
