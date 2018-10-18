@@ -25,6 +25,9 @@ CPP_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+Drivers/BSP/Components/L6470 \
+Drivers/BSP/X-NUCLEO-IHM02A1 \
+Drivers/BSP \
 Drivers/STM32F4xx_HAL_Driver/Src \
 Inc \
 Src \

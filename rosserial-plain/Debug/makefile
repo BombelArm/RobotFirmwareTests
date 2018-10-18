@@ -12,6 +12,9 @@ RM := rm -rf
 -include Src/subdir.mk
 -include Inc/subdir.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
+-include Drivers/BSP/X-NUCLEO-IHM02A1/subdir.mk
+-include Drivers/BSP/Components/L6470/subdir.mk
+-include Drivers/BSP/subdir.mk
 -include subdir.mk
 -include objects.mk
 
