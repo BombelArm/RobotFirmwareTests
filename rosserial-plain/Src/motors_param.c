@@ -12,9 +12,9 @@
 const MotorParameterData_t MotorParameterInitData[EXPBRD_MOUNTED_NR][L6470DAISYCHAINSIZE] = {
   {
     {
-    		9.0,				//!< motor supply voltage in V
+    		12.0,				//!< motor supply voltage in V
     		400,				//!< min number of steps per revolution for the motor
-    		1.7,				//!< max motor phase voltage in A
+    		0.1,				//!< max motor phase voltage in A
     		3.06,				//!< max motor phase voltage in V
     		300.0,				//!< motor initial speed [step/s]
     		500.0,				//!< motor acceleration [step/s^2] (comment for infinite acceleration mode)
@@ -38,7 +38,7 @@ const MotorParameterData_t MotorParameterInitData[EXPBRD_MOUNTED_NR][L6470DAISYC
     		0x2E88				//!< ic configuration
     },
 	{
-			9.0,				//!< motor supply voltage in V
+			12.0,				//!< motor supply voltage in V
 			400,				//!< min number of steps per revolution for the motor
 			1.7,				//!< max motor phase voltage in A
 			3.06,				//!< max motor phase voltage in V
