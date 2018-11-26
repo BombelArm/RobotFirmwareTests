@@ -28,7 +28,10 @@ class Communicator
 		ros::Subscriber<std_msgs::UInt64, Communicator> 	cmd_sub;
 
 		void cmd_callback(const std_msgs::UInt64& cmd_msg);
+		void desync_callback();
 
+		void reset_counter();
+		void start_counter();
 	public:
 		Communicator();
 		ros::NodeHandle& getNodeHandle();

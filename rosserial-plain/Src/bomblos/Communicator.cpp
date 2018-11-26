@@ -7,6 +7,7 @@ Communicator::Communicator():
 	nh.initNode();
 	nh.advertise(status_pub);
 	nh.subscribe(cmd_sub);
+
 }
 
 void Communicator::cmd_callback(const std_msgs::UInt64& cmd_msg){
@@ -20,6 +21,9 @@ ros::NodeHandle& Communicator::getNodeHandle(){
 	return nh;
 }
 
+void Communicator::desync_callback(){}
+void Communicator::start_counter(){}
+void Communicator::reset_counter(){}
 
 void Communicator::spinOnce(){
 	nh.spinOnce();
