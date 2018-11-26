@@ -56,14 +56,14 @@ public:
 };
 
 /* Bound function subscriber. */
-template<typename MsgT, typename ObjT = void>
+template<typename MsgT, typename ObjT >
 class Subscriber: public Subscriber_
 {
 public:
   typedef void(ObjT::*CallbackT)(const MsgT&);
   MsgT msg;
 
-  Subscriber(const char * topic_name, CallbackT cb, ObjT* obj, int endpoint = rosserial_msgs::TopicInfo::ID_SUBSCRIBER) :
+  Subscriber(const char * topic_name, CallbackT cb, ObjT* obj, int endpoint = rosserial_msgs::TopicInfo::ID_SUBSCRIBER):
     cb_(cb),
     obj_(obj),
     endpoint_(endpoint)

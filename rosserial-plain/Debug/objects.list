@@ -34,4 +34,5 @@
 "Src/system_stm32f4xx.o"
 "Src/tim.o"
 "Src/usart.o"
+"Src/bomblos/Communicator.o"
 "startup/startup_stm32f411xe.o"

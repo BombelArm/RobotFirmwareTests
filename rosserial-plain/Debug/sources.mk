@@ -31,5 +31,6 @@ Drivers/BSP \
 Drivers/STM32F4xx_HAL_Driver/Src \
 Inc \
 Src \
+Src/bomblos \
 startup \
 
