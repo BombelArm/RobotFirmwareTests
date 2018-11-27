@@ -17,16 +17,12 @@
 #include <bomblos/Communicator.hpp>
 
 
-extern TIM_HandleTypeDef htim2;
+//extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
 
-//ros::NodeHandle nh;
-uint32_t time=0;
-std_msgs::UInt64 v_msg;
-ros::Publisher chatter("chatter", &v_msg);
-
+ros::NodeHandle *nh;
 MotorParameterData_t *MotorParameterDataGlobal;
 StepperMotorBoardHandle_t *StepperMotorBoardHandle;
-
 
 void init_motors();
 void set_speed(int,int);
@@ -37,6 +33,10 @@ uint32_t get_abs_pos(int);
 sL6470_StatusRegister_t get_status(int);
 
 Communicator *c1;
+
+void TIM3_PeriodElapsedCallback(){
+	c1->getCounter().inc();
+}
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
 	c1->getNodeHandle().getHardware()->flush();
 }
@@ -47,12 +47,13 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 void setup(void)
 {
 	c1 = new Communicator();
+	nh = &(c1->getNodeHandle());
+	HAL_TIM_Base_Start_IT(&htim3);
 }
 
 void loop(void)
 {
-	c1->spinOnce();
-	HAL_Delay(1000);
+	nh->spinOnce();
 }
 
 

@@ -66,8 +66,8 @@
   * @{
   */
 
-#define NUCLEO_USE_SPI_1                //!< Uncomment to set SPI1 to iterface with the X-NUCLEO-IHM02A1.
-//#define NUCLEO_USE_SPI_2                //!< Uncomment to set SPI2 to iterface with the X-NUCLEO-IHM02A1.
+//#define NUCLEO_USE_SPI_1                //!< Uncomment to set SPI1 to iterface with the X-NUCLEO-IHM02A1.
+#define NUCLEO_USE_SPI_2                //!< Uncomment to set SPI2 to iterface with the X-NUCLEO-IHM02A1.
 #if ((defined (NUCLEO_USE_SPI_1)) && (defined (NUCLEO_USE_SPI_2)))
   #error "Please select an option only!"
 #elif ((!defined (NUCLEO_USE_SPI_1)) && (!defined (NUCLEO_USE_SPI_2)))

@@ -14,6 +14,7 @@
 
 void setup(void);
 void loop(void);
+void TIM3_PeriodElapsedCallback(void);
 
 #ifdef __cplusplus
 }
