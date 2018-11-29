@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Handler_type" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Handler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hinge_type" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFAAA=</HashCode>
+      <FileName>Manipulator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="stepper_motor" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAFAQA=</HashCode>
+      <FileName>Manipulator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="servo_motor" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Manipulator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arm_type" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQADCAACBAAAAAABgAAAAAAAAAAEAIAA=</HashCode>
+      <FileName>Manipulator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="file_handler_type" Collapsed="true">
+    <Position X="6.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAARAABgAAAAAQAAAAAAAAAAAAAAABABAAiQAIAA=</HashCode>
+      <FileName>ReadingFile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SerialHandler" Collapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAiAAAABAAAAAAAgAAAAAAgAAAAAAAAAAAAIgAAAAA=</HashCode>
+      <FileName>SerialHandler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SerialPort" Collapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAhIAAAAAAAgBgEAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SerialPort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="config_type" Collapsed="true">
+    <Position X="4.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAIAAAAAAAAAAAIAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Manipulator.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
