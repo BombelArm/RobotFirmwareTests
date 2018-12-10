@@ -54,7 +54,8 @@ Src/maincpp.o: ../Src/maincpp.cpp \
  /home/michal/GITHUB/RobotFirmware/rosserial-plain/Inc/std_msgs/UInt32.h \
  /home/michal/GITHUB/RobotFirmware/rosserial-plain/Inc/std_msgs/String.h \
  /home/michal/GITHUB/RobotFirmware/rosserial-plain/Inc/bomblos/Communicator.hpp \
- /home/michal/GITHUB/RobotFirmware/rosserial-plain/Inc/bomblos/Counter.hpp
+ /home/michal/GITHUB/RobotFirmware/rosserial-plain/Inc/bomblos/Counter.hpp \
+ /home/michal/GITHUB/RobotFirmware/rosserial-plain/Inc/bombel_msgs/AddTwoInts.h
 
 /home/michal/GITHUB/RobotFirmware/rosserial-plain/Inc/maincpp.h:
 
@@ -167,3 +168,5 @@ Src/maincpp.o: ../Src/maincpp.cpp \
 /home/michal/GITHUB/RobotFirmware/rosserial-plain/Inc/bomblos/Communicator.hpp:
 
 /home/michal/GITHUB/RobotFirmware/rosserial-plain/Inc/bomblos/Counter.hpp:
+
+/home/michal/GITHUB/RobotFirmware/rosserial-plain/Inc/bombel_msgs/AddTwoInts.h:

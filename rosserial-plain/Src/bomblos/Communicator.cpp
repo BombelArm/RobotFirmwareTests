@@ -28,6 +28,6 @@ Counter<Communicator>& Communicator::getCounter(){
 }
 
 void Communicator::desync_callback(){
-	HAL_GPIO_WritePin(LED_GPIO_Port,LED_Pin,GPIO_PIN_SET);
+//	HAL_GPIO_WritePin(LED_GPIO_Port,LED_Pin,GPIO_PIN_SET);
 }
 

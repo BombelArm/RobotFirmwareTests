@@ -20,7 +20,8 @@ class Counter{
 			obj_(obj),
 			period_(period),
 			state_(0),
-			overflowed_(0){};
+			overflowed_(0),
+			started_(false){};
 
 		void resetState(){
 			state_= 0;
@@ -30,6 +31,7 @@ class Counter{
 			overflowed_ = 0;
 		}
 		void inc(){
+			if(!started_) return;
 			state_++;
 			if(state_ >= period_){
 				overflowed_= 1;
@@ -41,7 +43,16 @@ class Counter{
 			return state_;
 		};
 
+		void start(){
+			started_ = true;
+		}
+
+		void stop(){
+			started_ = false;
+		}
+
 	private:
+		uint8_t started_;
 		uint32_t state_;
 		uint32_t period_;
 		uint8_t overflowed_;

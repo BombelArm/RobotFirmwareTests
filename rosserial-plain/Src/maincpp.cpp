@@ -15,6 +15,7 @@
 #include <std_msgs/UInt32.h>
 #include <std_msgs/String.h>
 #include <bomblos/Communicator.hpp>
+#include <bombel_msgs/AddTwoInts.h>
 
 
 //extern TIM_HandleTypeDef htim2;
@@ -34,26 +35,40 @@ sL6470_StatusRegister_t get_status(int);
 
 Communicator *c1;
 
+void bombel_callback(const bombel_msgs::AddTwoIntsRequest &req, bombel_msgs::AddTwoIntsResponse &res){
+	uint64_t result = req.A + req.B;
+
+	res.Sum = 2;
+}
+
+ros::ServiceServer<bombel_msgs::AddTwoIntsRequest,bombel_msgs::AddTwoIntsResponse> server("bombel_srv",&bombel_callback);
+
 void TIM3_PeriodElapsedCallback(){
-	c1->getCounter().inc();
+//	c1->getCounter().inc();
 }
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
-	c1->getNodeHandle().getHardware()->flush();
+//	c1->getNodeHandle().getHardware()->flush();
+	nh->getHardware()->flush();
 }
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
-	c1->getNodeHandle().getHardware()->reset_rbuf();
+//	c1->getNodeHandle().getHardware()->reset_rbuf();
+	nh->getHardware()->reset_rbuf();
 }
 void setup(void)
 {
-	c1 = new Communicator();
-	nh = &(c1->getNodeHandle());
+//	c1 = new Communicator();
+//	nh = &(c1->getNodeHandle());
+	nh = new ros::NodeHandle();
+	nh->initNode();
+	nh->advertiseService(server);
 	HAL_TIM_Base_Start_IT(&htim3);
 }
 
 void loop(void)
 {
 	nh->spinOnce();
+	for(int i=0; i<1000000;i++);
 }
 
 
